@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"a23b6af3ac6b5950","x":-94,"y":-191,"width":250,"height":60,"type":"text","text":"Meal Planner"},
+		{"id":"69ab173c37d4abd6","x":-540,"y":-20,"width":489,"height":646,"type":"text","text":"Core Feature:\nRegistration/ Login with Password forget option \nBrowser bar with search engine\nDetail Page for single Recipies\nCRUD for Recipies \nRecipe Image Upload\nfunction weekly meal planner \nCRUD weekly meal planner\nFilter for recipies\nCRUD for User \n\n\n- -- \nAdmin Featues:\nAdmin Authentication (Admin role)\nfull CRUD access on Recipies\nDaily Planner view\nAdmin approval Work flow \n"},
+		{"id":"761abfe6939a0806","x":540,"y":388,"width":323,"height":552,"type":"text","text":"## User CRUD\n-- - \nFirst_Name: (Varchar 255)\nLast_Name: (Varchar 255)\nEmail:(Varchar 255)\nPassword: (Varchar 255)\n(Role: User/ Admin ) (Varchar 15)"},
+		{"id":"6e7c415864ee40c9","x":156,"y":420,"width":272,"height":340,"type":"text","text":" Authentication \n If User login successfull route  to home \n else if admin login successfull route to admin home\n else Try Again\n\n- Feature  with Password Hashing"},
+		{"id":"a6b52ecf8a727121","x":118,"y":54,"width":310,"height":249,"type":"text","text":"Filter.php\nfilterfunctions like: Sort for ingridients, time to cook \nPrice etc"},
+		{"id":"a09ef92a7fc2cfa6","x":1045,"y":7,"width":415,"height":500,"type":"text","text":"## Meal (Details)\n- -- \n- Name:\n- Time to cook \n- Recipie\n- Money costs for Ingredients\n- Description \n- Persons to cook for (Persons 1-5)\n- Ratings (1-5 1-Easy 5- Very Difficult)\n- "},
+		{"id":"0b58e86e4195c515","x":540,"y":7,"width":312,"height":269,"type":"text","text":"## Meal CRUD\n--- \nCreate Meals\nRead meals (Details Page)\nUpdate Meals\nDelete Meals\n"}
+	],
+	"edges":[
+		{"id":"9d64cfcdc4e3d7e8","fromNode":"a23b6af3ac6b5950","fromSide":"bottom","toNode":"69ab173c37d4abd6","toSide":"top"},
+		{"id":"5c05b51824681306","fromNode":"761abfe6939a0806","fromSide":"left","toNode":"6e7c415864ee40c9","toSide":"right"},
+		{"id":"9387734cfd2d04a5","fromNode":"6e7c415864ee40c9","fromSide":"left","toNode":"69ab173c37d4abd6","toSide":"right"},
+		{"id":"42e6bbf3f6404378","fromNode":"a09ef92a7fc2cfa6","fromSide":"left","toNode":"0b58e86e4195c515","toSide":"right"},
+		{"id":"878cdfe9b37571d8","fromNode":"0b58e86e4195c515","fromSide":"left","toNode":"a6b52ecf8a727121","toSide":"right"},
+		{"id":"dfc29812876d26f1","fromNode":"a6b52ecf8a727121","fromSide":"left","toNode":"69ab173c37d4abd6","toSide":"right"}
+	]
+}
