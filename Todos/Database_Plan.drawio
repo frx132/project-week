@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="s0C6uxyoA4bYXAnmnKxe" name="Database plan">
-        <mxGraphModel dx="1127" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="2678" dy="1220" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -26,7 +26,7 @@
                     <mxGeometry y="26" width="280" height="220" as="geometry"/>
                 </mxCell>
                 <mxCell id="n_zv5sPG3a4TezJHcdGs-25" value="(Idea Box)&lt;div&gt;Nice to haves&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=70;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="20" y="500" width="200" height="284" as="geometry"/>
+                    <mxGeometry x="70" y="520" width="200" height="284" as="geometry"/>
                 </mxCell>
                 <mxCell id="n_zv5sPG3a4TezJHcdGs-26" value="ratings for Meals (1-5 )" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="n_zv5sPG3a4TezJHcdGs-25">
                     <mxGeometry y="70" width="200" height="26" as="geometry"/>
