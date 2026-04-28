@@ -1,0 +1,13 @@
+Using Git from terminal 
+
+// To checkout main Branch
+git checkout main
+
+
+
+// to get actuall Project from Github
+git pull origin main 
+
+// to commit 
+git add .
+git commit- m "commit message"
