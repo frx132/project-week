@@ -1,7 +1,0 @@
-
-Leader Özge
-Planning: Chetan
-Developer: all
-
-- --- 
-27.04 Planning the Databases and Tables for Meal/User CRUD (Chetan)
