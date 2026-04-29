@@ -1,6 +1,5 @@
 <?php
-// require_once "../components/db_connect.php";
-// require_once "../components/file_upload.php";
+require_once "../components/db_connect.php";
 
 $error = false;  // by default, a varialbe $error is false, means there is no error in our form
 
@@ -82,7 +81,7 @@ if (isset($_POST["sign-up"])) {
         // hashing the password before inserting it to the database
         $password = hash("sha256", $password);
 
-        $sql = "INSERT INTO users (first_name, last_name, password, email, date_of_birth, picture) VALUES ('$fname','$lname', '$password', '$email', '$date_of_birth', '$picture[0]')";
+        $sql = "INSERT INTO users (first_name, last_name, password, email, user_image) VALUES ('$fname','$lname', '$password', '$email', '$picture[0]')";
 
         $result = mysqli_query($connect, $sql);
 

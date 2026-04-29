@@ -29,7 +29,7 @@ function fileUpload($picture)
     if ($message == "Ok") {
         $ext = strtolower(pathinfo($picture["name"], PATHINFO_EXTENSION)); // taking the extension data from the image
         $pictureName = uniqid("") . "." . $ext; // changing the name of the picture to random string and numbers
-        $destination = "pictures/{$pictureName}"; // where the file will be saved
+        $destination = "../user/pictures/{$pictureName}"; // where the file will be saved
         move_uploaded_file($picture["tmp_name"], $destination); // moving the file to the pictures folder
     }
 
