@@ -19,7 +19,6 @@ if (mysqli_num_rows($result) > 0) {
     // var_dump($recipes);
 
     foreach ($recipes as $recipe) {
-        // $supplier_status = $recipe['sup_name'] ?: "No supplier available";
         $display_data .= "
         <div class='card m-3'>
             <div class='card-body'>
@@ -27,7 +26,7 @@ if (mysqli_num_rows($result) > 0) {
             <h5 class='card-title'>{$recipe['title']}</h5>
             <p class='badge text-bg-success'>{$recipe['dietary_type']}</p>
 
-            <p class='card-text'>Written by {$recipe['description']} </p>
+            <p class='card-text'>{$recipe['description']} </p>
             <p>Preparation time: {$recipe['prep_time']} minutes </p>
             
             <a href='/recipes/details.php?recipeid={$recipe['id']}' class='btn btn-warning'>Details</a>
