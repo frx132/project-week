@@ -50,7 +50,7 @@ if (isset($_POST["login"])) {
                 header("Location: ../Pages/admin_dashboard.php");
             } else {
                 $_SESSION["user"] = $row["id"];
-                header("Location: ../Pages/home.php");
+                header("Location: ../Pages/landingpage.php");
             }
         } else {
             echo "<div class='alert alert-danger'>
@@ -90,10 +90,10 @@ if (isset($_POST["login"])) {
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
-    crossorigin="anonymous">
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,23 @@
+Exampels for Recipies:
+INSERT INTO `recipes` 
+(`title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`, `difficulty`, `servings`, `author_id`) 
+VALUES
+('Classic Roast Chicken', 'Juicy whole chicken with a herb crust.', 'chicken_classic.jpg', 'Whole chicken, rosemary, garlic, olive oil, salt', 'Rub chicken with oil and herbs. Roast at 200°C for 60 minutes until golden.', 75, 'Non-vegeterian', 'Chicken meals', 'Medium', 4, 1),
+
+('Red Lentil Curry', 'Spicy vegan curry with coconut milk.', 'lentil_curry.jpg', 'Red lentils, coconut milk, turmeric, cumin, spinach', 'Wash lentils. Simmer with spices and coconut milk for 20 minutes until soft.', 30, 'Vegan', 'Vegetables', 'Easy', 3, 1),
+
+('Lemon Dill Salmon', 'Baked salmon fillet with a zesty butter sauce.', 'salmon_dish.jpg', 'Salmon fillet, lemon, fresh dill, butter, black pepper', 'Wrap salmon in foil with lemon and dill. Bake for 15 minutes at 180°C.', 20, 'Non-vegeterian', 'Fish meals', 'Easy', 2, 1),
+
+('Dark Chocolate Mousse', 'A light and airy dessert for chocolate lovers.', 'choco_mousse.jpg', 'Dark chocolate, eggs, heavy cream, sugar', 'Melt chocolate. Fold in whipped egg whites and chill for at least 4 hours.', 25, 'Vegeterian', 'Desserts', 'Complicated', 4, 1),
+
+('Vegetable Stir-Fry', 'Quick wok dish with crunchy vegetables and tofu.', 'veg_stirfry.jpg', 'Bell peppers, broccoli, soy sauce, ginger, tofu', 'Sear tofu, add vegetables, and stir-fry quickly. Glaze with soy sauce.', 15, 'Vegan', 'Vegetables', 'Easy', 2, 1),
+
+('Chicken Alfredo Pasta', 'Creamy pasta topped with grilled chicken strips.', 'chicken_alfredo.jpg', 'Penne pasta, heavy cream, parmesan cheese, chicken breast, garlic', 'Boil pasta. Grill chicken. Reduce cream and cheese into a thick sauce.', 35, 'Non-vegeterian', 'Chicken meals', 'Medium', 2, 1),
+
+('Mediterranean Stuffed Eggplant', 'Roasted eggplants filled with herb-infused couscous.', 'stuffed_eggplant.jpg', 'Eggplants, couscous, feta cheese, cherry tomatoes, mint', 'Hollow out eggplants, fill with prepared couscous, and bake for 30 minutes.', 45, 'Vegeterian', 'Vegetables', 'Medium', 2, 1),
+
+('Pan-Seared Trout', 'Traditional trout dusted in flour and fried in butter.', 'trout_fish.jpg', 'Fresh trout, flour, butter, parsley, lemon slices', 'Coat fish in flour and fry in hot butter until the skin is crispy.', 25, 'Non-vegeterian', 'Fish meals', 'Medium', 1, 1),
+
+('Mixed Berry Sorbet', 'Refreshing dairy-free ice made from frozen berries.', 'berry_sorbet.jpg', 'Frozen mixed berries, powdered sugar, lemon juice', 'Blend all ingredients in a high-speed mixer and serve immediately.', 10, 'Vegan', 'Desserts', 'Easy', 4, 1),
+
+('Classic Ratatouille', 'Traditional French vegetable stew.', 'ratatouille.jpg', 'Zucchini, eggplant, tomatoes, onions, Herbes de Provence', 'Thinly slice vegetables and simmer slowly in a rich tomato base.', 60, 'Vegan', 'Vegetables', 'Medium', 6, 1);
