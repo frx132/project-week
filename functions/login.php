@@ -47,7 +47,7 @@ if (isset($_POST["login"])) {
         if (mysqli_num_rows($result) == 1) {
             if ($row["role"] == "Admin") {
                 $_SESSION["adm"] = $row["id"];
-                header("Location: ../Pages/admin_dashboard.php");
+                header("Location: admin_dashboard.php");
             } else {
                 $_SESSION["user"] = $row["id"];
                 header("Location: ../Pages/landingpage.php");
