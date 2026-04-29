@@ -1,11 +1,10 @@
 <?php
-// Database connection parameters
-$hostname = "127.0.0.1"; // this is the hostname that you can find in the PhpMyAdmin and you can write "localhost" too
-$username = "root"; // be default the userName for the databases is root
-$password = ""; // by default there is no password in the databases
-$dbname = "meal_planner"; // here we need to write the Database name
+$hostname = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "menu_planner";
 
-// create connection, you need to be aware of the order of the parameters
+// create connection
 $connect = new mysqli($hostname, $username, $password, $dbname);
 
 // check connection

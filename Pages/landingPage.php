@@ -31,8 +31,8 @@
           </li>
         </ul>
         <div class="d-flex gap-2">
-          <a href="#" class="btn btn-primary">Login</a>
-          <a href="#" class="btn btn-primary">Sign Up</a>
+          <a href="../functions/login.php" class="btn btn-primary">Login</a>
+          <a href="../functions/register.php" class="btn btn-primary">Sign Up</a>
         </div>
       </div>
     </div>
