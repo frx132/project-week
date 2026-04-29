@@ -1,0 +1,14 @@
+- Home
+    -Navbar
+        -Home, -All Meals , -Meal Planner, -Settings, -Log out 
+
+    -Meal Carousel
+    -Options
+    -Footer - 20206 
+            - All rights reserved to  Chetan, Kair, Özge
+
+
+- Admin Dashboard
+    -Meal CRUD
+    -User CRUD
+

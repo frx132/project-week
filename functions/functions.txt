@@ -1,0 +1,12 @@
+- [x] Login 
+- [x] Register
+
+- [ ] Edit, Update, Delete User_Profil
+- [ ] Edit, Update, Delete Meal 
+- [ ] Edit, Update, Delete Meal_Planner
+
+
+- -- 
+Test User User_Profil:
+User@email.com
+User123

@@ -1,0 +1,8 @@
+
+Leader Özge
+Planning: Chetan
+Developer: all
+
+- --- 
+27.04 Planning the Databases and Tables for Meal/User CRUD (Chetan)
+28.04 Creating Login/ Register System and Admin Dashboard and Database
