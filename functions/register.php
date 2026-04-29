@@ -21,7 +21,6 @@ if (isset($_POST["sign-up"])) {
     $lname = cleanInputs($_POST["lname"]);
     $email = cleanInputs($_POST["email"]);
     $password = cleanInputs($_POST["password"]);
-    $date_of_birth = cleanInputs($_POST["date_of_birth"]);
     $picture = fileUpload($_FILES["picture"]);
 
     // simple validation for the "first name"
@@ -48,11 +47,6 @@ if (isset($_POST["sign-up"])) {
         $lnameError = "Last name must contain only letters and spaces.";
     }
 
-    // simple validation for the "date of birth"
-    if (empty($date_of_birth)) {
-        $error = true;
-        $dateError = "date of birth can't be empty!";
-    }
 
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // if the provided text is not a format of an email, error will be true
@@ -127,29 +121,11 @@ if (isset($_POST["sign-up"])) {
                 <span class="text-danger"><?= $lnameError ?></span>
             </div>
 
-            <!-- Date of Birth -->
-            <div class="mb-3">
-                <label for="date" class="form-label">Date of birth</label>
-                <input type="date" class="form-control" id="date" name="date_of_birth" value="<?= $date_of_birth ?>">
-                <span class="text-danger"><?= $dateError ?></span>
-            </div>
-
             <!-- Profile Picture -->
             <div class="mb-3">
                 <label for="picture" class="form-label">Profile picture</label>
                 <input type="file" class="form-control" id="picture" name="picture">
             </div>
-            <!-- Diatery Type   -->
-            <div class="mb-3">
-                <label for="Diaetery_type" class="form-label">Diatery Type</label>
-                <select class="form-control" id="diaetery_type" name="diaetery_type">
-                    <option value="">Select Diatery Type</option>
-                    <option value="vegan">Vegan</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Meat">Meat</option>
-                </select>
-            </div>
-
 
             <!-- Email -->
             <div class="mb-3">
@@ -165,6 +141,7 @@ if (isset($_POST["sign-up"])) {
                 <span class="text-danger"><?= $passError ?></span>
             </div>
             <button name="sign-up" type="submit" class="btn btn-primary my-3">Create account</button>
+
             <!--  -->
             <p>You have an account already? <a href="login.php">Sign in here</a></p>
         </form>

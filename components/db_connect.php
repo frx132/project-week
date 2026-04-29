@@ -2,7 +2,7 @@
 $hostname = "127.0.0.1";
 $username = "root";
 $password = "";
-$dbname = "meal_planner";
+$dbname = "menu_planner";
 
 // create connection
 $connect = new mysqli($hostname, $username, $password, $dbname);
