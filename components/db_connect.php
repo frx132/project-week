@@ -34,3 +34,11 @@ function fileUpload($picture)
 
     return [$pictureName, $message]; // returning the name of the picture and the message
 }
+
+function cleanInputs($input)
+{
+    $data = trim($input);
+    $data = strip_tags($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
