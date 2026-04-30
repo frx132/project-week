@@ -93,46 +93,23 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/landingPage.css">
-    
+
 </head>
+
 <body class="bg-light">
 
 
 
-  <!-- navbar  -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="../Pages/landingPage.php">Meal Planner</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../Pages/landingPage.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../Pages/planner.php">Planner</a>
-          </li>
-        </ul>
-        <div class="d-flex gap-2">
-          <a href="../functions/login.php" class="btn btn-dark">Login</a>
-          <a href="../functions/register.php" class="btn btn-dark">Sign Up</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- navbar end -->
+    <?php include "../components/navbar.php"; ?>
     <div class="container mt-5 mb-5 flex-grow-1">
         <div class="row mb-4">
             <div class="col-12 text-center">
@@ -157,7 +134,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                         <div class="mb-3">
                             <label for="meal_date" class="form-label">Day of the Week</label>
                             <select class="form-select" id="meal_date" name="meal_date" required>
-                                <?php foreach($days as $day): ?>
+                                <?php foreach ($days as $day): ?>
                                     <option value="<?= $day ?>"><?= $day ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -165,7 +142,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                         <div class="mb-3">
                             <label for="meal_time" class="form-label">Meal Time</label>
                             <select class="form-select" id="meal_time" name="meal_time" required>
-                                <?php foreach($times as $time): ?>
+                                <?php foreach ($times as $time): ?>
                                     <option value="<?= $time ?>"><?= $time ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -182,19 +159,19 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                         <thead class="table-light">
                             <tr>
                                 <th>Time</th>
-                                <?php foreach($days as $day): ?>
+                                <?php foreach ($days as $day): ?>
                                     <th><?= substr($day, 0, 3) ?></th>
                                 <?php endforeach; ?>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($times as $time): ?>
+                            <?php foreach ($times as $time): ?>
                                 <tr>
                                     <td class="row-header"><?= $time ?></td>
-                                    <?php foreach($days as $day): ?>
+                                    <?php foreach ($days as $day): ?>
                                         <td>
                                             <div class="grid-cell">
-                                                <?php if($schedule[$day][$time]): ?>
+                                                <?php if ($schedule[$day][$time]): ?>
                                                     <span class="meal-title"><?= htmlspecialchars($schedule[$day][$time]['title']) ?></span>
                                                     <a href="planner.php?delete_mpr=<?= $schedule[$day][$time]['mpr_id'] ?>" class="btn-remove" title="Remove"><i class="fa-solid fa-xmark"></i></a>
                                                 <?php else: ?>
@@ -212,11 +189,12 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
         </div>
     </div>
 
-    
+
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-4 w-100 mt-auto">
         <p class="mb-0">&copy; 2026 MealPlanner. All rights reserved.</p>
     </footer>
 
 </body>
+
 </html>
