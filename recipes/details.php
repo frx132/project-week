@@ -4,10 +4,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
     header("Location: ../functions/login.php");
     exit;
 }
-if (isset($_SESSION['user'])) {
-    header("Location: ../functions/user_dashboard.php");
-    exit;
-}
+
 require_once "../components/db_connect.php";
 
 
@@ -18,7 +15,7 @@ if (!isset($_GET['recipeid']) || empty($_GET['recipeid'])) {
 
 // var_dump($_GET);
 
-$user_id = $_SESSION['user'];
+$user_id = isset($_SESSION['adm']) ? $_SESSION['adm'] : $_SESSION['user'];
 $recipe_id = $_GET['recipeid'];
 
 $sql_query = "SELECT recipes.*, users.first_name, users.last_name FROM `recipes` LEFT JOIN users on author_id=users.id WHERE recipes.id= $recipe_id ";
@@ -28,13 +25,14 @@ $result = mysqli_query($connect, $sql_query);
 
 
 $display_data = "";
+$edit_recipe = "";
 if (mysqli_num_rows($result) > 0) {
     $recipe = mysqli_fetch_assoc($result);
     // var_dump($recipe);
 
-    if ($user_id == $recipe['author_id']) {
-        // After creating the crud for recipes, add test the code below
-        $display_data .= "
+
+    // After creating the crud for recipes, add test the code below
+    $display_data = "
     <div class='container mt-3'>
         <a href='create.php' class='btn btn-success'>Create new recipe</a>
         <a href='../functions/user_dashboard.php' class='btn btn-primary'>User homepage</a>
@@ -51,45 +49,22 @@ if (mysqli_num_rows($result) > 0) {
             <p>Dietary type: $recipe[dietary_type] </p>
             <p>Category: $recipe[category] </p>
             <p>Author: $recipe[first_name] $recipe[last_name] </p>
-            <p>Updated at: $recipe[updated_at] </p>
-            <a href='edit.php' class='btn btn-warning'>Edit</a>
-            <a href='delete.php' class='btn btn-danger'>Delete</a>
+            <p>Updated at: $recipe[updated_at] </p>";
 
-            </div>
+    if ($user_id == $recipe['author_id']) {
+        $display_data .= "<a href='edit.php' class='btn btn-warning'>Edit</a>
+            <a href='delete.php' class='btn btn-danger'>Delete</a>";
+    }
+
+
+
+    $display_data .= "</div>
             
 
         </div>
       <div class='container'>
         <a href='recipe.php' class='btn btn-primary'>Go back</a>
         </div>    ";
-    } else {
-        $display_data .= "
-           <div class='container mt-3'>
-        <a href='create.php' class='btn btn-success'>Create new recipe</a>
-        <a href='../functions/user_dashboard.php' class='btn btn-primary'>User homepage</a>
-    </div>
-        <div class='card m-3'>
-            <div class='card-body'>
-            <img src='../pictures/$recipe[recipe_picture]' class='card-img-top' alt='$recipe[title]'>
-            <h5 class='card-title'>$recipe[title]</h5>
-            <p class='card-text'>$recipe[description] </p>
-            <p>Preparation time: $recipe[prep_time] 
-            <p>Difficulty: $recipe[difficulty]</p> 
-            <p>$recipe[servings] Servings </p>
-            <p>Ingredients: $recipe[ingredients] </p>
-            <p>Dietary type: $recipe[dietary_type] </p>
-            <p>Category: $recipe[category] </p>
-            <p>Author: $recipe[first_name] $recipe[last_name] </p>
-            <p>Updated at: $recipe[updated_at] </p>
-            </div>
-
-        </div>
-        <div class='container'>
-        <a href='recipe.php' class='btn btn-primary'>Go back</a>
-        </div>
-        
-    ";
-    }
 } else {
     $display_data = "The recipe you are looking for is not found, please get in contact with us for more information.";
     header("Location: recipe.php");
@@ -113,7 +88,8 @@ if (mysqli_num_rows($result) > 0) {
 <body>
     <div class="row">
         <div class="col col-md-6 ">
-            <?= $display_data ?>
+            <?= $display_data . $edit_recipe ?>
+            <?= $edit_recipe ?>
         </div>
     </div>
 </body>

@@ -1,17 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
-    echo "hi non user";
 
-    // header("Location: ../functions/login.php");
+    header("Location: ../functions/login.php");
     exit;
 }
-if (isset($_SESSION['user'])) {
-    echo "hi user";
-    var_dump($_SESSION);
-    // header("Location: ../functions/user_dashboard.php");
-    exit;
-}
+
 require_once "../components/db_connect.php";
 $sql_query = "SELECT * FROM `recipes`";
 $result = mysqli_query($connect, $sql_query);
