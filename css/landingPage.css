@@ -6,20 +6,6 @@ a {
   text-decoration: none;
 }
 
-/* Navbar */
-.navbar {
-  background-color: var(--green-dark) !important;
-}
-
-.navbar-brand,
-.nav-link {
-  color: var(--white) !important;
-}
-
-.nav-link:hover {
-  color: var(--green-light) !important;
-}
-
 /* Hero Section */
 .heroSection {
   background: linear-gradient(135deg, var(--green-soft), var(--green-light));
@@ -60,9 +46,4 @@ a {
 /* CTA */
 .bg-white {
   background-color: var(--green-soft) !important;
-}
-
-/* Footer */
-footer {
-  background-color: var(--green-dark) !important;
 }
