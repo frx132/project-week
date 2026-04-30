@@ -5,7 +5,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
     exit;
 }
 if (isset($_SESSION['user'])) {
-    header("Location: ../pages/UserDashboard.php");
+    header("Location: ../functions/user_dashboard.php");
     exit;
 }
 require_once "../components/db_connect.php";
