@@ -1,5 +1,6 @@
 - [x] Login 
 - [x] Register
+- [x] Admin Dashboard
 
 - [ ] Edit, Update, Delete User_Profil
 - [ ] Edit, Update, Delete Meal 
@@ -7,6 +8,7 @@
 
 
 - -- 
-Test User User_Profil:
-User@email.com
-User123
+
+Test Admin:
+admin@email.com
+admin123
