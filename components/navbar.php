@@ -11,7 +11,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Recipes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../mealPlan/planner.php">Planner</a>
