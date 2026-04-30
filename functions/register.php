@@ -83,6 +83,8 @@ if (isset($_POST["sign-up"])) {
             echo "<div class='alert alert-success'>
                <p>New account has been created, $picture[1]</p>
            </div>";
+           header("Location: landingPage.php");
+           exit;
         } else {
             echo "<div class='alert alert-danger'>
                <p>Something went wrong, please try again later ...</p>
