@@ -1,0 +1,22 @@
+.recipe-card img,
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.badge {
+  background-color: var(--green-dark) !important;
+}
+
+.row {
+  row-gap: 24px;
+}
+.modal .card {
+  transform: none;
+  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.12);
+}
+
+.modal .card:hover {
+  transform: none;
+}
