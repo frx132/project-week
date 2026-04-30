@@ -4,10 +4,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
     header("Location: ../functions/login.php");
     exit;
 }
-if (isset($_SESSION['user'])) {
-    header("Location: ../functions/user_dashboard.php");
-    exit;
-}
+
 
 require_once "../components/db_connect.php";
 
@@ -81,7 +78,7 @@ if (isset($_POST['submit'])) {
                         <input type="file" class="form-control" id="pictures" name="pictures">
                     </div>
                     <div class="mb-3">
-                        <label for="prep_time">Preparation time</label>
+                        <label for="prep_time">Preparation time (Minutes)</label>
                         <input type="number" class="form-control" id="prep_time" name="prep_time" required>
                     </div>
                     <div class="mb-3">
@@ -111,9 +108,16 @@ if (isset($_POST['submit'])) {
 
                     </div>
                     <div class="mb-3">
-                        <label for="category">Category</label>
-                        <input type="text" class="form-control" id="category" name="category">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" id="category" name="category">
+                            <option value="null">Please select an option</option>
+                            <option value="Chicken meals">Chicken meals</option>
+                            <option value="Vegetables">Vegetables</option>
+                            <option value="Desserts">Desserts</option>
+                            <option value="Fish meals">Fish meals</option>
+                        </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="ingredients">Ingredients</label>
                         <textarea class="form-control" id="ingredients" name="ingredients" required></textarea>

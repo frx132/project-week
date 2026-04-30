@@ -37,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
         $display_data .= "
     <div class='container mt-3'>
         <a href='create.php' class='btn btn-success'>Create new recipe</a>
-        <a href='../functions/user_home.php' class='btn btn-primary'>User homepage</a>
+        <a href='../functions/user_dashboard.php' class='btn btn-primary'>User homepage</a>
     </div>
         <div class='card m-3'>
             <div class='card-body'>
@@ -66,7 +66,7 @@ if (mysqli_num_rows($result) > 0) {
         $display_data .= "
            <div class='container mt-3'>
         <a href='create.php' class='btn btn-success'>Create new recipe</a>
-        <a href='../functions/user_home.php' class='btn btn-primary'>User homepage</a>
+        <a href='../functions/user_dashboard.php' class='btn btn-primary'>User homepage</a>
     </div>
         <div class='card m-3'>
             <div class='card-body'>

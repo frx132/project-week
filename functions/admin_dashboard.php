@@ -93,7 +93,7 @@ mysqli_close($connect);
                     <a class="nav-link" href="update.php?id=<?= $row["id"] ?>&type=user">Edit Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../Pages/landingpage.php">Logout</a>
+                    <a class="nav-link" href="../pages/landingPage.php">Logout</a>
                 </li>
             </ul>
         </div>
