@@ -26,7 +26,7 @@ if (mysqli_num_rows($resultUsers) > 0) {
                <h5 class='card-title'>{$userRow["first_name"]} {$userRow["last_name"]}</h5>
                <p class='card-text'>{$userRow["email"]}</p>
                <div class='mt-auto'>
-                   <a href='update.php?id={$userRow["id"]}' class='btn btn-warning'>Update</a>
+                   <a href='update.php?id={$userRow["id"]}&type=user' class='btn btn-warning'>Update</a>
                </div>
            </div>
        </div>
@@ -40,8 +40,7 @@ $sqlRecipes = "SELECT * FROM recipes";
 $resultRecipes = mysqli_query($connect, $sqlRecipes);
 $layoutRecipes = "";
 
-if (mysqli_num_rows($resultRecipes) > 0) 
-    {
+if (mysqli_num_rows($resultRecipes) > 0) {
     while ($recipeRow = mysqli_fetch_assoc($resultRecipes)) {
         $rPic = !empty($recipeRow["recipe_picture"]) ? $recipeRow["recipe_picture"] : "default_recipe.jpg";
         $layoutRecipes .= "<div class='col'>
@@ -51,7 +50,7 @@ if (mysqli_num_rows($resultRecipes) > 0)
                <h5 class='card-title'>{$recipeRow["title"]}</h5>
                <p class='card-text'>Category: {$recipeRow["category"]}<br>Type: {$recipeRow["dietary_type"]}</p>
                <div class='mt-auto'>
-                   <a href='update_recipe.php?id={$recipeRow["id"]}' class='btn btn-warning'>Update</a>
+                   <a href='update.php?id={$recipeRow["id"]}&type=recipe' class='btn btn-warning'>Update</a>
                </div>
            </div>
         </div>
@@ -80,17 +79,18 @@ mysqli_close($connect);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
 </head>
+<!-- Navbar -->
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="update.php?id=<?= $row["id"] ?>">Edit Account</a>
+                    <a class="nav-link" href="update.php?id=<?= $row["id"] ?>&type=user">Edit Account</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../Pages/landingpage.php">Logout</a>
@@ -98,6 +98,8 @@ mysqli_close($connect);
             </ul>
         </div>
     </nav>
+
+    <!-- Body -->
     <h2 class="text-center my-4">Welcome <?= $row["first_name"]  ?></h2>
 
     <div class="container mb-5">
@@ -106,13 +108,15 @@ mysqli_close($connect);
             <?= $layout ?>
         </div>
 
-   
+
         <h3 class="mb-3">Manage Recipes</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?= $layoutRecipes ?>
         </div>
     </div>
-<!-- Bootstrap JS -->
+
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 

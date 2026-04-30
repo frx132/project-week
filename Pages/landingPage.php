@@ -1,14 +1,28 @@
 <?php ?>
+<?php
+
+session_start();
+
+// If user is already logged in, redirect to dashboard
+if (isset($_SESSION['user_id'])) {
+  header('Location: dashboard.php');
+  exit;
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Personal CSS -->
   <link rel="stylesheet" href="../css/landingPage.css">
 
   <title>Meal Planner</title>
@@ -18,20 +32,20 @@
   <!-- navbar  -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Meal Planner</a>
+      <a class="navbar-brand" href="../Pages/landingPage.php">Meal Planner</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="../Pages/landingPage.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Planner</a>
+            <a class="nav-link" href="../mealPlan/planner.php">Planner</a>
           </li>
         </ul>
         <div class="d-flex gap-2">
@@ -74,6 +88,9 @@
     </div>
   </div>
   <!-- Hero end  -->
+
+
+
   <!-- Features  -->
   <div class="container">
     <div class="row g-4 my-5">
@@ -119,6 +136,8 @@
     </div>
   </div>
   <!-- Features end -->
+
+
   <!-- Planner Preview -->
   <section id="planner" class="py-5 ">
     <div class="container">
@@ -129,7 +148,7 @@
           <p class="text-muted">
             Add recipes to breakfast, lunch, and dinner slots. Stay organized and avoid last-minute decisions.
           </p>
-          <a href=# class="btn btn-dark mt-3">Open Planner</a>
+          <a href="../mealPlan/planner.php" class="btn btn-dark mt-3">Open Planner</a>
         </div>
 
         <div class="col-lg-7">
@@ -185,10 +204,11 @@
     <div class="container text-center">
       <h2 class="section-title">Ready to organize your meals?</h2>
       <p class="text-muted">Create an account and start planning your week today.</p>
-      <a href="#" class="btn btn-dark mt-3">Create Account</a>
+      <a href="../functions/register.php" class="btn btn-dark mt-3">Create Account</a>
     </div>
   </section>
   <!-- CTA end -->
+
   <!-- Footer -->
   <footer class=" text-white text-center py-4 w-100">
     <p class="mb-0">&copy; 2026 MealPlanner</p>
