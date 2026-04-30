@@ -1,0 +1,150 @@
+:root {
+  --green-dark: #2d6a4f;
+  --green-darker: #1b4332;
+  --green-light: #74c69d;
+  --green-soft: #d8f3dc;
+  --green-click: #95d5b2;
+  --green-bg: #f1faf4;
+  --white: #ffffff;
+  --text-dark: #1f2933;
+  --text-muted: #6c757d;
+}
+main {
+  flex: 1;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--green-bg);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h5 {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  max-width: 1300px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-dark,
+.btn-primary,
+.btn-success {
+  background: var(--green-dark) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.btn-dark:hover,
+.btn-primary:hover,
+.btn-success:hover {
+  background: rgba(31, 82, 61, 0.9) !important;
+}
+
+.btn-outline-dark {
+  color: var(--green-dark) !important;
+  border-color: var(--green-dark) !important;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--green-dark) !important;
+  color: white !important;
+}
+
+.btn:active {
+  transform: scale(0.95);
+  background-color: var(--green-darker) !important;
+  border-color: var(--green-darker) !important;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.12);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card h5,
+.card h6,
+.section-title {
+  color: var(--green-dark);
+  font-weight: bold;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 24px;
+  border: none;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: none;
+  background: linear-gradient(135deg, var(--green-soft), var(--green-light));
+}
+
+.modal-title {
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.modal-body img {
+  border-radius: 16px;
+  margin-bottom: 15px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--green-dark) !important;
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--white) !important;
+}
+
+.nav-link:hover {
+  color: var(--green-light) !important;
+}
+/* Footer */
+footer {
+  background-color: var(--green-dark) !important;
+}
