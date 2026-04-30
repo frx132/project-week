@@ -1,0 +1,150 @@
+:root {
+  --green-dark: #2d6a4f;
+  --green-darker: #1b4332;
+  --green-light: #74c69d;
+  --green-soft: #d8f3dc;
+  --green-click: #95d5b2;
+  --green-bg: #f1faf4;
+  --white: #ffffff;
+  --text-dark: #1f2933;
+  --text-muted: #6c757d;
+}
+
+/* Base */
+
+body {
+  background-color: var(--green-bg);
+  color: var(--text-dark);
+  font-family: "Inter", sans-serif;
+}
+h1,
+h2,
+h3,
+h5 {
+  font-family: "Poppins", sans-serif;
+}
+.container {
+  max-width: 1300px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--green-dark) !important;
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--white) !important;
+}
+
+.nav-link:hover {
+  color: var(--green-light) !important;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-dark {
+  background: var(--green-dark);
+  border: none;
+}
+
+.btn-dark:hover {
+  background: rgba(31, 82, 61, 0.9);
+}
+
+.btn-outline-dark {
+  color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.btn:active {
+  transform: scale(0.95);
+  background-color: var(--green-darker) !important;
+  border-color: var(--green-darker) !important;
+}
+/* Hero Section */
+.heroSection {
+  background: linear-gradient(135deg, var(--green-soft), var(--green-light));
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.heroSection h1 {
+  color: var(--green-dark);
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.heroSection p {
+  max-width: 600px;
+  font-size: 1.2rem;
+}
+.hero-card {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 24px;
+  max-width: 300px;
+  width: 100%;
+  box-shadow: 0 15px 35px rgba(27, 67, 50, 0.18);
+  transform: translateY(-35px);
+}
+/* Cards */
+.card {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.12);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card h5,
+.card h6,
+.section-title {
+  color: var(--green-dark);
+  font-weight: bold;
+}
+
+/* Planner review */
+#planner {
+  background-color: var(--white);
+}
+
+.border {
+  border-color: var(--green-light) !important;
+  background-color: var(--green-soft);
+}
+/* CTA */
+.bg-white {
+  background-color: var(--green-soft) !important;
+}
+
+/* Footer */
+footer {
+  background-color: var(--green-dark) !important;
+}

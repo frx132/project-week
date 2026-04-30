@@ -5,8 +5,12 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/landingPage.css">
+
   <title>Meal Planner</title>
 </head>
 
@@ -31,8 +35,8 @@
           </li>
         </ul>
         <div class="d-flex gap-2">
-          <a href="../functions/login.php" class="btn btn-primary">Login</a>
-          <a href="../functions/register.php" class="btn btn-primary">Sign Up</a>
+          <a href="../functions/login.php" class="btn btn-dark">Login</a>
+          <a href="../functions/register.php" class="btn btn-dark">Sign Up</a>
         </div>
       </div>
     </div>
@@ -40,29 +44,44 @@
   <!-- navbar end -->
 
   <!-- Hero  -->
-  <div class="heroSection ">
+  <div class="heroSection">
     <div class="container py-5">
-      <h1 class="my-5">Plan your Meals. Eat better. Save time.</h1>
-      <p class="mt-4">
-        Organize your recipes, plan breakfast, lunch, and dinner for the week,
-        and discover meal ideas shared by other users.
-      </p>
-      <div class="mt-4 d-flex gap-3 flex-wrap justify-content-end mb-4 pb-5">
-        <a href=# class="btn btn-primary">Get Started</a>
-        <a href=# class="btn btn-primary">Browse Recipes</a>
+      <div class="row align-items-center">
+
+        <div class="col-lg-6">
+          <h1 class="my-4">Plan your Meals. Eat better. Save time.</h1>
+          <p class="mt-3">
+            Organize your recipes, plan breakfast, lunch, and dinner for the week,
+            and discover meal ideas shared by other users.
+          </p>
+
+          <div class="mt-4 d-flex gap-3 flex-wrap">
+            <a href="#" class="btn btn-dark">Get Started</a>
+            <a href="#" class="btn btn-dark">Browse Recipes</a>
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-flex justify-content-end">
+          <div class="hero-card">
+            <h5>Today's Plan</h5>
+            <p>🥣 Breakfast: Oats</p>
+            <p>🥗 Lunch: Salad Bowl</p>
+            <p>🍝 Dinner: Pasta</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-
   <!-- Hero end  -->
   <!-- Features  -->
   <div class="container">
-    <div class="row g-4">
+    <div class="row g-4 my-5">
 
       <div class="col-md-3">
         <div class="card h-100">
           <div class="card-body text-center">
-            <h5>Weekly Planner</h5>
+            <h5><i class="fa-solid fa-calendar"></i> Weekly Planner</h5>
             <p class="text-muted">Plan meals by day and meal time.</p>
           </div>
         </div>
@@ -72,7 +91,7 @@
       <div class="col-md-3">
         <div class="card h-100">
           <div class="card-body text-center">
-            <h5>Recipe Library</h5>
+            <h5><i class="fa-solid fa-book"></i> Recipe Library</h5>
             <p class="text-muted">Browse recipes from all users.</p>
           </div>
         </div>
@@ -81,7 +100,7 @@
       <div class="col-md-3">
         <div class="card h-100">
           <div class="card-body text-center">
-            <h5>Create Recipes</h5>
+            <h5><i class="fa-solid fa-square-plus"></i> Create Recipes</h5>
             <p class="text-muted">Add, edit, and delete your own recipes.</p>
           </div>
         </div>
@@ -89,19 +108,19 @@
       <div class="col-md-3">
         <div class="card h-100">
           <div class="card-body text-center">
-            <h5>Diet Filters</h5>
+            <h5><i class="fa-solid fa-sliders"></i> Diet Filters</h5>
             <p class="text-muted">Filter by vegetarian, vegan, and more.</p>
           </div>
         </div>
       </div>
     </div>
     <div class="text-center mt-4">
-      <a href="#" class="btn btn-primary">Learn More</a>
+      <a href="#" class="btn btn-dark mb-5">Learn More</a>
     </div>
   </div>
   <!-- Features end -->
   <!-- Planner Preview -->
-  <section id="planner" class="py-5 my-5 ">
+  <section id="planner" class="py-5 ">
     <div class="container">
       <div class="row align-items-center g-5">
 
@@ -110,7 +129,7 @@
           <p class="text-muted">
             Add recipes to breakfast, lunch, and dinner slots. Stay organized and avoid last-minute decisions.
           </p>
-          <a href=# class="btn btn-primary mt-3">Open Planner</a>
+          <a href=# class="btn btn-dark mt-3">Open Planner</a>
         </div>
 
         <div class="col-lg-7">
@@ -149,7 +168,7 @@
                   <div class="border rounded p-3 h-100 text-center">
                     <h6 class="fw-bold">Thursday</h6>
                     <p class="text-muted">No meals planned</p>
-                    <a href="#" class="btn btn-sm btn-outline-primary">+ Add Meal</a>
+                    <a href="#" class="btn btn-sm btn-outline-dark">+ Add Meal</a>
                   </div>
                 </div>
 
@@ -166,12 +185,12 @@
     <div class="container text-center">
       <h2 class="section-title">Ready to organize your meals?</h2>
       <p class="text-muted">Create an account and start planning your week today.</p>
-      <a href="#" class="btn btn-primary mt-3">Create Account</a>
+      <a href="#" class="btn btn-dark mt-3">Create Account</a>
     </div>
   </section>
   <!-- CTA end -->
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-4 w-100">
+  <footer class=" text-white text-center py-4 w-100">
     <p class="mb-0">&copy; 2026 MealPlanner</p>
   </footer>
   <!-- Footer end -->
