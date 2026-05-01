@@ -34,17 +34,18 @@ if (isset($_POST['save'])) {
     if ($_FILES['pictures']['error'] == 4) {
         $sql_query = "UPDATE recipes SET title = '$title', description = '$description', ingredients = '$ingredients', instructions = '$instructions', prep_time = '$prep_time', dietary_type = '$dietary_type', category = '$category', difficulty = '$difficulty', servings = '$servings' WHERE id = {$recipeid}";
     } else {
-
-        if (isset($recipe['pictures']) && !empty($recipe['pictures'])) {
+        var_dump($_FILES['pictures']);
+        if (isset($recipe['recipe_picture']) && !empty($recipe['recipe_picture'])) {
+            var_dump($recipe['pictures']);
 
             try {
-                unlink("../pictures/{$recipe['pictures']}");
+                unlink("../pictures/{$recipe['recipe_picture']}");
             } catch (Exception $e) {
                 echo "Error: can't delete the picture " . $e->getMessage();
             }
         }
 
-        $pictures = fileUpload($_FILES['pictures'], "recipe");
+        // var_dump($pictures);
         $sql_query = "UPDATE recipes SET title = '$title', description = '$description', ingredients = '$ingredients', instructions = '$instructions', prep_time = '$prep_time', dietary_type = '$dietary_type', category = '$category', difficulty = '$difficulty', servings = '$servings', recipe_picture = '$pictures[0]' WHERE id = {$recipeid}";
     }
     $result = mysqli_query($connect, $sql_query);
@@ -147,7 +148,7 @@ if (isset($_POST['save'])) {
                         <textarea class="form-control" id="instructions" name="instructions" required><?= $recipe['instructions'] ?></textarea>
                     </div>
 
-                    <input type="save" class="btn btn-primary" name="save" value="Save">
+                    <input type="submit" class="btn btn-primary" name="save" value="Save">
                 </form>
             </div>
         </div>
