@@ -35,39 +35,13 @@ if (mysqli_num_rows($result) > 0) {
     if ($user_id == $recipe['author_id']) {
         // After creating the crud for recipes, add test the code below
         $display_data .= "
-    <div class='container mt-3'>
-        <a href='create.php' class='btn btn-success'>Create new recipe</a>
-        <a href='../functions/user_home.php' class='btn btn-primary'>User homepage</a>
-    </div>
-        <div class='card m-3'>
-            <div class='card-body'>
-            <img src='../pictures/$recipe[recipe_picture]' class='card-img-top' alt='$recipe[title]'>
-            <h5 class='card-title'>$recipe[title]</h5>
-            <p class='card-text'>$recipe[description] </p>
-            <p>Preparation time: $recipe[prep_time] 
-            <p>Difficulty: $recipe[difficulty]</p> 
-            <p>$recipe[servings] Servings </p>
-            <p>Ingredients: $recipe[ingredients] </p>
-            <p>Dietary type: $recipe[dietary_type] </p>
-            <p>Category: $recipe[category] </p>
-            <p>Author: $recipe[first_name] $recipe[last_name] </p>
-            <p>Updated at: $recipe[updated_at] </p>
-            <a href='edit.php' class='btn btn-warning'>Edit</a>
-            <a href='delete.php' class='btn btn-danger'>Delete</a>
-
-            </div>
-            
-
-        </div>
-      <div class='container'>
-        <a href='recipe.php' class='btn btn-primary'>Go back</a>
-        </div>    ";
+     ";
     } else {
         $display_data .= "
-           <div class='container mt-3'>
-        <a href='create.php' class='btn btn-success'>Create new recipe</a>
-        <a href='../functions/user_home.php' class='btn btn-primary'>User homepage</a>
-    </div>
+          <div class='container d-flex gap-2'>
+    <a href='create.php' class='btn btn-dark'>Create new recipe</a>
+    <a href='../functions/user_home.php' class='btn btn-outline-dark'>User homepage</a>
+</div>
         <div class='card m-3'>
             <div class='card-body'>
             <img src='../pictures/$recipe[recipe_picture]' class='card-img-top' alt='$recipe[title]'>
@@ -84,9 +58,9 @@ if (mysqli_num_rows($result) > 0) {
             </div>
 
         </div>
-        <div class='container'>
-        <a href='recipe.php' class='btn btn-primary'>Go back</a>
-        </div>
+       <div class='container d-flex justify-content-end'>
+    <a href='recipe.php' class='btn btn-primary'>Go back</a>
+</div>
         
     ";
     }
@@ -100,22 +74,11 @@ if (mysqli_num_rows($result) > 0) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="row">
-        <div class="col col-md-6 ">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
             <?= $display_data ?>
         </div>
     </div>
-</body>
-
-</html>
+</div>
