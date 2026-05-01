@@ -15,7 +15,7 @@ require_once "../components/db_connect.php";
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $pictures = fileUpload($_FILES['recipe_picture']);
+    $pictures = fileUpload($_FILES['pictures'], "recipe");
     $prep_time = $_POST['prep_time'];
     $instructions = $_POST['instructions'];
     $difficulty = $_POST['difficulty'];
@@ -23,12 +23,10 @@ if (isset($_POST['submit'])) {
     $ingredients = $_POST['ingredients'];
     $dietary_type = $_POST['dietary_type'];
     $category = $_POST['category'];
-    $author = $_GET['user'];
+    $author = $_SESSION['user'];
 
     $sql_query = "INSERT INTO `recipes`(`title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`,`difficulty`, `servings`, `author_id`) VALUES ('$title','$description','$pictures[0]','$ingredients','$instructions', '$prep_time', '$dietary_type', '$category', '$difficulty', '$servings', '$author' )";
-
     $result = mysqli_query($connect, $sql_query);
-    var_dump($_FILES['pictures']);
     if ($result) {
         echo "<div class='alert alert-success'>
                 Congrats, you have added a new recipe!            
@@ -40,8 +38,7 @@ if (isset($_POST['submit'])) {
             </div>
         ";
     }
-    // header("refresh: 3; url=recipe.php");
-
+    header("refresh: 3; url=recipe.php");
 }
 
 
