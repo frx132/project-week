@@ -1,7 +1,4 @@
 <?php
-session_start();
-include "../database.php";
-$db= Database::getInstance();
 
 $recipes=$db->getAll('SELECT * FROM recipes');
 

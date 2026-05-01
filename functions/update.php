@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 require_once "../components/db_connect.php";
 
 if (!isset($_SESSION["adm"]) && !isset($_SESSION["user"])) {
@@ -12,7 +13,7 @@ $backBtn = "../Pages/landingpage.php";
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
-    $backBtn = "../functions/user_home.php"; // assuming this path based on typical structure
+    $backBtn = "../functions/user_home.php";
 }
 
 $id = $_GET["id"] ?? '';

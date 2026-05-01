@@ -1,19 +1,13 @@
 <?php
 session_start();
-
-
-// required the database connection
 require_once "../components/db_connect.php";
-
 
 // Login functionality
 $error = false;
 $input = "";
-
-
-
 $email = "";
 $emailError = $passError = "";
+
 
 if (isset($_POST["login"])) {
     $email = cleanInputs($_POST["email"]);
@@ -23,21 +17,15 @@ if (isset($_POST["login"])) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailError = "Please enter a valid email address";
     }
-
-
-    // simple validation for the "password"
     if (empty($password)) {
         $error = true;
         $passError = "Password can't be empty!";
     }
-
     if (!$error) {
         $password = hash("sha256", $password);
-
         $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($connect, $sql);
         $row = mysqli_fetch_assoc($result);
-
         if (mysqli_num_rows($result) == 1) {
             if ($row["role"] == "Admin") {
                 $_SESSION["adm"] = $row["id"];
@@ -57,14 +45,12 @@ if (isset($_POST["login"])) {
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
-
 <body>
     <div class="container">
         <h1 class="text-center">Login page</h1>
