@@ -1,6 +1,9 @@
 <?php
+session_start();
 
-$recipes=$db->getAll('SELECT * FROM recipes');
+require_once "../components/db_connect.php";
+$sql_query = "SELECT * FROM recipes";
+$result = mysqli_query($connect, $sql_query);
 
 ?>  
 <!DOCTYPE html>

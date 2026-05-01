@@ -1,10 +1,21 @@
 <?php
 session_start();
+
+if (isset($_SESSION["user"])) {
+    header("Location: user_dashboard.php");
+    exit;
+}
+if (isset($_SESSION["adm"])) {
+    header("Location: admin_dashboard.php");
+    exit;
+}
+
 require_once "../components/db_connect.php";
 
 // Login functionality
 $error = false;
 $input = "";
+
 $email = "";
 $emailError = $passError = "";
 
@@ -32,7 +43,7 @@ if (isset($_POST["login"])) {
                 header("Location: admin_dashboard.php");
             } else {
                 $_SESSION["user"] = $row["id"];
-                header("Location: ../pages/landingPage.php");
+                header("Location: ../Pages/landingPage.php");
             }
         } else {
             echo "<div class='alert alert-danger'>

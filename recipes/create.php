@@ -58,6 +58,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <?php include "../components/navbar.php"; ?>
     <div class="container my-5">
 
         <div class="row">
@@ -133,6 +134,7 @@ if (isset($_POST['submit'])) {
         </div>
 
     </div>
+    <?php include "../components/footer.php"; ?>
 </body>
 
 </html>

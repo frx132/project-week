@@ -82,22 +82,7 @@ mysqli_close($connect);
 <!-- Navbar -->
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="update.php?id=<?= $row["id"] ?>&type=user">Edit Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php?logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php include "../components/navbar.php"; ?>
 
     <!-- Body -->
     <h2 class="text-center my-4">Welcome <?= $row["first_name"]  ?></h2>
