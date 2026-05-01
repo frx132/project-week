@@ -9,13 +9,7 @@ require_once "../components/db_connect.php";
 // Login functionality
 $error = false;
 $input = "";
-function cleanInputs($input)
-{
-    $data = trim($input);
-    $data = strip_tags($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+
 
 
 $email = "";
@@ -50,7 +44,7 @@ if (isset($_POST["login"])) {
                 header("Location: admin_dashboard.php");
             } else {
                 $_SESSION["user"] = $row["id"];
-                header("Location: ../Pages/landingpage.php");
+                header("Location: ../pages/landingPage.php");
             }
         } else {
             echo "<div class='alert alert-danger'>

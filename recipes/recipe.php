@@ -1,17 +1,15 @@
 <?php
 session_start();
-// if (!isset($_SESSION['user']) && !isset($_SESSION['admin'])) {
-//     header("Location: ../login.php");
-//     exit;
-// }
-// if (isset($_SESSION['user'])) {
-//     header("Location: ../home.php");
-//     exit;
-// }
+if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
+
+    header("Location: ../functions/login.php");
+    exit;
+}
 
 require_once "../components/db_connect.php";
 $sql_query = "SELECT * FROM `recipes`";
 $result = mysqli_query($connect, $sql_query);
+
 
 $display_data = "";
 if (mysqli_num_rows($result) > 0) {
