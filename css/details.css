@@ -1,0 +1,15 @@
+.details-page .btn,
+.modal .card {
+  transform: none;
+  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.12);
+}
+
+.modal .card:hover {
+  transform: none;
+}
+
+.modal .btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 999px;
+}

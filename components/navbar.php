@@ -8,13 +8,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="../Pages/landingPage.php">Home</a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="#">Recipes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../mealPlan/planner.php">Planner</a>
+            <a class="nav-link" href="../Pages/about.php">About</a>
           </li>
         </ul>
         <div class="d-flex gap-2">
