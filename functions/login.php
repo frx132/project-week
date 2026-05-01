@@ -10,7 +10,14 @@ require_once "../components/db_connect.php";
 $error = false;
 $input = "";
 
+function cleanInputs($input)
+{
+    $data = trim($input); // removing extra spaces, tabs, newlines out of the string
+    $data = strip_tags($data); // removing tags from the string
+    $data = htmlspecialchars($data); // converting special characters to HTML entities, something like "<" and ">", it will be replaced by "&lt;" and "&gt";
 
+    return $data;
+}
 
 $email = "";
 $emailError = $passError = "";
