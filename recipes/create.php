@@ -25,7 +25,17 @@ if (isset($_POST['submit'])) {
     $category = $_POST['category'];
     $author = $_SESSION['user'];
 
-    $sql_query = "INSERT INTO `recipes`(`title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`,`difficulty`, `servings`, `author_id`) VALUES ('$title','$description','$pictures[0]','$ingredients','$instructions', '$prep_time', '$dietary_type', '$category', '$difficulty', '$servings', '$author' )";
+    if ($_FILES['pictures']['error'] == 4) {
+        $sql_query = "INSERT INTO `recipes`(`title`, `description`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`,`difficulty`, `servings`, `author_id`) VALUES ('$title','$description','$ingredients','$instructions', '$prep_time', '$dietary_type', '$category', '$difficulty', '$servings', '$author' )";
+        // var_dump($_FILES['picture']);
+
+    } else {
+        $picture = fileUpload($_FILES['pictures'], "../pictures");
+
+        $sql_query = "INSERT INTO `recipes`(`title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`,`difficulty`, `servings`, `author_id`) VALUES ('$title','$description','$pictures[0]','$ingredients','$instructions', '$prep_time', '$dietary_type', '$category', '$difficulty', '$servings', '$author' )";
+    }
+
+
     $result = mysqli_query($connect, $sql_query);
     if ($result) {
         echo "<div class='alert alert-success'>
