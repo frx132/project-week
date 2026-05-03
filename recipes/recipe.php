@@ -66,6 +66,7 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
+    <?php include "../components/navbar.php"; ?>
 
     <div class="container mb-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 d-flex justify-content-center">
@@ -102,7 +103,7 @@ if (mysqli_num_rows($result) > 0) {
             });
         });
     </script>
-
+    <?php include "../components/footer.php"; ?>
 </body>
 
 </html>

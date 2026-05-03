@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 require_once "../components/db_connect.php";
 
 if (!isset($_SESSION["adm"]) && !isset($_SESSION["user"])) {
@@ -12,7 +13,7 @@ $backBtn = "../Pages/landingpage.php";
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
-    $backBtn = "../functions/user_home.php"; // assuming this path based on typical structure
+    $backBtn = "../functions/user_dashboard.php";
 }
 
 $id = $_GET["id"] ?? '';
@@ -33,7 +34,7 @@ if ($type == 'user') {
         $fname = mysqli_real_escape_string($connect, $_POST["fname"]);
         $lname = mysqli_real_escape_string($connect, $_POST["lname"]);
         $email = mysqli_real_escape_string($connect, $_POST["email"]);
-        $picture = fileUpload($_FILES["picture"], "user");
+        $picture = fileUpload($_FILES["picture"]);
 
         if ($_FILES["picture"]["error"] == 0) {
             if ($row["user_image"] != "avatar.png" && !empty($row["user_image"])) {

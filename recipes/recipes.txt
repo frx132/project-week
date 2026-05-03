@@ -1,4 +1,6 @@
 Exampels for Recipies:
+
+
 INSERT INTO `recipes` 
 (`title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`, `difficulty`, `servings`, `author_id`) 
 VALUES

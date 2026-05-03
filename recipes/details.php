@@ -55,8 +55,8 @@ if (mysqli_num_rows($result) > 0) {
     if ($user_id == $recipe['author_id']) {
         $display_data .= "
             <div class='d-flex gap-2 mt-3'>
-                <a href='edit.php' class='btn btn-warning'>Edit</a>
-                <a href='delete.php' class='btn btn-danger'>Delete</a>
+                <a href='edit.php?recipeid={$recipe['id']}' class='btn btn-warning'>Edit</a>
+                <a href='delete.php?recipeid={$recipe['id']}' class='btn btn-danger'>Delete</a>
             </div>
         ";
     }
@@ -91,6 +91,7 @@ $display_data .= "
 </head>
 
 <body>
+    <?php include "../components/navbar.php"; ?>
     <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -99,6 +100,7 @@ $display_data .= "
             </div>
         </div>
     </main>
+    <?php include "../components/footer.php"; ?>
 </body>
 
 </html>

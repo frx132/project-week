@@ -1,17 +1,21 @@
 <?php
+session_start();
+
+if (isset($_SESSION["user"])) {
+    header("Location: user_dashboard.php");
+    exit;
+}
+if (isset($_SESSION["adm"])) {
+    header("Location: admin_dashboard.php");
+    exit;
+}
+
 require_once "../components/db_connect.php";
 
 $error = false;  // by default, a varialbe $error is false, means there is no error in our form
 
 
-function cleanInputs($input)
-{
-    $data = trim($input); // removing extra spaces, tabs, newlines out of the string
-    $data = strip_tags($data); // removing tags from the string
-    $data = htmlspecialchars($data); // converting special characters to HTML entities, something like "<" and ">", it will be replaced by "&lt;" and "&gt";
 
-    return $data;
-}
 
 $fname = $lname = $email = $date_of_birth = ""; // define variables and set them to empty string
 $fnameError = $lnameError = $emailError = $dateError = $passError = ""; // define variables that will hold error messages later, for now empty string

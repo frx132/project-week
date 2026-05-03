@@ -1,26 +1,24 @@
     <?php
     session_start();
 
+    if (isset($_SESSION["user"])) {
+        header("Location: user_dashboard.php");
+        exit;
+    }
+    if (isset($_SESSION["adm"])) {
+        header("Location: admin_dashboard.php");
+        exit;
+    }
 
-    // required the database connection
     require_once "../components/db_connect.php";
-
 
     // Login functionality
     $error = false;
     $input = "";
 
-    function cleanInputs($input)
-    {
-        $data = trim($input); // removing extra spaces, tabs, newlines out of the string
-        $data = strip_tags($data); // removing tags from the string
-        $data = htmlspecialchars($data); // converting special characters to HTML entities, something like "<" and ">", it will be replaced by "&lt;" and "&gt";
-
-        return $data;
-    }
-
     $email = "";
     $emailError = $passError = "";
+
 
     if (isset($_POST["login"])) {
         $email = cleanInputs($_POST["email"]);
@@ -30,33 +28,27 @@
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailError = "Please enter a valid email address";
         }
-
-
-        // simple validation for the "password"
         if (empty($password)) {
             $error = true;
             $passError = "Password can't be empty!";
         }
-
         if (!$error) {
             $password = hash("sha256", $password);
-
             $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
             $result = mysqli_query($connect, $sql);
             $row = mysqli_fetch_assoc($result);
-
             if (mysqli_num_rows($result) == 1) {
                 if ($row["role"] == "Admin") {
                     $_SESSION["adm"] = $row["id"];
                     header("Location: admin_dashboard.php");
                 } else {
                     $_SESSION["user"] = $row["id"];
-                    header("Location: ../pages/landingPage.php");
+                    header("Location: ../Pages/landingPage.php");
                 }
             } else {
                 echo "<div class='alert alert-danger'>
-                        <p>Something went wrong, please try again later ...</p>
-                        </div>";
+                       <p>Something went wrong, please try again later ...</p>
+                     </div>";
             }
         }
     }

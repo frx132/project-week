@@ -10,22 +10,70 @@ require_once "../components/db_connect.php";
 
 $userId = isset($_SESSION["user"]) ? $_SESSION["user"] : $_SESSION["adm"];
 
-// 1. Get or create meal_plan for the user
-$sqlPlan = "SELECT * FROM meal_plan WHERE user_id = {$userId}";
-$resPlan = mysqli_query($connect, $sqlPlan);
-
-if (mysqli_num_rows($resPlan) == 0) {
-    // create a meal plan
-    $planName = "My Weekly Plan";
-    $sqlInsertPlan = "INSERT INTO meal_plan (user_id, name) VALUES ({$userId}, '$planName')";
-    mysqli_query($connect, $sqlInsertPlan);
-    $mealPlanId = mysqli_insert_id($connect);
-} else {
-    $planRow = mysqli_fetch_assoc($resPlan);
-    $mealPlanId = $planRow["id"];
+// --- 1. Handle Plan Creation ---
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_plan"])) {
+    $new_plan_name = mysqli_real_escape_string($connect, trim($_POST["plan_name"]));
+    if (!empty($new_plan_name)) {
+        $sqlInsertPlan = "INSERT INTO meal_plan (user_id, name) VALUES ({$userId}, '$new_plan_name')";
+        mysqli_query($connect, $sqlInsertPlan);
+        $new_plan_id = mysqli_insert_id($connect);
+        header("Location: planner.php?plan_id={$new_plan_id}");
+        exit;
+    }
 }
 
-// 2. Handle POST for adding to meal plan
+// --- 2. Fetch all plans for this user ---
+$sqlAllPlans = "SELECT * FROM meal_plan WHERE user_id = {$userId} ORDER BY created_at DESC";
+$resAllPlans = mysqli_query($connect, $sqlAllPlans);
+
+// If user has NO plans, create a default one
+if (mysqli_num_rows($resAllPlans) == 0) {
+    $defaultPlanName = "My Weekly Plan";
+    $sqlInsertDefault = "INSERT INTO meal_plan (user_id, name) VALUES ({$userId}, '$defaultPlanName')";
+    mysqli_query($connect, $sqlInsertDefault);
+    // Refetch
+    $resAllPlans = mysqli_query($connect, $sqlAllPlans);
+}
+
+$userPlans = [];
+while ($row = mysqli_fetch_assoc($resAllPlans)) {
+    $userPlans[] = $row;
+}
+
+// Determine active plan
+$mealPlanId = null;
+$activePlanName = "";
+
+if (isset($_GET["plan_id"])) {
+    // Validate that the requested plan belongs to the user
+    $requestedId = (int)$_GET["plan_id"];
+    foreach ($userPlans as $plan) {
+        if ($plan["id"] == $requestedId) {
+            $mealPlanId = $plan["id"];
+            $activePlanName = $plan["name"];
+            break;
+        }
+    }
+}
+
+// If no valid plan_id was found, default to the first one
+if ($mealPlanId === null) {
+    $mealPlanId = $userPlans[0]["id"];
+    $activePlanName = $userPlans[0]["name"];
+}
+
+// --- 3. Handle Plan Editing ---
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_plan"])) {
+    $edited_name = mysqli_real_escape_string($connect, trim($_POST["edit_plan_name"]));
+    if (!empty($edited_name)) {
+        $sqlUpdatePlan = "UPDATE meal_plan SET name = '$edited_name' WHERE id = {$mealPlanId} AND user_id = {$userId}";
+        mysqli_query($connect, $sqlUpdatePlan);
+        header("Location: planner.php?plan_id={$mealPlanId}");
+        exit;
+    }
+}
+
+// --- 4. Handle POST for adding to meal plan ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_to_plan"])) {
     $recipe_id = $_POST["recipe_id"];
     $meal_date = $_POST["meal_date"];
@@ -45,20 +93,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_to_plan"])) {
             $insertSql = "INSERT INTO meal_plan_recipe (recipe_id, meal_plan_id, meal_date, meal_time) VALUES ({$recipe_id}, {$mealPlanId}, '$meal_date', '$meal_time')";
             mysqli_query($connect, $insertSql);
         }
+        header("Location: planner.php?plan_id={$mealPlanId}");
+        exit;
     }
 }
 
-// 3. Handle deletion
+// --- 5. Handle MPR deletion ---
 if (isset($_GET["delete_mpr"])) {
     $mpr_id = $_GET["delete_mpr"];
-    // ensure the mpr belongs to the user's meal plan
     $delSql = "DELETE FROM meal_plan_recipe WHERE id = {$mpr_id} AND meal_plan_id = {$mealPlanId}";
     mysqli_query($connect, $delSql);
-    header("Location: planner.php");
+    header("Location: planner.php?plan_id={$mealPlanId}");
     exit;
 }
 
-// 4. Fetch all recipes for the dropdown
+// --- 6. Fetch recipes for the dropdown ---
 $sqlRecipes = "SELECT id, title FROM recipes";
 $resRecipes = mysqli_query($connect, $sqlRecipes);
 $recipeOptions = "";
@@ -66,7 +115,7 @@ while ($row = mysqli_fetch_assoc($resRecipes)) {
     $recipeOptions .= "<option value='{$row['id']}'>{$row['title']}</option>";
 }
 
-// 5. Fetch current meal plan schedule
+// --- 7. Fetch current meal plan schedule ---
 $scheduleSql = "
     SELECT mpr.id as mpr_id, mpr.meal_date, mpr.meal_time, r.title, r.id as recipe_id 
     FROM meal_plan_recipe mpr
@@ -75,7 +124,7 @@ $scheduleSql = "
 ";
 $resSchedule = mysqli_query($connect, $scheduleSql);
 
-// Initialize a structure to hold the schedule easily
+// Initialize schedule grid
 $schedule = [];
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -93,28 +142,67 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/landingPage.css">
 
 </head>
 
-<body class="bg-light">
-
-
+<body class="bg-light d-flex flex-column min-vh-100">
 
     <?php include "../components/navbar.php"; ?>
-    <div class="container mt-5 mb-5 flex-grow-1">
-        <div class="row mb-4">
+    
+    <div class="container mt-4 mb-5 flex-grow-1">
+        
+        <!-- Plan Manager Section -->
+        <div class="plan-manager">
+            <div class="row align-items-center g-3">
+                
+                <!-- Plan Selector -->
+                <div class="col-md-4">
+                    <form method="get" action="planner.php" class="d-flex align-items-center gap-2">
+                        <label for="plan_id" class="fw-bold mb-0 text-nowrap">Current Plan:</label>
+                        <select class="form-select" name="plan_id" id="plan_id" onchange="this.form.submit()">
+                            <?php foreach ($userPlans as $plan): ?>
+                                <option value="<?= $plan['id'] ?>" <?= $plan['id'] == $mealPlanId ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($plan['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </form>
+                </div>
+
+                <!-- Edit and Delete Plan Buttons -->
+                <div class="col-md-3 d-flex gap-2">
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editPlanModal">
+                        <i class="fa-solid fa-pen"></i> Rename
+                    </button>
+                    <!-- Using the new delete.php script! -->
+                    <a href="../functions/delete.php?id=<?= $mealPlanId ?>&type=plan" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this entire meal plan?');">
+                        <i class="fa-solid fa-trash"></i> Delete Plan
+                    </a>
+                </div>
+
+                <!-- Create New Plan -->
+                <div class="col-md-5">
+                    <form method="post" action="planner.php" class="input-group">
+                        <input type="text" name="plan_name" class="form-control form-control-sm" placeholder="New plan name..." required>
+                        <button type="submit" name="create_plan" class="btn btn-dark btn-sm"><i class="fa-solid fa-plus"></i> Create</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <div class="col-12 text-center">
-                <h1 class="display-5 fw-bold" style="font-family: 'Poppins', sans-serif;">Weekly Meal Planner</h1>
-                <p class="text-muted">Organize your meals for the week easily.</p>
+                <h2 class="display-6 fw-bold" style="font-family: 'Poppins', sans-serif;"><?= htmlspecialchars($activePlanName) ?></h2>
             </div>
         </div>
 
@@ -123,7 +211,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
             <div class="col-lg-3">
                 <div class="planner-card">
                     <h4 class="mb-4">Add a Meal</h4>
-                    <form method="post" action="planner.php">
+                    <form method="post" action="planner.php?plan_id=<?= $mealPlanId ?>">
                         <div class="mb-3">
                             <label for="recipe_id" class="form-label">Select Recipe</label>
                             <select class="form-select" id="recipe_id" name="recipe_id" required>
@@ -173,7 +261,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                                             <div class="grid-cell">
                                                 <?php if ($schedule[$day][$time]): ?>
                                                     <span class="meal-title"><?= htmlspecialchars($schedule[$day][$time]['title']) ?></span>
-                                                    <a href="planner.php?delete_mpr=<?= $schedule[$day][$time]['mpr_id'] ?>" class="btn-remove" title="Remove"><i class="fa-solid fa-xmark"></i></a>
+                                                    <a href="planner.php?plan_id=<?= $mealPlanId ?>&delete_mpr=<?= $schedule[$day][$time]['mpr_id'] ?>" class="btn-remove" title="Remove"><i class="fa-solid fa-xmark"></i></a>
                                                 <?php else: ?>
                                                     <span class="text-muted" style="font-size: 0.8rem;">-</span>
                                                 <?php endif; ?>
@@ -189,12 +277,34 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
         </div>
     </div>
 
+    <!-- Edit Plan Modal -->
+    <div class="modal fade" id="editPlanModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rename Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" action="planner.php?plan_id=<?= $mealPlanId ?>">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Plan Name</label>
+                            <input type="text" class="form-control" name="edit_plan_name" value="<?= htmlspecialchars($activePlanName) ?>" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="edit_plan" class="btn btn-warning">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4 w-100 mt-auto">
-        <p class="mb-0">&copy; 2026 MealPlanner. All rights reserved.</p>
-    </footer>
+    <?php include "../components/footer.php"; ?>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

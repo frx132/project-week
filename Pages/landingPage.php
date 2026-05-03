@@ -4,8 +4,11 @@
 session_start();
 
 // If user is already logged in, redirect to dashboard
-if (isset($_SESSION['user_id'])) {
-  header('Location: dashboard.php');
+if (isset($_SESSION['adm'])) {
+  header('Location: ../functions/admin_dashboard.php');
+  exit;
+} elseif (isset($_SESSION['user'])) {
+  header('Location: ../functions/user_dashboard.php');
   exit;
 }
 
@@ -174,7 +177,7 @@ if (isset($_SESSION['user_id'])) {
       <div class="container text-center">
         <h2 class="section-title">Ready to organize your meals?</h2>
         <p class="text-muted">Create an account and start planning your week today.</p>
-        <a href="#" class="btn btn-dark mt-3">Create Account</a>
+        <a href="../functions/register.php" class="btn btn-dark mt-3">Create Account</a>
       </div>
     </section>
 
