@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
             </p>
 
             <div class="mt-4 d-flex gap-3 flex-wrap">
-              <a href="#" class="btn btn-dark">Get Started</a>
+              <a href="../functions/register.php" class="btn btn-dark">Get Started</a>
               <a href="../recipes/recipe.php" class="btn btn-dark">Browse Recipes</a>
             </div>
           </div>
@@ -103,7 +103,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
       </div>
       <div class="text-center mt-4">
-        <a href="#" class="btn btn-dark mb-5">Learn More</a>
+        <a href="../Pages/about.php" class="btn btn-dark mb-5">Learn More</a>
       </div>
     </div>
     <!-- Features end -->

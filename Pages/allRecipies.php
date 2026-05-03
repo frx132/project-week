@@ -1,13 +1,14 @@
 <?php
 session_start();
 include "../database.php";
-$db= Database::getInstance();
+$db = Database::getInstance();
 
-$recipes=$db->getAll('SELECT * FROM recipes');
+$recipes = $db->getAll('SELECT * FROM recipes');
 
-?>  
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +18,10 @@ $recipes=$db->getAll('SELECT * FROM recipes');
     <link rel="stylesheet" href="../css/allRecipies.css">
     <title>All Recipes</title>
 </head>
+
 <body>
-    
-    
+
+
 </body>
+
 </html>
