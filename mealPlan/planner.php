@@ -158,12 +158,12 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
     <?php include "../components/navbar.php"; ?>
     
-    <div class="container mt-4 mb-5 flex-grow-1">
-        
+
+
+    <div class="container mt-4 mb-5 flex-grow-1">    
         <!-- Plan Manager Section -->
         <div class="plan-manager">
-            <div class="row align-items-center g-3">
-                
+            <div class="row align-items-center g-3">   
                 <!-- Plan Selector -->
                 <div class="col-md-4">
                     <form method="get" action="planner.php" class="d-flex align-items-center gap-2">
@@ -183,8 +183,11 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                     <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editPlanModal">
                         <i class="fa-solid fa-pen"></i> Rename
                     </button>
+
                     <!-- Using the new delete.php script! -->
-                    <a href="../functions/delete.php?id=<?= $mealPlanId ?>&type=plan" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this entire meal plan?');">
+                    <a href="../functions/delete.php?id=<?= $mealPlanId ?>
+                    &type=plan" class="btn btn-outline-danger btn-sm" 
+                    onclick="return confirm('Are you sure you want to delete this entire meal plan?');">
                         <i class="fa-solid fa-trash"></i> Delete Plan
                     </a>
                 </div>
