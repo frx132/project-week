@@ -1,0 +1,97 @@
+/* Dashboard */
+body {
+  background: var(--green-bg);
+  height: 200 vh;
+}
+
+.dashboard-page {
+  padding-top: 40px;
+}
+
+.profile-header,
+.admin-header {
+  background: linear-gradient(135deg, #ffffff, #f8fdf9);
+  border: 1px solid rgba(45, 106, 79, 0.12);
+  border-radius: 22px;
+  padding: 32px;
+  margin: 35px 0;
+  box-shadow: 0 12px 30px rgba(27, 67, 50, 0.1);
+}
+
+.profile-img {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--green-soft);
+}
+
+.container h3,
+.container h4 {
+  color: var(--green-darker) sa;
+  font-weight: 700;
+}
+
+.quick-action-card {
+  color: var(--text-dark);
+  border-radius: 18px;
+  background: #ffffff;
+  transition: 0.25s ease;
+}
+
+.quick-action-card:hover {
+  transform: translateY(-5px);
+  color: var(--text-dark);
+}
+
+.action-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+}
+
+.card {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  box-shadow: 0 8px 22px rgba(27, 67, 50, 0.08);
+}
+
+.card-img-top {
+  height: 190px !important;
+  object-fit: cover;
+}
+
+.card-title {
+  color: var(--green-darker);
+  font-weight: 700;
+}
+
+.card-text {
+  color: var(--text-muted);
+}
+
+/* Admin welcome */
+.admin-title {
+  color: var(--green-darker);
+  font-weight: 700;
+  margin-top: 35px;
+}
+
+/* Buttons */
+.btn-warning {
+  background: var(--green-click) !important;
+  border: none !important;
+  color: var(--green-darker) !important;
+  font-weight: 500;
+}
+
+.btn-warning:hover {
+  background: var(--green-light) !important;
+}
