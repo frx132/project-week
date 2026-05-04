@@ -142,6 +142,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,21 +150,22 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/landingPage.css">
+    <link rel="stylesheet" href="../css/main.css">
+
 
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
     <?php include "../components/navbar.php"; ?>
-    
+
     <div class="container mt-4 mb-5 flex-grow-1">
-        
+
         <!-- Plan Manager Section -->
         <div class="plan-manager">
             <div class="row align-items-center g-3">
-                
+
                 <!-- Plan Selector -->
                 <div class="col-md-4">
                     <form method="get" action="planner.php" class="d-flex align-items-center gap-2">
@@ -196,7 +198,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                         <button type="submit" name="create_plan" class="btn btn-dark btn-sm"><i class="fa-solid fa-plus"></i> Create</button>
                     </form>
                 </div>
-                
+
             </div>
         </div>
 
@@ -307,4 +309,5 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

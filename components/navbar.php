@@ -3,7 +3,7 @@ $isLoggedIn = isset($_SESSION["user"]) || isset($_SESSION["adm"]);
 $dashboardLink = isset($_SESSION["adm"]) ? "../functions/admin_dashboard.php" : "../functions/user_dashboard.php";
 ?>
 <!-- navbar  -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm mb-4">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm ">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="../Pages/landingPage.php">Meal Planner</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,11 +30,11 @@ $dashboardLink = isset($_SESSION["adm"]) ? "../functions/admin_dashboard.php" : 
           </li>
         <?php endif; ?>
       </ul>
-      
+
       <div class="d-flex align-items-center gap-3 flex-wrap">
         <?php if ($isLoggedIn): ?>
-          <?php 
-             $navUserId = isset($_SESSION["user"]) ? $_SESSION["user"] : $_SESSION["adm"];
+          <?php
+          $navUserId = isset($_SESSION["user"]) ? $_SESSION["user"] : $_SESSION["adm"];
           ?>
           <a href="../functions/update.php?id=<?= $navUserId ?>&type=user" class="btn btn-outline-warning btn-sm">Edit Profile</a>
           <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm">Logout</a>

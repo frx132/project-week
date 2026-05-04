@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
 
     $display_data = "
     <div class='container mt-3'>
-    <a href='recipe.php' class='btn btn-outline-dark'>← Go back</a>
+    <a href='recipe.php' class='btn btn-outline-dark'>Close</a>
 </div>
 
     <div class='card m-3'>
@@ -55,8 +55,8 @@ if (mysqli_num_rows($result) > 0) {
     if ($user_id == $recipe['author_id']) {
         $display_data .= "
             <div class='d-flex gap-2 mt-3'>
-                <a href='edit.php?recipeid={$recipe['id']}' class='btn btn-warning'>Edit</a>
-                <a href='delete.php?recipeid={$recipe['id']}' class='btn btn-danger'>Delete</a>
+                <a href='edit.php?recipeid={$recipe['id']}' class='btn btn-dark'>Edit</a>
+                <a href='delete.php?recipeid={$recipe['id']}' class='btn btn-outline-dark'>Delete</a>
             </div>
         ";
     }
@@ -71,8 +71,6 @@ if (mysqli_num_rows($result) > 0) {
 }
 $display_data .= "
     <div class='d-flex justify-content-end gap-2 mt-3 flex-wrap'>
-        <a href='create.php' class='btn btn-dark'>Create</a>
-        <a href='../functions/user_dashboard.php' class='btn btn-outline-dark'>Home</a>
 ";
 ?>
 
@@ -83,7 +81,7 @@ $display_data .= "
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe details</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/recipe.css">
@@ -91,7 +89,6 @@ $display_data .= "
 </head>
 
 <body>
-    <?php include "../components/navbar.php"; ?>
     <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -100,7 +97,6 @@ $display_data .= "
             </div>
         </div>
     </main>
-    <?php include "../components/footer.php"; ?>
 </body>
 
 </html>

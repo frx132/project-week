@@ -77,8 +77,8 @@ mysqli_close($connect);
     <title>Admin Dashboard</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/adminDashboard.css">
 
 </head>
 <!-- Navbar -->
@@ -87,7 +87,9 @@ mysqli_close($connect);
 
     <!-- Body -->
     <h2 class="text-center my-4">Welcome <?= $row["first_name"]  ?></h2>
-
+    <div class="container d-flex align-items-end justify-content-end">
+        <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm ">Logout</a>
+    </div>
     <div class="container mb-5">
         <h3 class="mb-3">Manage Users</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
