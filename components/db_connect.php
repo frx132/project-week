@@ -11,39 +11,38 @@ $connect = new mysqli($hostname, $username, $password, $dbname);
 if (!$connect) {
     die("Connection failed: " . mysqli_connect_error());
 }
-    // File Upload
-    function fileUpload($picture, $source = "user")
-    {
-        $defaultPicture = ($source === "recipe") ? "default_recipe.jpg" : "avatar.png";
+// File Upload
+function fileUpload($picture, $source = "user")
+{
+    $defaultPicture = ($source === "recipe") ? "default_recipe.png" : "avatar.jpg";
 
-        if ($picture["error"] == 4) { 
-            $pictureName = $defaultPicture; 
-            $message = "No picture has been chosen, but you can upload an image later :)";
-        } else {
-            $checkIfImage = @getimagesize($picture["tmp_name"]); 
-            $message = $checkIfImage ? "Ok" : "Not an image";
-        }
+    if ($picture["error"] == 4) {
+        $pictureName = $defaultPicture;
+        $message = "No picture has been chosen, but you can upload an image later :)";
+    } else {
+        $checkIfImage = @getimagesize($picture["tmp_name"]);
+        $message = $checkIfImage ? "Ok" : "Not an image";
+    }
 
-        if ($message == "Ok") {
-            $ext = strtolower(pathinfo($picture["name"], PATHINFO_EXTENSION)); 
-            $pictureName = uniqid("") . "." . $ext; 
-            $destination = "../pictures/{$pictureName}"; 
-            if (!move_uploaded_file($picture["tmp_name"], $destination)) {
-                $message = "Error moving uploaded file";
-                $pictureName = $defaultPicture;
-            }
-        } elseif ($message == "Not an image") {
+    if ($message == "Ok") {
+        $ext = strtolower(pathinfo($picture["name"], PATHINFO_EXTENSION));
+        $pictureName = uniqid("") . "." . $ext;
+        $destination = "../pictures/{$pictureName}";
+        if (!move_uploaded_file($picture["tmp_name"], $destination)) {
+            $message = "Error moving uploaded file";
             $pictureName = $defaultPicture;
         }
-
-        return [$pictureName, $message]; 
+    } elseif ($message == "Not an image") {
+        $pictureName = $defaultPicture;
     }
 
-    function cleanInputs($input)
-    {
-        $data = trim($input);
-        $data = strip_tags($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
+    return [$pictureName, $message];
+}
 
+function cleanInputs($input)
+{
+    $data = trim($input);
+    $data = strip_tags($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
