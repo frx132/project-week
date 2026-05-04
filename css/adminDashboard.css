@@ -1,11 +1,9 @@
-/* ===== Dashboard Base ===== */
 .dashboard {
   min-height: 100dvh;
   background: var(--green-bg);
   padding: 40px 0;
 }
 
-/* ===== Header (User + Admin) ===== */
 .dashboard-header {
   background: linear-gradient(135deg, #ffffff, #f8fdf9);
   border: 1px solid rgba(45, 106, 79, 0.12);
@@ -26,7 +24,6 @@
   margin-top: 6px;
 }
 
-/* ===== Profile Image ===== */
 .dashboard-avatar {
   width: 100px;
   height: 100px;
@@ -35,14 +32,12 @@
   border: 3px solid var(--green-soft);
 }
 
-/* ===== Section Titles ===== */
 .dashboard-section-title {
   color: var(--green-darker);
   font-weight: 700;
   margin-bottom: 15px;
 }
 
-/* ===== Cards ===== */
 .dashboard-card {
   border-radius: 16px;
   overflow: hidden;
@@ -71,7 +66,6 @@
   font-size: 14px;
 }
 
-/* ===== Quick Actions ===== */
 .dashboard-action {
   border-radius: 16px;
   background: #ffffff;
@@ -97,7 +91,6 @@
   margin: 0 auto 12px;
 }
 
-/* ===== Buttons Override ===== */
 .dashboard .btn-warning {
   background: var(--green-click) !important;
   color: var(--green-darker) !important;
