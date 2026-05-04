@@ -18,7 +18,7 @@ $layout = "";
 
 if (mysqli_num_rows($resultUsers) > 0) {
     while ($userRow = mysqli_fetch_assoc($resultUsers)) {
-        $pic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "default_user.png";
+        $pic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "avatar.jpg";
         $layout .= "<div class='col'>
            <div class='card h-100'>
                <img src='../pictures/{$pic}' class='card-img-top' alt='User Image' style='object-fit: cover; height: 200px;'>
