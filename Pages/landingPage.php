@@ -121,7 +121,7 @@ if (isset($_SESSION['adm'])) {
             <p class="text-muted">
               Add recipes to breakfast, lunch, and dinner slots. Stay organized and avoid last-minute decisions.
             </p>
-            <a href=# class="btn btn-dark mt-3">Open Planner</a>
+            <a href="../functions/login.php" class="btn btn-dark mt-3">Open Planner</a>
           </div>
 
           <div class="col-lg-7">

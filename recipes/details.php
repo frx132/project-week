@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) > 0) {
 
     if ($user_id == $recipe['author_id']) {
         $display_data .= "
-            <div class='d-flex gap-2 mt-3'>
+            <div class='d-flex justify-content-end gap-2 mt-3'>
                 <a href='edit.php?recipeid={$recipe['id']}' class='btn btn-dark'>Edit</a>
                 <a href='delete.php?recipeid={$recipe['id']}' class='btn btn-outline-dark'>Delete</a>
             </div>
