@@ -87,14 +87,9 @@ if (isset($_POST["sign-up"])) {
             echo "<div class='alert alert-success'>
                <p>New account has been created, $picture[1]</p>
            </div>";
-            if (isset($_SESSION["user"])) {
-                header("Location: user_dashboard.php");
-                exit;
-            }
-            if (isset($_SESSION["adm"])) {
-                header("Location: admin_dashboard.php");
-                exit;
-            }
+
+            header("Location: login.php");
+            exit;
         } else {
             echo "<div class='alert alert-danger'>
                <p>Something went wrong, please contact us to fix the issue.</p>
