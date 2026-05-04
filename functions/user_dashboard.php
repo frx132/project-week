@@ -71,8 +71,8 @@ if (mysqli_num_rows($resMealPlans) > 0) {
                </small></p>
                <div class='mt-auto'>
 
-                   <a href='../mealPlan/details.php?id={$planRow["id"]}' class='btn btn-outline-dark btn-sm'>View</a>
-                   <a href='../mealPlan/update.php?id={$planRow["id"]}' class='btn btn-warning btn-sm'>Update</a>
+                   <a href='../mealPlan/crudPlanner/details.php?id={$planRow["id"]}' class='btn btn-outline-dark btn-sm'>View</a>
+                   <a href='../mealPlan/crudPlanner/update.php?id={$planRow["id"]}' class='btn btn-warning btn-sm'>Update</a>
                </div>
            </div>
         </div>
@@ -158,11 +158,13 @@ if (mysqli_num_rows($resMealPlans) > 0) {
     <!-- My Meal Plans -->
     <div class="container mb-5">
         <h4 class="mb-3">My Meal Plans</h4>
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-            <?= $layoutMealPlans ?>
-        </div>
+        <a href="../mealPlan/crudPlanner/create.php" class="btn btn-sm btn-dark">+ New Meal Plan</a>
     </div>
-    <?php include "../components/footer.php"; ?>
+
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <?= $layoutMealPlans ?>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

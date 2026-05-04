@@ -1,9 +1,6 @@
 <?php
-session_start();
+require_once "../../components/db_connect.php";
 
-require_once "../components/db_connect.php";
-
-$readMealPlan = "SELECT * FROM meal_plan WHERE user_id = $user_Id ORDER BY meal_date, meal_time";
 
 // Create a Meal plan
 if (isset($_POST["create_plan"])) {
@@ -14,6 +11,8 @@ if (isset($_POST["create_plan"])) {
     $plan_id = $_POST["plan_id"];
     $meal_date = $_POST["meal_date"];
     $meal_time = $_POST["meal_time"];
+    $readMealPlan = "SELECT * FROM meal_plan WHERE user_id = $user_Id ORDER BY meal_date, meal_time";
+    $row = mysqli_fetch_assoc(mysqli_query($connect, $readMealPlan));
 
 
     // Insert meal plan into the database
@@ -45,7 +44,7 @@ VALUES ('$userId', '$planName', '$meal', '$meal_date', '$meal_time')";
 <body>
 
     <!-- Navbar -->
-    <?php include_once "../components/navbar.php"; ?>
+    <?php include_once "../../components/navbar.php"; ?>
 
 
 
@@ -85,9 +84,12 @@ VALUES ('$userId', '$planName', '$meal', '$meal_date', '$meal_time')";
 
 
             <button name="update_plan" type="submit" class="btn btn-warning">Update Meal Plan</button>
-            <button type="delete" class="btn btn-danger">Delete Plans</button>
 
-            <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
+            <button type="delete" class="btn btn-danger">Delete Plans</button>
+            <!-- Delete Button -->
+            <a href="/delete.php?id=<?= $row["id"] ?>" class="btn btn-danger  class=" btn btn-danger">Delete Meal Plan</a>
+            <!-- Back Button -->
+            <a href="../planner.php" class="btn btn-secondary">Back</a>
         </form>
 
     </div>
