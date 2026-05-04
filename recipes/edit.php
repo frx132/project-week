@@ -34,9 +34,8 @@ if (isset($_POST['save'])) {
     if ($_FILES['pictures']['error'] == 4) {
         $sql_query = "UPDATE recipes SET title = '$title', description = '$description', ingredients = '$ingredients', instructions = '$instructions', prep_time = '$prep_time', dietary_type = '$dietary_type', category = '$category', difficulty = '$difficulty', servings = '$servings' WHERE id = {$recipeid}";
     } else {
-        var_dump($_FILES['pictures']);
+        // var_dump($_FILES['pictures']);
         if (isset($recipe['recipe_picture']) && !empty($recipe['recipe_picture'])) {
-            var_dump($recipe['pictures']);
 
             try {
                 unlink("../pictures/{$recipe['recipe_picture']}");
