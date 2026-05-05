@@ -2,7 +2,6 @@
 // DB Connection
 session_start();
 require_once "../components/db_connect.php";
-$backBtn = "../Pages/landingPage.php";
 
 // Login functionality
 $error = false;

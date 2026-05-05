@@ -1,11 +1,10 @@
 <?php
 // DB Connection and session check
 session_start();
-$backBtn = "../Pages/landingpage.php";
 
-if (isset($_SESSION["adm"])) {
-    $backBtn = "admin_dashboard.php";
-}
+// if (isset($_SESSION["adm"])) {
+//     header("Location: admin_dashboard.php");
+// }
 
 require_once "../components/db_connect.php";
 $user_id = $_SESSION["user"];
@@ -21,7 +20,8 @@ $resMealPlans = mysqli_query($connect, $sqlMealPlans);
 
 $resultRecipes = mysqli_query($connect, $sqlRecipes);
 
-var_dump($_SESSION);
+
+
 
 $layoutRecipes = "";
 if (mysqli_num_rows($resultRecipes) > 0) {
@@ -112,7 +112,7 @@ if (mysqli_num_rows($resMealPlans) > 0) {
             </div>
             <div class="container d-flex justify-content-end ">
                 <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm">Logout</a>
-                <a href="../functions/update.php?id={$user_id}" class="btn btn-outline-warning btn-sm">Edit Profile</a>
+                <a href="../functions/update.php?id=<?= $user_id ?>&type=user" class="btn btn-outline-warning btn-sm">Edit Profile</a>
             </div>
         </div>
 

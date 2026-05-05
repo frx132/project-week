@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
 $isLoggedIn = isset($_SESSION["user"]) || isset($_SESSION["adm"]);
 $dashboardLink = isset($_SESSION["adm"]) ?
   "../functions/admin_dashboard.php" : "../functions/user_dashboard.php";

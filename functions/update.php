@@ -10,12 +10,12 @@ $backBtn = "../Pages/landingpage.php";
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
-    $backBtn = "../functions/user_dashboard.php";
+    $backBtn = "user_dashboard.php";
 }
 
 $id = $_GET["id"] ?? '';
 $type = $_GET["type"] ?? '';
-// $userID = $_SESSION["id"];
+// var_dump($_GET);
 
 if (!$id || !$type) {
     header("Location: $backBtn");
@@ -127,6 +127,10 @@ if ($type == 'user') {
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= htmlspecialchars($row["email"] ?? '') ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lname" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= htmlspecialchars($row["last_name"] ?? '') ?>" required>
                 </div>
                 <button name="update" type="submit" class="btn btn-warning">Update Profile</button>
                 <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
