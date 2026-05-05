@@ -2,10 +2,10 @@
 session_start();
 require_once "../components/db_connect.php";
 
-if (!isset($_SESSION["adm"])) {
-    header("Location: login.php");
-    exit;
-}
+// if (!isset($_SESSION["adm"])) {
+//     header("Location: login.php");
+//     exit;
+// }
 
 $sql = "SELECT * FROM users WHERE id = {$_SESSION["adm"]}";
 $result = mysqli_query($connect, $sql);
@@ -13,21 +13,29 @@ $row = mysqli_fetch_assoc($result);
 $sqlUsers = "SELECT * FROM users WHERE role != 'Admin'";
 $resultUsers = mysqli_query($connect, $sqlUsers);
 
-
 $layout = "";
 
 if (mysqli_num_rows($resultUsers) > 0) {
     while ($userRow = mysqli_fetch_assoc($resultUsers)) {
         $pic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "avatar.jpg";
+        $status_badge = "";
+
+        if ($userRow['status'] == "Active") {
+            $status_badge = "<span class='badge badge-success'>{$userRow['status']}</span>";
+        } else {
+            $status_badge = "<span class='badge badge-secondary'>{$userRow['status']}</span>";
+        }
+
         $layout .= "<div class='col'>
            <div class='card h-100'>
                <img src='../pictures/{$pic}' class='card-img-top' alt='User Image' style='object-fit: cover; height: 200px;'>
                <div class='card-body d-flex flex-column'>
-               <h5 class='card-title'>{$userRow["first_name"]} {$userRow["last_name"]}</h5>
-               <p class='card-text'>{$userRow["email"]}</p>
+               <h5 class='card-title'>{$userRow['first_name']} {$userRow['last_name']}</h5>
+               <p class='card-text'>{$userRow['email']}</p>
+               <?= $status_badge ?>
                <div class='mt-auto'>
-                   <a href='update.php?id={$userRow["id"]}&type=user' class='btn btn-warning'>Update</a>
-                   <a href='delete.php?id={$userRow["id"]}&type=user' class='btn btn-danger'>Delete</a>
+                   <a href='update.php?id={$userRow['id']}&type=user' class='btn btn-warning'>Update</a>
+                   <a href='delete.php?id={$userRow['id']}&type=user' class='btn btn-danger'>Delete</a>
                </div>
            </div>
        </div>

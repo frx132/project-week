@@ -2,9 +2,9 @@
 // DB Connection and session check
 session_start();
 
-// if (isset($_SESSION["adm"])) {
-//     header("Location: admin_dashboard.php");
-// }
+if (isset($_SESSION["adm"])) {
+    header("Location: admin_dashboard.php");
+}
 
 require_once "../components/db_connect.php";
 $user_id = $_SESSION["user"];
