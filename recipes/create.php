@@ -1,16 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
-    header("Location: ../functions/login.php");
-    exit;
-}
-
-
 require_once "../components/db_connect.php";
-
-
-
-
 
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];

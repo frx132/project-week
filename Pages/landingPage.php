@@ -1,16 +1,6 @@
-<?php ?>
 <?php
+require_once "../components/db_connect.php";
 
-session_start();
-
-// If user is already logged in, redirect to dashboard
-if (isset($_SESSION['adm'])) {
-  header('Location: ../functions/admin_dashboard.php');
-  exit;
-} elseif (isset($_SESSION['user'])) {
-  header('Location: ../functions/user_dashboard.php');
-  exit;
-}
 
 ?>
 

@@ -1,11 +1,4 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
-    header("Location: ../functions/login.php");
-    exit;
-}
-
 require_once "../components/db_connect.php";
 
 if (!isset($_GET['recipeid']) || empty($_GET['recipeid'])) {
@@ -91,7 +84,10 @@ $display_data .= "
 </head>
 
 <body>
+    <!-- Navbar -->
     <?php include "../components/navbar.php"; ?>
+
+
     <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -100,6 +96,8 @@ $display_data .= "
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
     <?php include "../components/footer.php"; ?>
 </body>
 

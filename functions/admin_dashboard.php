@@ -1,21 +1,23 @@
 <?php
-session_start();
+// DB Connection and session check
 require_once "../components/db_connect.php";
 
-if (!isset($_SESSION["adm"])) {
-    header("Location: login.php");
-    exit;
-}
-
+// SQL queries for admin dashboard
 $sql = "SELECT * FROM users WHERE id = {$_SESSION["adm"]}";
+$sqlUsers = "SELECT * FROM users WHERE role != 'Admin'";
+$sqlRecipes = "SELECT * FROM recipes";
+$sqlMealPlans = "SELECT * FROM `meal_plan`";
+
+// var_dump($sqlUsers);
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
-$sqlUsers = "SELECT * FROM users WHERE role != 'Admin'";
 $resultUsers = mysqli_query($connect, $sqlUsers);
+$resultRecipes = mysqli_query($connect, $sqlRecipes);
+$resultMealPlans = mysqli_query($connect, $sqlMealPlans);
 
 
+// Users for admin dashboard 
 $layout = "";
-
 if (mysqli_num_rows($resultUsers) > 0) {
     while ($userRow = mysqli_fetch_assoc($resultUsers)) {
         $pic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "default_user.png";
@@ -36,10 +38,8 @@ if (mysqli_num_rows($resultUsers) > 0) {
     $layout .= "<p>No users found!</p>";
 }
 
-$sqlRecipes = "SELECT * FROM recipes";
-$resultRecipes = mysqli_query($connect, $sqlRecipes);
+// Recipies for admin dashboard 
 $layoutRecipes = "";
-
 if (mysqli_num_rows($resultRecipes) > 0) {
     while ($recipeRow = mysqli_fetch_assoc($resultRecipes)) {
         $rPic = !empty($recipeRow["recipe_picture"]) ? $recipeRow["recipe_picture"] : "default_recipe.jpg";
@@ -60,14 +60,43 @@ if (mysqli_num_rows($resultRecipes) > 0) {
     $layoutRecipes .= "<p>No recipes found!</p>";
 }
 
+
+// Meal plans for admin dashboard  
+$layoutMealPlans = "";
+if (mysqli_num_rows($resultMealPlans) > 0) {
+    while ($Row = mysqli_fetch_assoc($resultMealPlans)) {
+        $layoutMealPlans .= "
+        <div class='col'>
+           <div class='card h-100'>
+               <div class='card-body d-flex flex-column'>
+             
+
+                <p class='card-text'>User ID: {$Row["user_id"]}
+                </p>
+                <p class='card-text'>Plan Name: {$Row["name"]}
+                </p>
+                
+                
+                <p class='card-text'>Start 
+                Date: {$Row["created_at"]}
+                </p>
+                <div class='mt-auto'>
+                     <a href='update.php?id={$Row["id"]}&type=plan' class='btn btn-warning'>Update</a>
+                </div>
+              
+           </div>
+        </div>
+      </div>";
+    }
+} else {
+    $layoutMealPlans .= "<p>No meal plans found!</p>";
+}
+
+
+
 mysqli_close($connect);
-
-
-
-
-
 ?>
-
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,6 +111,7 @@ mysqli_close($connect);
 
 </head>
 <!-- Navbar -->
+<?php include_once "../components/navbar.php"; ?>
 
 <body>
 
@@ -89,17 +119,26 @@ mysqli_close($connect);
     <h2 class="text-center my-4">Welcome <?= $row["first_name"]  ?></h2>
 
     <div class="container mb-5">
+        <!-- Manage Users -->
         <h3 class="mb-3">Manage Users</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <?= $layout ?>
         </div>
 
-
+        <!-- Manage Recipes -->
         <h3 class="mb-3">Manage Recipes</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?= $layoutRecipes ?>
         </div>
+
+        <!-- Manage Plans -->
+        <h3 class="mb-3">Manage Plans</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?= $layoutMealPlans ?>
+        </div>
+
     </div>
+
 
 
     <!-- Bootstrap JS -->

@@ -1,22 +1,11 @@
 <?php
-// Session 
-session_start();
-if (isset($_SESSION["user"])) {
-    header("Location: user_dashboard.php");
-    exit;
-}
-if (isset($_SESSION["adm"])) {
-    header("Location: admin_dashboard.php");
-    exit;
-}
-
 // DB Connection
 require_once "../components/db_connect.php";
+$backBtn = "../Pages/landingPage.php";
 
 // Login functionality
 $error = false;
 $input = "";
-
 $email = "";
 $emailError = $passError = "";
 
@@ -24,8 +13,6 @@ $emailError = $passError = "";
 if (isset($_POST["login"])) {
     $email = cleanInputs($_POST["email"]);
     $password = cleanInputs($_POST["password"]);
-
-
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailError = "Please enter a valid email address";
     }
@@ -59,22 +46,23 @@ if (isset($_POST["login"])) {
 <html lang="en">
 
 <head>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap"
-        rel="stylesheet">
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login page</title>
+    <!--  -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/auth.css">
+
+
 </head>
 
 <body>
-    <!-- Navbar -->
-    <?php include "../components/navbar.php"; ?>
 
     <!-- Login Form -->
     <div class="container">
@@ -98,7 +86,7 @@ if (isset($_POST["login"])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>

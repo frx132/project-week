@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-if (!isset($_SESSION["user"]) && !isset($_SESSION["adm"])) {
-    header("Location: ../functions/login.php");
-    exit;
-}
 
 require_once "../components/db_connect.php";
 
@@ -142,6 +136,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,15 +151,18 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
+    <!-- Navbar -->
     <?php include "../components/navbar.php"; ?>
-    
 
 
-    <div class="container mt-4 mb-5 flex-grow-1">    
+
+    <div class="container mt-4 mb-5 flex-grow-1">
         <!-- Plan Manager Section -->
         <div class="plan-manager">
-            <div class="row align-items-center g-3">   
+            <div class="row align-items-center g-3">
+
                 <!-- Plan Selector -->
+
                 <div class="col-md-4">
                     <form method="get" action="planner.php" class="d-flex align-items-center gap-2">
                         <label for="plan_id" class="fw-bold mb-0 text-nowrap">Current Plan:</label>
@@ -186,8 +184,8 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
 
                     <!-- Using the new delete.php script! -->
                     <a href="../functions/delete.php?id=<?= $mealPlanId ?>
-                    &type=plan" class="btn btn-outline-danger btn-sm" 
-                    onclick="return confirm('Are you sure you want to delete this entire meal plan?');">
+                    &type=plan" class="btn btn-outline-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this entire meal plan?');">
                         <i class="fa-solid fa-trash"></i> Delete Plan
                     </a>
                 </div>
@@ -199,7 +197,7 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
                         <button type="submit" name="create_plan" class="btn btn-dark btn-sm"><i class="fa-solid fa-plus"></i> Create</button>
                     </form>
                 </div>
-                
+
             </div>
         </div>
 
@@ -310,4 +308,5 @@ while ($row = mysqli_fetch_assoc($resSchedule)) {
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
