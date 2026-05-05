@@ -13,6 +13,7 @@ if (isset($_SESSION["adm"])) {
 
 $id = $_GET["id"] ?? '';
 $type = $_GET["type"] ?? '';
+$userID = $_SESSION["id"];
 
 if (!$id || !$type) {
     header("Location: $backBtn");

@@ -93,7 +93,6 @@ if (mysqli_num_rows($resMealPlans) > 0) {
 
 <body class="bg-light">
     <!-- Navbar -->
-    <?php include "../components/navbar.php"; ?>
 
     <main class="container mb-5">
         <!-- Profile Header -->
@@ -102,7 +101,11 @@ if (mysqli_num_rows($resMealPlans) > 0) {
             <div>
                 <h2 class="fw-bold mb-1">Welcome back, <?= htmlspecialchars($userRow["first_name"]) ?>!</h2>
                 <p class="text-muted mb-0"><i class="fa-regular fa-envelope me-2"></i><?= htmlspecialchars($userRow["email"]) ?></p>
+
+            </div>
+            <div class="container d-flex justify-content-end ">
                 <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm">Logout</a>
+                <a href="../functions/update.php?id={$user_id}" class="btn btn-outline-warning btn-sm">Edit Profile</a>
             </div>
         </div>
 
@@ -142,7 +145,7 @@ if (mysqli_num_rows($resMealPlans) > 0) {
         </div>
 
     </main>
-    <?php include "../components/footer.php"; ?>
+
 
 
     <!-- My Meal Plans -->
@@ -152,7 +155,7 @@ if (mysqli_num_rows($resMealPlans) > 0) {
             <?= $layoutMealPlans ?>
         </div>
     </div>
-
+    <?php include "../components/footer.php"; ?>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
