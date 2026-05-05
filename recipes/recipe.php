@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
             <p>Preparation time: {$recipe['prep_time']} minutes </p>
             
            <a href='#' 
-   class='btn btn-warning open-modal' 
+   class='btn btn-outline-dark open-modal' 
    data-id='{$recipe['id']}'
    data-bs-toggle='modal' 
    data-bs-target='#recipeModal'>
@@ -51,13 +51,8 @@ if (mysqli_num_rows($result) > 0) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/recipe.css">
     <link rel="stylesheet" href="../css/details.css">
@@ -66,9 +61,11 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
+
     <div class="container d-flex justify-content-start align-items-start mt-5">
         <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
     </div>
+    <h1 class="text-center fw-semibold">All Recipes</h1>
     <div class="container mb-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 d-flex justify-content-center">
             <?= $display_data ?>
@@ -90,6 +87,8 @@ if (mysqli_num_rows($result) > 0) {
             </div>
         </div>
     </div>
+    <?php include "../components/footer.php"; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.querySelectorAll('.open-modal').forEach(button => {

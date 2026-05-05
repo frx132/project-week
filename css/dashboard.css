@@ -1,7 +1,6 @@
 /* Dashboard */
 body {
   background: var(--green-bg);
-  height: 100dvh;
 }
 
 .dashboard-page {

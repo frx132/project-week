@@ -1,0 +1,75 @@
+body {
+  min-height: 100dvh;
+  background: var(--green-bg);
+}
+
+.sidebar-layout {
+  min-height: 100dvh;
+}
+
+.sidebar {
+  background: var(--green-darker);
+  min-height: 100dvh;
+  padding: 20px 14px;
+}
+
+.sidebar-brand {
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 10px 12px 24px;
+  display: block;
+}
+
+.sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.78) !important;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: rgba(216, 243, 220, 0.16);
+  color: var(--white) !important;
+}
+
+.sidebar .nav-link i {
+  color: var(--green-light);
+  width: 22px;
+}
+
+.sidebar-submenu {
+  margin-left: 14px;
+  border-left: 1px solid rgba(216, 243, 220, 0.25);
+  padding-left: 12px;
+}
+
+.sidebar-submenu .nav-link {
+  font-size: 14px;
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.sidebar-user {
+  border-top: 1px solid rgba(216, 243, 220, 0.18);
+  padding-top: 18px;
+  margin-top: auto;
+}
+
+.sidebar-user img {
+  border: 2px solid var(--green-light);
+}
+
+.sidebar-user span {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.content-area {
+  padding: 32px;
+  background: var(--green-bg);
+}

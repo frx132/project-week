@@ -58,18 +58,19 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a recipe</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Create</title>
+    <?php include "../components/head.php"; ?>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/recipeForm.css">
 </head>
 
 <body>
     <div class="container my-5">
-
+        <div class="container d-flex justify-content-start align-items-start mt-5">
+            <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+        </div>
         <div class="row">
             <div class="col col-md-6 mx-auto">
-                <a href="recipe.php" class="btn btn-secondary my-4">Back</a>
                 <h3>Create a new recipe</h3>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="mb-3">

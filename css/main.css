@@ -148,3 +148,18 @@ a {
 footer {
   background-color: var(--green-dark) !important;
 }
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: var(--white);
+  font-size: 22px;
+}
+
+.footer-social a:hover {
+  color: var(--green-light);
+}

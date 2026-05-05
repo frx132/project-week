@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--green-bg);
+  font-family: "Poppins", sans-serif;
+}
+
+.logout-screen h1 {
+  font-size: 42px;
+  color: var(--green-darker);
+  font-weight: 600;
+}
+
+.dots::after {
+  content: "";
+  animation: dots 1.4s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}

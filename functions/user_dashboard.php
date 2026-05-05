@@ -47,12 +47,8 @@ mysqli_close($connect);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Meal Planner</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 
@@ -60,7 +56,7 @@ mysqli_close($connect);
 
 <body class="bg-light">
 
-    <div class="container mb-5">
+    <main class="container mb-5">
         <!-- Profile Header -->
         <div class="profile-header shadow-sm d-flex flex-column flex-md-row align-items-center gap-4 text-center text-md-start">
             <img src="../pictures/<?= $userPic ?>" alt="Profile Picture" class="profile-img">
@@ -105,8 +101,11 @@ mysqli_close($connect);
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
             <?= $layoutRecipes ?>
         </div>
-    </div>
+
+    </main>
     <?php include "../components/footer.php"; ?>
+
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
