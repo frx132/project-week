@@ -1,9 +1,13 @@
 <?php
 // DB Connection and session check
 session_start();
+$backBtn = "../Pages/landingpage.php";
+
+if (isset($_SESSION["adm"])) {
+    $backBtn = "admin_dashboard.php";
+}
 
 require_once "../components/db_connect.php";
-
 $user_id = $_SESSION["user"];
 $sqlUser = "SELECT * FROM users WHERE id = {$user_id}";
 $sqlRecipes = "SELECT * FROM recipes WHERE author_id = {$user_id}";
@@ -17,6 +21,7 @@ $resMealPlans = mysqli_query($connect, $sqlMealPlans);
 
 $resultRecipes = mysqli_query($connect, $sqlRecipes);
 
+var_dump($_SESSION);
 
 $layoutRecipes = "";
 if (mysqli_num_rows($resultRecipes) > 0) {

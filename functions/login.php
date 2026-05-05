@@ -1,5 +1,6 @@
 <?php
 // DB Connection
+session_start();
 require_once "../components/db_connect.php";
 $backBtn = "../Pages/landingPage.php";
 
@@ -31,7 +32,7 @@ if (isset($_POST["login"])) {
                 header("Location: admin_dashboard.php");
             } else {
                 $_SESSION["user"] = $row["id"];
-                header("Location: ../Pages/landingPage.php");
+                header("Location: user_dashboard.php");
             }
         } else {
             echo "<div class='alert alert-danger'>
