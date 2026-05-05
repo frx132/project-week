@@ -1,24 +1,9 @@
 <?php
-session_start();
-
-if (isset($_SESSION["user"])) {
-    header("Location: user_dashboard.php");
-    exit;
-}
-if (isset($_SESSION["adm"])) {
-    header("Location: admin_dashboard.php");
-    exit;
-}
-
 require_once "../components/db_connect.php";
 
-$error = false;  // by default, a varialbe $error is false, means there is no error in our form
-
-
-
-
-$fname = $lname = $email = $date_of_birth = ""; // define variables and set them to empty string
-$fnameError = $lnameError = $emailError = $dateError = $passError = ""; // define variables that will hold error messages later, for now empty string
+$error = false;
+$fname = $lname = $email = $date_of_birth = "";
+$fnameError = $lnameError = $emailError = $dateError = $passError = "";
 
 if (isset($_POST["sign-up"])) {
     $fname = cleanInputs($_POST["fname"]);
@@ -75,12 +60,9 @@ if (isset($_POST["sign-up"])) {
         $passError = "Password must have at least 6 characters.";
     }
 
-    if (!$error) { // if there is no error with any input, data will be inserted to the database
-        // hashing the password before inserting it to the database
+    if (!$error) {
         $password = hash("sha256", $password);
-
         $sql = "INSERT INTO users (first_name, last_name, password, email, user_image) VALUES ('$fname','$lname', '$password', '$email', '$picture[0]')";
-
         $result = mysqli_query($connect, $sql);
 
         if ($result) {

@@ -1,10 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
-
-    header("Location: ../functions/login.php");
-    exit;
-}
 
 require_once "../components/db_connect.php";
 $sql_query = "SELECT * FROM `recipes`";

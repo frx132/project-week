@@ -1,15 +1,10 @@
 <?php
-session_start();
-
-
+// DB Connection and session check
 require_once "../components/db_connect.php";
 
-if (!isset($_SESSION["adm"]) && !isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit;
-}
-
+// Redirect back button based on user role
 $backBtn = "../Pages/landingpage.php";
+
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
@@ -49,8 +44,7 @@ if ($type == 'user') {
         }
 
         if (mysqli_query($connect, $sql)) {
-            echo "<div class='alert alert-success' role='alert'>User profile has been updated, {$picture[1]}</div>";
-            header("refresh: 3; url=$backBtn");
+            echo "<div class='alert alert-success' role='alert'>User profile has been Updated</div>";
         } else {
             echo "<div class='alert alert-danger' role='alert'>Error found, {$picture[1]}</div>";
         }
@@ -70,7 +64,7 @@ if ($type == 'user') {
         $category = mysqli_real_escape_string($connect, $_POST["category"]);
         $difficulty = mysqli_real_escape_string($connect, $_POST["difficulty"]);
         $servings = $_POST["servings"];
-        
+
         $picture = fileUpload($_FILES["recipe_picture"], "recipe");
 
         if ($_FILES["recipe_picture"]["error"] == 0) {
@@ -97,14 +91,20 @@ if ($type == 'user') {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit <?= ucfirst($type) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
-<body>
 
+<body>
+    <!-- Navbar -->
+    <?php include_once "../components/navbar.php"; ?>
+
+
+    <!-- Edit Profile -->
     <div class="container mt-5 mb-5">
         <?php if ($type == 'user'): ?>
             <h1 class="text-center mb-4">Edit Profile</h1>
@@ -194,6 +194,12 @@ if ($type == 'user') {
         <?php endif; ?>
     </div>
 
+    <!-- Update Mealplans  -->
+
+
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -1,16 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['user']) && !isset($_SESSION['admin'])) {
-    header("Location: ../functions/login.php");
-    exit;
-}
-
-
 require_once "../components/db_connect.php";
 
 $recipeid = $_GET['recipeid'];
-
-
 $sql_query = "SELECT * FROM `recipes` WHERE id = $recipeid ";
 $result = mysqli_query($connect, $sql_query);
 

@@ -1,35 +1,37 @@
 <?php
-session_start();
+// DB Connection and session check
 require_once "../components/db_connect.php";
-
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit;
-}
 
 $user_id = $_SESSION["user"];
 $sqlUser = "SELECT * FROM users WHERE id = {$user_id}";
+$sqlRecipes = "SELECT * FROM recipes WHERE author_id = {$user_id}";
+$sqlMealPlans = "SELECT * FROM meal_plan WHERE user_id = {$user_id}";
+$sqlmeal_plan_recipe = "SELECT * FROM meal_plan_recipe WHERE meal_plan_id = {$user_id}";
 $resUser = mysqli_query($connect, $sqlUser);
 $userRow = mysqli_fetch_assoc($resUser);
+$resMealPlans = mysqli_query($connect, $sqlMealPlans);
 
 // User's recipes
-$sqlRecipes = "SELECT * FROM recipes WHERE author_id = {$user_id}";
-$resRecipes = mysqli_query($connect, $sqlRecipes);
-$layoutRecipes = "";
 
-if (mysqli_num_rows($resRecipes) > 0) {
-    while ($recipeRow = mysqli_fetch_assoc($resRecipes)) {
+$resultRecipes = mysqli_query($connect, $sqlRecipes);
+
+
+$layoutRecipes = "";
+if (mysqli_num_rows($resultRecipes) > 0) {
+    while ($recipeRow = mysqli_fetch_assoc($resultRecipes)) {
         $rPic = !empty($recipeRow["recipe_picture"]) ? $recipeRow["recipe_picture"] : "default_recipe.jpg";
         $layoutRecipes .= "<div class='col'>
            <div class='card h-100 shadow-sm'>
                <img src='../pictures/{$rPic}' class='card-img-top' alt='Recipe Image' style='object-fit: cover; height: 200px;'>
                <div class='card-body d-flex flex-column'>
+              
                <h5 class='card-title'>{$recipeRow["title"]}</h5>
                <p class='card-text text-muted mb-1'><small>Category: {$recipeRow["category"]}</small></p>
                <p class='card-text text-muted'><small>Type: {$recipeRow["dietary_type"]}</small></p>
+              
                <div class='mt-auto'>
                    <a href='../recipes/details.php?recipeid={$recipeRow["id"]}' class='btn btn-outline-dark btn-sm'>View</a>
-                   <a href='update.php?id={$recipeRow["id"]}&type=recipe' class='btn btn-warning btn-sm'>Update</a>
+                   <a href='../recipes/update.php?id={$recipeRow["id"]}&type=recipe' class='btn btn-warning btn-sm'>Update</a>
                </div>
            </div>
         </div>
@@ -42,7 +44,42 @@ if (mysqli_num_rows($resRecipes) > 0) {
 $userPic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "avatar.png";
 
 mysqli_close($connect);
+
+
+// User's meal plans
+$layoutMealPlans = "";
+if (mysqli_num_rows($resMealPlans) > 0) {
+    while ($planRow = mysqli_fetch_assoc($resMealPlans)) {
+        $layoutMealPlans .= "
+        <div class='col'>      
+           <div class='card h-100 shadow-sm'>
+               <div class='card-body d-flex flex-column'>
+               <h5 class='card-title'>
+               {$planRow["name"]}</h5>
+               <p class='card-text text-muted mb-1'><small>
+               Plan ID: {$planRow["id"]}</small>
+               </p>
+               <p class='card-text text-muted'><small>
+               Created on: {$planRow["created_at"]}
+               </small></p>
+               <div class='mt-auto'>
+
+                   <a href='../mealPlan/details.php?id={$planRow["id"]}' class='btn btn-outline-dark btn-sm'>View</a>
+                   <a href='../mealPlan/update.php?id={$planRow["id"]}' class='btn btn-warning btn-sm'>Update</a>
+               </div>
+           </div>
+        </div>
+      </div>";
+    }
+} else {
+    $layoutMealPlans .= "<div class='col-12'><p class='text-muted'>You haven't created any meal plans yet.</p></div>";
+}
+
+
+
 ?>
+
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,6 +92,8 @@ mysqli_close($connect);
 </head>
 
 <body class="bg-light">
+    <!-- Navbar -->
+    <?php include "../components/navbar.php"; ?>
 
     <main class="container mb-5">
         <!-- Profile Header -->
@@ -105,6 +144,14 @@ mysqli_close($connect);
     </main>
     <?php include "../components/footer.php"; ?>
 
+
+    <!-- My Meal Plans -->
+    <div class="container mb-5">
+        <h4 class="mb-3">My Meal Plans</h4>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            <?= $layoutMealPlans ?>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

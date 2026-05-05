@@ -1,11 +1,14 @@
 <?php
-session_start();
+// DB Connection and session check
 require_once "../components/db_connect.php";
+
+// 
+$backBtn = "../Pages/landingPage.php";
+
 if (!isset($_SESSION["adm"]) && !isset($_SESSION["user"])) {
     header("Location: login.php");
     exit;
 }
-$backBtn = "../Pages/landingPage.php";
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
@@ -17,8 +20,8 @@ if (!$id || !$type) {
     header("Location: $backBtn");
     exit;
 }
-
-if ($type == "user" && isset($_SESSION["adm"])) { // Only admins can delete users
+// Only admins can delete users
+if ($type == "user" && isset($_SESSION["adm"])) {
     $sql = "SELECT user_image FROM users WHERE id = {$id}";
     $res = mysqli_query($connect, $sql);
     if ($res && mysqli_num_rows($res) > 0) {
@@ -31,14 +34,13 @@ if ($type == "user" && isset($_SESSION["adm"])) { // Only admins can delete user
     }
     header("Location: admin_dashboard.php");
     exit;
-
 } elseif ($type == "recipe") {
     $sql = "SELECT recipe_picture, author_id FROM recipes WHERE id = {$id}";
     $res = mysqli_query($connect, $sql);
     if ($res && mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
         $current_user = isset($_SESSION["adm"]) ? $_SESSION["adm"] : $_SESSION["user"];
-        
+
         // Only allow deletion if admin OR if the user is the author
         if (isset($_SESSION["adm"]) || $current_user == $row["author_id"]) {
             if ($row["recipe_picture"] != "default_recipe.jpg" && !empty($row["recipe_picture"])) {
@@ -50,7 +52,6 @@ if ($type == "user" && isset($_SESSION["adm"])) { // Only admins can delete user
     }
     header("Location: $backBtn");
     exit;
-
 } elseif ($type == "plan") {
     // Delete meal plan
     $sql = "SELECT user_id FROM meal_plan WHERE id = {$id}";
@@ -58,7 +59,7 @@ if ($type == "user" && isset($_SESSION["adm"])) { // Only admins can delete user
     if ($res && mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
         $current_user = isset($_SESSION["user"]) ? $_SESSION["user"] : $_SESSION["adm"];
-        
+
         if ($current_user == $row["user_id"]) {
             $delSql = "DELETE FROM meal_plan WHERE id = {$id}";
             mysqli_query($connect, $delSql);
@@ -70,4 +71,3 @@ if ($type == "user" && isset($_SESSION["adm"])) { // Only admins can delete user
 
 header("Location: $backBtn");
 exit;
-?>
