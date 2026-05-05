@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once "../components/db_connect.php";
 if (isset($_GET['id']) && isset($_GET['type'])) {
     $id = $_GET['id'];

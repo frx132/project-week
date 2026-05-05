@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once "../components/db_connect.php";
 
 $readMealPlan = "SELECT * FROM meal_plan WHERE user_id = $user_Id ORDER BY meal_date, meal_time";

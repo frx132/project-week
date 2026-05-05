@@ -1,7 +1,7 @@
 
-Leader Özge
-Planning: Chetan
-Developer: all
+Team lead: Özge
+Backend developer: Chetan
+Front end developer: Kair
 
 - --- 
 27.04 Planning the Databases and Tables for Meal/User CRUD (Chetan)

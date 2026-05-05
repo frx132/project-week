@@ -1,5 +1,7 @@
 <?php
 // DB Connection and session check
+session_start();
+
 require_once "../components/db_connect.php";
 
 // Redirect back button based on user role
