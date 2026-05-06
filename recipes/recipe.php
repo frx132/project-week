@@ -83,30 +83,37 @@ if (mysqli_num_rows($result) > 0) {
 
 <body>
 
-    <div class="container d-flex justify-content-start align-items-start mt-5">
-        <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
-    </div>
-    <div class="row mb-4  ">
-        <div class="col-md-4 m-auto">
-            <div class="dropdown">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Filter: Dietary type
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="recipe.php">All recipes</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
-                </ul>
+    <div class="container mt-5">
+        <div class="d-flex align-items-center justify-content-between gap-3 flex-nowrap">
+
+            <div class="d-flex align-items-center gap-2 flex-nowrap">
+                <a href="/functions/user_dashboard.php" class="btn btn-outline-dark">
+                    <i class="fa-solid fa-arrow-left"></i> Go back
+                </a>
+
+                <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Filter: Dietary type
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="recipe.php">All recipes</a></li>
+                        <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
+                        <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
+                        <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4 ms-auto">
-            <form class="d-flex" role="search" action="recipe_search_results.php">
-                <input class="form-control me-2" type="search" placeholder="Search for recipes" aria-label="Search" value="" name="search" />
+
+            <form class="d-flex gap-2" role="search" action="recipe_search_results.php">
+                <input class="form-control" type="search" placeholder="Search for recipes" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
         </div>
+    </div>
+
+    </div>
     </div>
     <h1 class="text-center fw-semibold">All Recipes</h1>
     <div class="container mb-5 mt-3">

@@ -144,7 +144,7 @@ if (isset($_POST["Reset_Mealplan"])) {
                             <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         <?php foreach ($days as $day): ?>
                             <tr>
