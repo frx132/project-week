@@ -1,9 +1,5 @@
 <?php
-// Session + DB Connectiond
-require_once "../components/db_connect.php";
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+
 // Time vars
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -64,7 +60,6 @@ if (isset($_POST["Reset_Mealplan"])) {
     $stmtClear->bind_param("i", $meal_plan_id);
 
     if ($stmtClear->execute()) {
-        // Seite neu laden, um die leere Tabelle anzuzeigen
         header("Location: " . $_SERVER['PHP_SELF'] . "?cleared=1");
         exit();
     }

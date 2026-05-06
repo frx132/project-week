@@ -19,7 +19,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         if (mysqli_query($connect, $sql_delete_plan)) {
             header("Location: ../planner.php?success=plan_deleted");
         } else {
-            echo "Failed to delete Plans: " . mysqli_error($connect);
+            echo "Failed to load  Plans: " . mysqli_error($connect);
         }
     } elseif ($type === 'entry') {
 
