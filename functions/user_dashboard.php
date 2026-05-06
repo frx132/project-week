@@ -1,7 +1,10 @@
 <?php
 // DB Connection and session check
 session_start();
-
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
 if (isset($_SESSION["adm"])) {
     header("Location: admin_dashboard.php");
 }

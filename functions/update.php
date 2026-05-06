@@ -1,14 +1,14 @@
 <?php
 // DB Connection and session check
 session_start();
-
+if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
+    header("Location: login.php");
+    exit;
+}
 require_once "../components/db_connect.php";
 
 // Redirect back button based on user role
 $backBtn = "../Pages/landingpage.php";
-
-
-// 
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {

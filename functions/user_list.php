@@ -2,10 +2,10 @@
 session_start();
 require_once "../components/db_connect.php";
 
-// if (!isset($_SESSION["adm"])) {
-//     header("Location: login.php");
-//     exit;
-// }
+if (!isset($_SESSION["adm"])) {
+    header("Location: login.php");
+    exit;
+}
 
 $sql = "SELECT * FROM users WHERE id = {$_SESSION["adm"]}";
 $result = mysqli_query($connect, $sql);
@@ -21,11 +21,10 @@ if (mysqli_num_rows($resultUsers) > 0) {
 
         if ($userRow['status'] == "Active") {
             $status_badge = "success";
-            // var_dump($status_badge);
         } else {
             $status_badge = "danger";
         }
-        // var_dump($status_badge);
+
 
         $layout .= "<div class='col'>
            <div class='card h-100'>

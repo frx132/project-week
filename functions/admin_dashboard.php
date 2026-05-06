@@ -1,6 +1,10 @@
 <?php
 // DB Connection and session check
 session_start();
+if (!isset($_SESSION["adm"])) {
+    header("Location: login.php");
+    exit;
+}
 
 require_once "../components/db_connect.php";
 
