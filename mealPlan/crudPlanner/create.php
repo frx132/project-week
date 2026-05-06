@@ -1,9 +1,4 @@
 <?php
-// Session + DB Connectiond
-require_once "../components/db_connect.php";
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 // Time vars
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -38,10 +33,10 @@ if (isset($_POST["create_Mealplan"])) {
 }
 // Mealplan Display for Table 
 $query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.recipe_id = r.id WHERE mpr.meal_plan_id = ?";
-$stmt = $connect->prepare($query);
-$stmt->bind_param("i", $meal_plan_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$data = $connect->prepare($query);
+$data->bind_param("i", $meal_plan_id);
+$data->execute();
+$result = $data->get_result();
 $myPlan = [];
 while ($row = $result->fetch_assoc()) {
     $myPlan[$row['meal_date']][$row['meal_time']][] = $row['title'];
@@ -53,8 +48,7 @@ while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
 }
 
 // Storage for User 
-$myPlan[$row['meal_date']][$row['meal_time']] =
-    $row['title'];
+$myPlan[$row['meal_date']][$row['meal_time']] = $row['title'];
 
 
 // Cleans Table from Mealplan
@@ -64,7 +58,6 @@ if (isset($_POST["Reset_Mealplan"])) {
     $stmtClear->bind_param("i", $meal_plan_id);
 
     if ($stmtClear->execute()) {
-        // Seite neu laden, um die leere Tabelle anzuzeigen
         header("Location: " . $_SERVER['PHP_SELF'] . "?cleared=1");
         exit();
     }

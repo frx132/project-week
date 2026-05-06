@@ -4,46 +4,76 @@ require_once "../../components/db_connect.php";
 
 $userId = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
 if (!$userId) {
-    die("failed to load session");
+    die("No active session found.");
 }
+
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = (int)$_GET['id'];
-    $type = $_GET['type'] ?? 'plan';
 
-    if ($type === 'plan') {
-        $sql_delete_mpr = "DELETE FROM `meal_plan_recipe` WHERE meal_plan_id = $id";
-        mysqli_query($connect, $sql_delete_mpr);
-        $sql_delete_plan = "DELETE FROM `meal_plan` WHERE id = $id AND user_id = $userId";
+    $targetId = (int)$_GET['id'];
+    $requestType = $_GET['type'] ?? 'plan';
 
-        if (mysqli_query($connect, $sql_delete_plan)) {
-            header("Location: ../planner.php?success=plan_deleted");
+    // SCENARIO A: Delete an entire meal plan and all its associated recipes
+    if ($requestType === 'plan') {
+
+        // First, clear all recipes linked to this plan to maintain database integrity
+        $clearRecipes = $connect->prepare("DELETE FROM meal_plan_recipe WHERE meal_plan_id = ?");
+        $clearRecipes->bind_param("i", $targetId);
+        $clearRecipes->execute();
+
+        // Then, delete the actual plan header, ensuring it belongs to the logged-in user
+        $deletePlan = $connect->prepare("DELETE FROM meal_plan WHERE id = ? AND user_id = ?");
+        $deletePlan->bind_param("ii", $targetId, $userId);
+
+        if ($deletePlan->execute()) {
+            header("Location: ../planner.php?status=plan_removed");
+            exit;
         } else {
-            echo "Failed to delete Plans: " . mysqli_error($connect);
-        }
-    } elseif ($type === 'entry') {
-
-        $sql_delete_entry = "DELETE mpr FROM meal_plan_recipe mpr 
-                             JOIN meal_plan mp ON mpr.meal_plan_id = mp.id 
-                             WHERE mpr.id = $id AND mp.user_id = $userId";
-
-        if (mysqli_query($connect, $sql_delete_entry)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] ?: "../planner.php");
-        } else {
-            echo "failed to delete Coloum";
+            echo "Error: Could not remove the plan header.";
         }
     }
-} else {
-    header("Location: ../planner.php");
+    // SCENARIO B: Delete only a single recipe entry from a plan
+    elseif ($requestType === 'entry') {
+
+        // Use a JOIN to verify that the entry belongs to a plan owned by this user
+        $deleteEntry = $connect->prepare("
+            DELETE mpr FROM meal_plan_recipe mpr 
+            JOIN meal_plan mp ON mpr.meal_plan_id = mp.id 
+            WHERE mpr.id = ? AND mp.user_id = ?
+        ");
+        $deleteEntry->bind_param("ii", $targetId, $userId);
+
+        if ($deleteEntry->execute()) {
+            // Redirect back to the previous page (details or planner)
+            $destination = $_SERVER['HTTP_REFERER'] ?? "../planner.php";
+            header("Location: " . $destination);
+            exit;
+        } else {
+            echo "Error: Could not remove the specific meal entry.";
+        }
+    }
 }
 
-
-
-// Mealplan Delete button
+/**
+ * ALTERNATIVE LOGIK: Single recipe deletion via specific parameter
+ * This handles cases where only 'delete_mpr' is passed in the URL
+ */
 if (isset($_GET["delete_mpr"])) {
-    $mpr_id = $_GET["delete_mpr"];
-    $delSql = "DELETE FROM meal_plan_recipe WHERE id = {$mpr_id} AND meal_plan_id = {$mealPlanId}";
-    mysqli_query($connect, $delSql);
-    header("Location: planner.php?plan_id={$mealPlanId}");
-    exit;
+    $mprId = (int)$_GET["delete_mpr"];
+
+    $secureDelete = $connect->prepare("
+        DELETE mpr FROM meal_plan_recipe mpr 
+        JOIN meal_plan mp ON mpr.meal_plan_id = mp.id 
+        WHERE mpr.id = ? AND mp.user_id = ?
+    ");
+    $secureDelete->bind_param("ii", $mprId, $userId);
+
+    if ($secureDelete->execute()) {
+        header("Location: ../planner.php?status=entry_deleted");
+        exit;
+    }
 }
+
+// Fallback: If no valid parameters are provided, return to the planner dashboard
+header("Location: ../planner.php");
+exit;

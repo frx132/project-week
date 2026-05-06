@@ -106,6 +106,12 @@ if (mysqli_num_rows($checkPlan) > 0) {
                     </div>
                     <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
 
+                    <!-- Delete Mealplan -->
+                    <a href="crudPlanner/delete.php?id=<?= $meal_plan_id ?>&type=plan"
+                        class="btn btn-danger"> Delete Mealplan
+                    </a>
+                </div>
+            </div>
 </body>
 
 </html>

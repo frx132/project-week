@@ -8,13 +8,13 @@ require_once "../components/db_connect.php";
 $backBtn = "../Pages/landingpage.php";
 
 
-
-
+// 
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
     $backBtn = "user_dashboard.php";
 }
+
 $id = $_GET["id"] ?? '';
 $type = $_GET["type"] ?? '';
 
@@ -109,6 +109,38 @@ if ($type == 'user') {
         }
     }
 }
+// Mealplan Display for Table 
+$query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.recipe_id = r.id WHERE mpr.meal_plan_id = ?";
+$stmt = $connect->prepare($query);
+$stmt->bind_param("i", $meal_plan_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$myPlan = [];
+// Gets Data from Database
+$readMealplan = "SELECT mpr.meal_date, mpr.meal_time, r.title, r.id as recipe_id, r.description 
+          FROM meal_plan_recipe mpr 
+          JOIN recipes r ON mpr.recipe_id = r.id 
+          WHERE mpr.meal_plan_id = ? 
+          ORDER BY FIELD(mpr.meal_date, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), 
+                   FIELD(mpr.meal_time, 'Breakfast', 'Lunch', 'Dinner', 'Snack')";
+
+
+$connection = $connect->prepare($readMealplan);
+$connection->bind_param("i", $plan_id);
+$connection->execute();
+$result = $connection->get_result();
+
+
+
+while ($row = $result->fetch_assoc()) {
+    $myPlan[$row['meal_date']][$row['meal_time']][] = $row['title'];
+}
+$resultRecipes = mysqli_query($connect, "SELECT id, title FROM recipes");
+$recipeOptions = "";
+while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
+    $recipeOptions .= "<option value='{$rowR['id']}'>{$rowR['title']}</option>";
+}
+
 ?>
 
 <!doctype html>
