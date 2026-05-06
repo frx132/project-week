@@ -132,8 +132,8 @@ if (mysqli_num_rows($result_filter) > 0) {
             </div>
         </div>
         <div class="col-md-4 ms-auto">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <form class="d-flex" role="search" action="recipe_search_results.php">
+                <input class="form-control me-2" type="search" placeholder="Search for recipes" aria-label="Search" value="" name="search" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
