@@ -11,25 +11,18 @@ if (isset($_SESSION['adm'])) {
 
 require_once "../components/db_connect.php";
 
-$dietary_type = $_GET['dietary_type'] ?? '';
-if ($dietary_type) {
-    $sql_query = "SELECT * FROM recipes WHERE dietary_type = '$dietary_type'";
-} else {
-    $sql_query = "SELECT * FROM recipes";
-}
+$search_query = $_GET['search'];
 
+$sql_query = "SELECT * FROM `recipes` WHERE title LIKE '%$search_query%' OR description LIKE '%$search_query%' OR ingredients LIKE '%$search_query%'";
 $result = mysqli_query($connect, $sql_query);
-
-
-
 
 $display_data = "";
 if (mysqli_num_rows($result) > 0) {
-    $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $recipes_search = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
 
-    foreach ($recipes as $recipe) {
+    foreach ($recipes_search as $recipe) {
         $display_data .= "
         <div class='card m-3'>
             <div class='card-body'>
@@ -55,15 +48,8 @@ if (mysqli_num_rows($result) > 0) {
     ";
     }
 } else {
-    if ($dietary_type) {
-        $display_data = "There are no recipes found with that dietary type!";
-    } else {
-        $display_data = "There are no recipes found!";
-    }
+    $display_data = "There are no recipes found with this search keyword!";
 }
-
-
-
 
 
 ?>
@@ -72,7 +58,7 @@ if (mysqli_num_rows($result) > 0) {
 <html lang="en">
 
 <head>
-    <title>Recipes</title>
+    <title>Search result for "<?= $search_query ?>" </title>
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/recipe.css">
@@ -82,33 +68,10 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
-
     <div class="container d-flex justify-content-start align-items-start mt-5">
-        <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+        <a href='recipe.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
     </div>
-    <div class="row mb-4  ">
-        <div class="col-md-4 m-auto">
-            <div class="dropdown">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Filter: Dietary type
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="recipe.php">All recipes</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
-                    <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-4 ms-auto">
-            <form class="d-flex" role="search" action="recipe_search_results.php">
-                <input class="form-control me-2" type="search" placeholder="Search for recipes" aria-label="Search" value="" name="search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-
-        </div>
-    </div>
-    <h1 class="text-center fw-semibold">All Recipes</h1>
+    <h1 class="text-center fw-semibold">Recipes with search result of "<?= $search_query ?>" </h1>
     <div class="container mb-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 d-flex justify-content-center">
             <?= $display_data ?>
@@ -130,6 +93,7 @@ if (mysqli_num_rows($result) > 0) {
             </div>
         </div>
     </div>
+
     <?php include "../components/footer.php"; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

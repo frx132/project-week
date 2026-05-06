@@ -36,3 +36,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 } else {
     header("Location: ../planner.php");
 }
+
+
+
+// Mealplan Delete button
+if (isset($_GET["delete_mpr"])) {
+    $mpr_id = $_GET["delete_mpr"];
+    $delSql = "DELETE FROM meal_plan_recipe WHERE id = {$mpr_id} AND meal_plan_id = {$mealPlanId}";
+    mysqli_query($connect, $delSql);
+    header("Location: planner.php?plan_id={$mealPlanId}");
+    exit;
+}

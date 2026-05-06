@@ -64,7 +64,7 @@ if (mysqli_num_rows($resMealPlans) > 0) {
                <h5 class='card-title'>
                {$planRow["name"]}</h5>
                <p class='card-text text-muted mb-1'><small>
-               Plan ID: {$planRow["id"]}</small>
+               Plan name: {$planRow["name"]}</small>
                </p>
                <p class='card-text text-muted'><small>
                Created on: {$planRow["created_at"]}
