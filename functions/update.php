@@ -146,10 +146,7 @@ if ($type == 'user') {
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= htmlspecialchars($row["email"] ?? '') ?>" required>
                 </div>
-                <div class="mb-3">
-                    <label for="lname" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= htmlspecialchars($row["last_name"] ?? '') ?>" required>
-                </div>
+                <?= $display_status ?>
                 <button name="update" type="submit" class="btn btn-warning">Update Profile</button>
                 <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
             </form>

@@ -1,6 +1,5 @@
 <?php
 // DB Connection
-session_start();
 require_once "../components/db_connect.php";
 
 // Login functionality
@@ -27,15 +26,23 @@ if (isset($_POST["login"])) {
         $row = mysqli_fetch_assoc($result);
         if (mysqli_num_rows($result) == 1) {
             if ($row["role"] == "Admin") {
+                session_start();
                 $_SESSION["adm"] = $row["id"];
                 header("Location: admin_dashboard.php");
             } else {
-                $_SESSION["user"] = $row["id"];
-                header("Location: user_dashboard.php");
+                if ($row["status"] == "Active") {
+                    session_start();
+                    $_SESSION["user"] = $row["id"];
+                    header("Location: user_dashboard.php");
+                } else {
+                    echo "<div class='alert alert-danger'>
+                       <p>This account is blocked. Contact us for further actions.</p>
+                     </div>";
+                }
             }
         } else {
             echo "<div class='alert alert-danger'>
-                       <p>Something went wrong, please try again later ...</p>
+                       <p>Something went wrong, please try again later!</p>
                      </div>";
         }
     }
