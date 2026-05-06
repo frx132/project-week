@@ -34,7 +34,8 @@ if ($type == "user" && isset($_SESSION["adm"])) {
         $delSql = "DELETE FROM users WHERE id = {$id}";
         mysqli_query($connect, $delSql);
     }
-    header("refresh: 3; url= admin_dashboard.php");
+    echo "<div class='alert alert-success'>User has been deleted</div>";
+    header("refresh: 3; url= user_list.php");
     exit;
 } elseif ($type == "recipe") {
     $sql = "SELECT recipe_picture, author_id FROM recipes WHERE id = {$id}";
@@ -52,7 +53,9 @@ if ($type == "user" && isset($_SESSION["adm"])) {
             mysqli_query($connect, $delSql);
         }
     }
-    header("Location: $backBtn");
+
+    echo "<div class='alert alert-success'>The recipe has been deleted</div>";
+    header("refresh: 3; url= admin_recipes.php");
     exit;
 } elseif ($type == "plan") {
     // Delete meal plan

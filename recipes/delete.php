@@ -23,8 +23,10 @@ if (isset($_GET['recipeid']) && !empty($_GET['recipeid'])) {
         }
         $sql_delete = "DELETE FROM `recipes` WHERE id = $recipeid ";
         $result_delete = mysqli_query($connect, $sql_delete);
-        header("refresh: 1; url=recipe.php");
+
+        echo "<div class='alert alert-success'>The recipe has been deleted</div>";
+        header("refresh: 3; url=recipe.php");
     }
 } else {
-    echo 'Something went wrong';
+    echo "<div class='alert alert-danger'>Something went wrong</div>";
 }
