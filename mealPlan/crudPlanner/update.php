@@ -37,7 +37,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
 </head>
 
 <body>
-<!-- Navbar -->
+    <!-- Navbar -->
 
 
 
@@ -66,6 +66,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
             </tbody>
         </table>
     </div>
+    <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
 
 </body>
 
