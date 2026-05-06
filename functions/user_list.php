@@ -12,16 +12,17 @@ $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
 $sqlUsers = "SELECT * FROM users WHERE role != 'Admin'";
 $resultUsers = mysqli_query($connect, $sqlUsers);
-
 $layout = "";
 
 if (mysqli_num_rows($resultUsers) > 0) {
     while ($userRow = mysqli_fetch_assoc($resultUsers)) {
+
         $pic = !empty($userRow["user_image"]) ? $userRow["user_image"] : "avatar.jpg";
         $status_badge = "";
 
         if ($userRow['status'] == "Active") {
             $status_badge = "<span class='badge badge-success'>{$userRow['status']}</span>";
+            var_dump($status_badge);
         } else {
             $status_badge = "<span class='badge badge-secondary'>{$userRow['status']}</span>";
         }
@@ -30,9 +31,9 @@ if (mysqli_num_rows($resultUsers) > 0) {
            <div class='card h-100'>
                <img src='../pictures/{$pic}' class='card-img-top' alt='User Image' style='object-fit: cover; height: 200px;'>
                <div class='card-body d-flex flex-column'>
+               <p class='m-2'>{$status_badge}</p>
                <h5 class='card-title'>{$userRow['first_name']} {$userRow['last_name']}</h5>
                <p class='card-text'>{$userRow['email']}</p>
-               <?= $status_badge ?>
                <div class='mt-auto'>
                    <a href='update.php?id={$userRow['id']}&type=user' class='btn btn-warning'>Update</a>
                    <a href='delete.php?id={$userRow['id']}&type=user' class='btn btn-danger'>Delete</a>
