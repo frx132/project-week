@@ -83,7 +83,7 @@ if (mysqli_num_rows($resultMealPlans) > 0) {
                 Date: {$Row["created_at"]}
                 </p>
                 <div class='mt-auto'>
-                     <a href='update.php?id={$Row["id"]}&type=plan' class='btn btn-warning'>Update</a>
+                     <a href='../mealPlan/crudPlanner/details.php?id={$Row["id"]}&type=plan' class='btn btn-warning'>View</a>
                 </div>
               
            </div>
