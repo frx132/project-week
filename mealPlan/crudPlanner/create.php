@@ -1,102 +1,168 @@
 <?php
 require_once "../../components/db_connect.php";
 
+$days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+$times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
+$user_id = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
+
+
+// Fetch meal plans for the logged-in user
+if ($user_id) {
+    $mealPlanQuery = "SELECT * FROM meal_plan WHERE user_id = $user_id";
+    $mealPlanResult = mysqli_query($connect, $mealPlanQuery);
+} else {
+    echo "User not logged in.";
+    exit();
+}
+// 
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($connect, $_GET['id']);
+    $res = mysqli_query($connect, "SELECT * FROM meal_plan WHERE id = $id");
+    $row = mysqli_fetch_assoc($res);
+}
 
 // Create a Meal plan
-if (isset($_POST["create_plan"])) {
+if (isset($_POST["create_Mealplan"])) {
+    $planName  = mysqli_real_escape_string($connect, $_POST["plan_name"]);
+    $meal = mysqli_real_escape_string($connect, $_POST["meal"]);
+    $meal_date = mysqli_real_escape_string($connect, $_POST["meal_date"]);
+    $meal_time = mysqli_real_escape_string($connect, $_POST["meal_time"]);
+    $user_Id   = $_SESSION["user"] ?? $_SESSION["adm"];
+    // Insert meal plan into the database
+
+    $sql = "INSERT INTO `meal_plan` (user_id, name, meal, meal_date, meal_time) 
+            VALUES ('$user_Id', '$planName', '$meal', '$meal_date', '$meal_time')";
+    if (mysqli_query($connect, $sql)) {
+        header("Location: planner.php?success=1");
+        exit();
+    } else {
+        echo "Failed to create meal plan: " . mysqli_error($connect);
+    }
+}
+
+
+// Select a Recipie for the meal plan
+if (isset($_POST["add_to_plan"])) {
     $planName = cleanInputs($_POST["plan_name"]);
-    $userId = $_SESSION["user"] ?? $_SESSION["adm"];
+    $user_Id = $_SESSION["user"] ?? $_SESSION["adm"];
     $recipeIds = $_POST["recipe_ids"];
     $meal = $_POST["meal"];
     $plan_id = $_POST["plan_id"];
     $meal_date = $_POST["meal_date"];
     $meal_time = $_POST["meal_time"];
-    $readMealPlan = "SELECT * FROM meal_plan WHERE user_id = $user_Id ORDER BY meal_date, meal_time";
-    $row = mysqli_fetch_assoc(mysqli_query($connect, $readMealPlan));
-
-
-    // Insert meal plan into the database
-    $sql = "INSERT INTO `meal_plan` (user_id, name, meal, meal_date, meal_time) 
-VALUES ('$userId', '$planName', '$meal', '$meal_date', '$meal_time')";
-    if (mysqli_query($connect, $sql)) {
-        header("Location: planner.php");
-        echo "Meal plan created successfully!";
-        return $readMealPlan;
-    } else {
-        echo "Error creating meal plan: " . mysqli_error($connect);
-    }
 }
+
+// Recipie Loading Data
+$resultRecipes = mysqli_query($connect, "SELECT id, title FROM recipes");
+$recipeOptions = "";
+while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
+    $recipeOptions .= "<option value='{$rowR['id']}'>{$rowR['title']}</option>";
+}
+
 
 ?>
 
-<!-- HTML -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Mealplan</title>
+    <title>Create a Mealplan</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <?php include_once "../../components/navbar.php"; ?>
-
-
-
-    <!-- Edit Meal PLanner -->
-    <div class="container mt-5 mb-5">
-        <h1 class="text-center mb-4">Edit Meal Plan</h1>
-        <form method="post" autocomplete="off">
-
-            <!-- User ID -->
-            <div class="mb-3">
-                <label for="user_id" class="form-label">User ID</label>
-                <input type="number" class="form-control" id="user_id" name="user_id" value="
-                <?= htmlspecialchars($row["user_id"] ?? '') ?>" required>
+    <div class="container mt-5">
+        <div class="card mx-auto">
+            <div class="card-header">
+                <h3 class="mb-0">Create a Mealplan</h3>
             </div>
-
-            <!-- User name -->
-            <div class="mb-3">
-                <label for="user_name" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="user_name" name="user_name" value="
-                <?= htmlspecialchars($row["user_name"] ?? '') ?>" required>
+            <!-- Name -->
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Name of your Plan</label>
+                        <input type="text" name="plan_name" class="form-control" placeholder="Diet Plan" required>
+                    </div>
+                    <!-- Meal -->
+                    <div class="mb-3">
+                        <label for="recipe_id" class="form-label">Select Recipe</label>
+                        <select class="form-select" id="recipe_id" name="recipe_id" required>
+                            <option value="" disabled selected>Choose a recipe...</option>
+                            <?= $recipeOptions ?>
+                        </select>
+                    </div>
             </div>
+        </div>
 
-            <!-- Start Date -->
-            <div class="mb-3 mt-3">
-                <label for="start_date" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="start_date" name="start_date" value="
-                <?= htmlspecialchars($row["start_date"] ?? '') ?>" required>
-            </div>
+        <!-- Date  Select Weekday-->
+        <div class="mb-3">
+            <label for="weekday">Select Weekday</label>
+            <select name="meal_date" class="form-control" required>
+                <option value="" selected disabled>Choose a day...</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
 
-            <!-- End Date -->
-            <div class="mb-3">
-                <label for="end_date" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="end_date" name="end_date" value="
-                <?= htmlspecialchars($row["end_date"] ?? '') ?>" required>
-            </div>
+
+        <!-- Mealtime -->
+        <div class="mb-3">
+            <label for="meal_time">Meal Time</label>
+            <select name="meal_time" class="form-select" required>
+                <?php foreach ($times as $t): ?>
+                    <option value="<?= $t ?>"><?= $t ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
 
+        <!-- Meal Plan -->
+        <div class="container mt-5">
+            <h2 class="mb-4">Weekly Meal Planner</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Day</th> <?php foreach ($times as $meal): ?>
+                            <th><?= $meal ?></th> <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($days as $day): ?>
+                        <tr>
+                            <td class="fw-bold"><?= $day ?></td>
+                            <?php foreach ($times as $meal): ?>
+                                <td>
+                                    <div class="p-2 border rounded bg-light" style="min-height: 50px;">
+                                        <small class="text-muted">Empty</small>
+                                    </div>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-            <button name="update_plan" type="submit" class="btn btn-warning">Update Meal Plan</button>
-
-            <button type="delete" class="btn btn-danger">Delete Plans</button>
-            <!-- Delete Button -->
-            <a href="/delete.php?id=<?= $row["id"] ?>" class="btn btn-danger  class=" btn btn-danger">Delete Meal Plan</a>
-            <!-- Back Button -->
-            <a href="../planner.php" class="btn btn-secondary">Back</a>
-        </form>
-
+        </div>
+    </div>
     </div>
 
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="mt-4 d-flex gap-2">
+        <button type="submit" name="create_Mealplan" class="btn btn-primary">Save Plan</button>
+        <button type="reset" class="btn btn-secondary">Reset Plan</button>
+    </div>
+    </div>
+    </div>
 </body>
 
 </html>
