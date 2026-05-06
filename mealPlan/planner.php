@@ -25,8 +25,6 @@ require_once "../components/db_connect.php";
     <!-- Meal Plan Schedule -->
     <?php include "crudPlanner/create.php"; ?>
 
-
-
     <!-- Footer -->
     <?php include "../components/footer.php"; ?>
 

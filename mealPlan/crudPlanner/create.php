@@ -4,7 +4,6 @@ require_once "../components/db_connect.php";
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 // Time vars
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -13,6 +12,7 @@ if (!$user_id) {
     echo "User not logged in.";
     exit();
 }
+
 
 // Check the Plan from DB Mealplan
 $checkPlan = mysqli_query($connect, "SELECT id FROM meal_plan WHERE user_id = $user_id LIMIT 1");
@@ -23,6 +23,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
     mysqli_query($connect, "INSERT INTO meal_plan (user_id, name) VALUES ($user_id, 'My Weekly Plan')");
     $meal_plan_id = mysqli_insert_id($connect);
 }
+
 
 // Create Mealplan and push Data to DB 
 if (isset($_POST["create_Mealplan"])) {
@@ -36,14 +37,15 @@ if (isset($_POST["create_Mealplan"])) {
     }
 }
 // Mealplan Display for Table 
-$query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.recipe_id = r.id WHERE mpr.meal_plan_id = $meal_plan_id";
-$result = mysqli_query($connect, $query);
+$query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.recipe_id = r.id WHERE mpr.meal_plan_id = ?";
+$stmt = $connect->prepare($query);
+$stmt->bind_param("i", $meal_plan_id);
+$stmt->execute();
+$result = $stmt->get_result();
 $myPlan = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $myPlan[$row['meal_date']][$row['meal_time']] = $row['title'];
+while ($row = $result->fetch_assoc()) {
+    $myPlan[$row['meal_date']][$row['meal_time']][] = $row['title'];
 }
-
-// Shows Recipies Recipies
 $resultRecipes = mysqli_query($connect, "SELECT id, title FROM recipes");
 $recipeOptions = "";
 while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
@@ -53,6 +55,8 @@ while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
 // Storage for User 
 $myPlan[$row['meal_date']][$row['meal_time']] =
     $row['title'];
+
+
 // Cleans Table from Mealplan
 if (isset($_POST["Reset_Mealplan"])) {
     $sqlClear = "DELETE FROM `meal_plan_recipe` WHERE meal_plan_id = ?";
@@ -124,12 +128,13 @@ if (isset($_POST["Reset_Mealplan"])) {
                     <button type="submit" name="create_Mealplan" class="btn btn-primary">Add to Plan</button>
 
                     <!--    Reset Mealplan Button -->
-                    <button type="submit" name="Reset_Mealplan" class="btn btn-danger" onClick=" Are you sure ?">Reset Plan</button>
+                    <button type="submit" name="Reset_Mealplan" class="btn btn-warning">Reset Plan</button>
 
                     <!-- Delete Mealplan -->
-                    <button type="submit" name="delete_Mealplan" class="btn btn-danger" onClick="Are you Sure ?">Delete Mealplan</button>
+                    <button type="submit" name="delete_Mealplan" class="btn btn-danger">Delete Mealplan</button>
                 </div>
             </div>
+
             <!-- Table -->
             <div class="container mt-5">
                 <h2 class="mb-4">Weekly Meal Planner</h2>
@@ -139,6 +144,7 @@ if (isset($_POST["Reset_Mealplan"])) {
                             <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         <?php foreach ($days as $day): ?>
                             <tr>

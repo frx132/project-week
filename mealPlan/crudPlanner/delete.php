@@ -4,7 +4,7 @@ require_once "../../components/db_connect.php";
 
 $userId = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
 if (!$userId) {
-    die("Zugriff verweigert.");
+    die("failed to load session");
 }
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
@@ -19,7 +19,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         if (mysqli_query($connect, $sql_delete_plan)) {
             header("Location: ../planner.php?success=plan_deleted");
         } else {
-            echo "Fehler beim Löschen des Plans: " . mysqli_error($connect);
+            echo "Failed to delete Plans: " . mysqli_error($connect);
         }
     } elseif ($type === 'entry') {
 

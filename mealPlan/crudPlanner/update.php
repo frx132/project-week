@@ -39,34 +39,72 @@ if (mysqli_num_rows($checkPlan) > 0) {
 <body>
     <!-- Navbar -->
 
-
-
-    <!-- Table -->
     <div class="container mt-5">
-        <h2 class="mb-4">Weekly Meal Planner</h2>
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($days as $day): ?>
-                    <tr>
-                        <td class="fw-bold"><?= $day ?></td>
-                        <?php foreach ($times as $meal_time): ?>
-                            <td>
-                                <div class="p-2 border rounded bg-light" style="min-height: 50px;">
-                                    <?= isset($myPlan[$day][$meal_time]) ? "<strong>" . htmlspecialchars($myPlan[$day][$meal_time]) . "</strong>" : '<small class="text-muted">Empty</small>' ?>
-                                </div>
-                            </td>
-                        <?php endforeach; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
+        <form method="post">
+            <div class="card mx-auto">
+
+                <div class="card-header">
+                    <h3 class="mb-0">Create a Mealplan</h3>
+                </div>
+
+                <!-- Name of Plan -->
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name of your Plan</label>
+                        <input type="text" name="plan_name" class="form-control" placeholder="Diet Plan" required>
+                    </div>
+                    <!-- Recipies -->
+                    <div class="mb-3">
+                        <label for="recipe_id" class="form-label">Select Recipe</label>
+                        <select class="form-select" id="recipe_id" name="recipe_id" required>
+                            <option value="" disabled selected>Choose a recipe...</option>
+                            <?= $recipeOptions ?>
+                        </select>
+                    </div>
+                    <!-- Weekday to Select -->
+                    <div class="mb-3">
+                        <label>Select Weekday</label>
+                        <select name="meal_date" class="form-select" required>
+                            <option value="" selected disabled>Choose a day...</option>
+                            <?php foreach ($days as $d): ?><option value="<?= $d ?>"><?= $d ?></option><?php endforeach; ?>
+                        </select>
+                    </div>
+                    <!-- Time to Select -->
+                    <div class="mb-3">
+                        <label>Meal Time</label>
+                        <select name="meal_time" class="form-select" required>
+                            <option value="" selected disabled>Choose a Mealtime...</option>
+                            <?php foreach ($times as $t): ?><option value="<?= $t ?>"><?= $t ?></option><?php endforeach; ?>
+                        </select>
+                    </div>
+                    <!-- Table -->
+                    <div class=" container mt-5>
+                        <h2 class=" mb-4">Weekly Meal Planner</h2>
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($days as $day): ?>
+                                    <tr>
+                                        <td class="fw-bold"><?= $day ?></td>
+                                        <?php foreach ($times as $meal_time): ?>
+                                            <td>
+                                                <div class="p-2 border rounded bg-light" style="min-height: 50px;">
+                                                    <?= isset($myPlan[$day][$meal_time]) ? "<strong>"
+                                                        . htmlspecialchars($myPlan[$day][$meal_time]) .
+                                                        "</strong>" : '<small class="text-muted">Recipie</small>' ?>
+                                                </div>
+                                            </td>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
 
 </body>
 
