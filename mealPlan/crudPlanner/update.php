@@ -3,7 +3,16 @@ session_start();
 require_once "../../components/db_connect.php";
 
 $user_Id = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
-$row = null;
+$row = 
+
+
+
+
+
+
+
+
+
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
 if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($connect, $_GET['id']);
@@ -87,7 +96,7 @@ $row = mysqli_fetch_assoc($result);
                             <?php endforeach; ?>
                         </select>
                     </div>
-              
+
 
                     <div class="d-grid gap-2">
                         <button name="update_meal" type="submit" class="btn btn-warning">Save</button>
