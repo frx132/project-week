@@ -23,7 +23,7 @@ if (mysqli_num_rows($resultUsers) > 0) {
             $status_badge = "success";
             // var_dump($status_badge);
         } else {
-            $status_badge = "secondary";
+            $status_badge = "danger";
         }
         // var_dump($status_badge);
 

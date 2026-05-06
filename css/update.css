@@ -1,0 +1,119 @@
+body {
+  min-height: 100dvh;
+  background: var(--green-bg);
+  color: var(--text-dark);
+}
+
+.container.mt-5.mb-5 {
+  max-width: 760px;
+  margin: 45px auto !important;
+  background: #ffffff;
+  border: 1px solid rgba(45, 106, 79, 0.12);
+  border-radius: 20px;
+  padding: 34px;
+  box-shadow: 0 10px 28px rgba(27, 67, 50, 0.1);
+}
+
+h1.text-center {
+  color: var(--green-darker);
+  font-weight: 700;
+  margin-bottom: 24px !important;
+}
+
+.form-label,
+label {
+  color: var(--green-darker);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  padding: 11px 14px;
+  border: 1px solid rgba(45, 106, 79, 0.22);
+  background-color: #fbfdfb;
+  color: var(--text-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--green-dark);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.13);
+  background-color: #ffffff;
+}
+
+textarea.form-control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input[type="file"].form-control {
+  padding: 10px;
+}
+
+.btn {
+  border-radius: 999px !important;
+  padding: 10px 22px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+.btn-warning {
+  background: var(--green-dark) !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.btn-warning:hover {
+  background: var(--green-darker) !important;
+}
+
+.btn-secondary {
+  background: transparent !important;
+  color: var(--green-dark) !important;
+  border: 1px solid var(--green-dark) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--green-dark) !important;
+  color: #ffffff !important;
+}
+
+.btn-dark {
+  background: var(--green-dark) !important;
+  border: none !important;
+}
+
+.btn-outline-dark {
+  color: var(--green-dark) !important;
+  border-color: var(--green-dark) !important;
+}
+
+.btn-outline-dark:hover {
+  background: var(--green-dark) !important;
+  color: #ffffff !important;
+}
+
+.alert {
+  border: none;
+  border-radius: 14px;
+  max-width: 620px;
+  margin: 20px auto;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+  .container.mt-5.mb-5 {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

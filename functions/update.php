@@ -118,16 +118,17 @@ if ($type == 'user') {
 
     <?php include "../components/head.php"; ?>
     <title>Edit <?= ucfirst($type) ?></title>
-    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/update.css">
 </head>
 
 <body>
 
 
     <!-- Edit Profile -->
-    <div class="container mt-5 mb-5">
+    <div class="container my-5">
         <?php if ($type == 'user'): ?>
             <h1 class="text-center mb-4">Edit Profile</h1>
+
             <form method="post" autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
                     <label for="fname" class="form-label">First name</label>
@@ -145,9 +146,12 @@ if ($type == 'user') {
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= htmlspecialchars($row["email"] ?? '') ?>" required>
                 </div>
-                <?= $display_status ?>
-                <button name="update" type="submit" class="btn btn-outline-dark">Update Profile</button>
-                <a href="<?= $backBtn ?>" class="btn btn-dark">Back</a>
+                <div class="mb-3">
+                    <label for="lname" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= htmlspecialchars($row["last_name"] ?? '') ?>" required>
+                </div>
+                <button name="update" type="submit" class="btn btn-warning">Update Profile</button>
+                <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
             </form>
         <?php elseif ($type == 'recipe'): ?>
             <h1 class="text-center mb-4">Edit Recipe</h1>
@@ -209,8 +213,10 @@ if ($type == 'user') {
                     <label for="recipe_picture" class="form-label">Recipe Picture</label>
                     <input type="file" class="form-control" id="recipe_picture" name="recipe_picture">
                 </div>
-                <button name="update" type="submit" class="btn btn-warning">Update Recipe</button>
-                <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
+                <div class="container d-flex align-items-center justify-content-end">
+                    <button name="update" type="submit" class="btn btn-warning mb-5 me-1">Update Recipe</button>
+                    <a href="<?= $backBtn ?>" class="btn btn-secondary mb-5 ms-1">Back</a>
+                </div>
             </form>
         <?php endif; ?>
     </div>

@@ -96,41 +96,36 @@ if (isset($_POST["sign-up"])) {
         <h1 class="text-center">Sign Up</h1>
         <form method="post" autocomplete="off" enctype="multipart/form-data">
 
-            <!-- First Name -->
             <div class="mb-3 mt-3">
                 <label for="fname" class="form-label">First name</label>
-                <input type="text" class="form-control" id="fname" name="fname" placeholder="First name" value="<?= $fname ?>">
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="First name" value="<?= $fname ?>" required minlength="3">
                 <span class="text-danger"><?= $fnameError ?></span>
             </div>
-            <!-- Last Name -->
+
             <div class="mb-3">
                 <label for="lname" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= $lname ?>">
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= $lname ?>" required minlength="3">
                 <span class="text-danger"><?= $lnameError ?></span>
             </div>
 
-            <!-- Profile Picture -->
             <div class="mb-3">
                 <label for="picture" class="form-label">Profile picture</label>
-                <input type="file" class="form-control" id="picture" name="picture">
+                <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
             </div>
 
-            <!-- Email -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= $email ?>">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= $email ?>" required>
                 <span class="text-danger"><?= $emailError ?></span>
             </div>
 
-            <!-- Password -->
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" required minlength="8">
                 <span class="text-danger"><?= $passError ?></span>
             </div>
-            <button name="sign-up" type="submit" class="btn btn-outline-dark my-3">Create account</button>
 
-            <!--  -->
+            <button name="sign-up" type="submit" class="btn btn-outline-dark my-3">Create account</button>
             <p>You have an account already? <a href="login.php">Sign in here</a></p>
         </form>
     </div>

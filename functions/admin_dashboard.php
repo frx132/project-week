@@ -116,16 +116,36 @@ mysqli_close($connect);
 
     <!-- Body -->
 
-    <h2 class="text-center my-4 fw-bold ">Welcome back, <?= $row["first_name"]  ?></h2>
-    <div class="container d-flex align-items-end justify-content-end">
-        <a href="update.php?id=<?= $_SESSION['adm'] ?>&type=user" class="btn btn-outline-dark btn-sm me-3">
-            Edit Profile
-        </a>
-        <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm ">Logout</a>
-    </div>
+    <?php
+    $adminPic = !empty($row["user_image"]) ? $row["user_image"] : "avatar.png";
+    ?>
+
+    <main class="container mb-5">
+
+        <div class="profile-header shadow-sm d-flex flex-column flex-md-row align-items-center gap-4 text-center text-md-start">
+            <img src="../pictures/<?= $adminPic ?>" alt="Admin Profile Picture" class="profile-img">
+
+            <div>
+                <h2 class="fw-bold mb-1">
+                    Welcome back, <?= htmlspecialchars($row["first_name"]) ?>!
+                </h2>
+                <p class="text-muted mb-0">
+                    <i class="fa-regular fa-envelope me-2"></i>
+                    <?= htmlspecialchars($row["email"]) ?>
+                </p>
+            </div>
+
+            <div class="container d-flex justify-content-end">
+                <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm me-3">
+                    Logout
+                </a>
+                <a href="update.php?id=<?= $_SESSION['adm'] ?>&type=user" class="btn btn-outline-dark btn-sm">
+                    Edit Profile
+                </a>
+            </div>
+        </div>
 
 
-    <div class="container mb-5">
         <!-- Quick Actions -->
         <h4 class="mb-3">Quick Actions</h4>
         <div class="row g-4 mb-5">
@@ -155,12 +175,12 @@ mysqli_close($connect);
         </div>
 
         <!-- Manage Plans -->
-        <h3 class="mb-3">Manage Plans</h3>
+        <h4 class="mb-3">Manage Plans</h4>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?= $layoutMealPlans ?>
         </div>
 
-    </div>
+    </main>
 
 
 

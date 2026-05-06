@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class='card-body'>
             <img src='../pictures/$recipe[recipe_picture]' class='card-img-top' alt='$recipe[title]'>
 
-            <h5 class='card-title'>$recipe[title]</h5>
+            <h3 class='card-title mt-3'>$recipe[title]</h3>
             <p class='card-text'>$recipe[description]</p>
 
             <p><strong>Preparation time:</strong> $recipe[prep_time]</p>
