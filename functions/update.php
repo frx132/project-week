@@ -47,7 +47,7 @@ if ($type == 'user') {
         }
 
         if (mysqli_query($connect, $sql)) {
-            echo "<div class='alert alert-success' role='alert'>User profile has been Updated</div>";
+            echo "<div class='alert alert-success mt-5' role='alert'>User profile has been Updated</div>";
         } else {
             echo "<div class='alert alert-danger' role='alert'>Error found, {$picture[1]}</div>";
         }
@@ -96,15 +96,13 @@ if ($type == 'user') {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <?php include "../components/head.php"; ?>
     <title>Edit <?= ucfirst($type) ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <?php include_once "../components/navbar.php"; ?>
 
 
     <!-- Edit Profile -->
@@ -132,8 +130,8 @@ if ($type == 'user') {
                     <label for="lname" class="form-label">Last name</label>
                     <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= htmlspecialchars($row["last_name"] ?? '') ?>" required>
                 </div>
-                <button name="update" type="submit" class="btn btn-warning">Update Profile</button>
-                <a href="<?= $backBtn ?>" class="btn btn-secondary">Back</a>
+                <button name="update" type="submit" class="btn btn-outline-dark">Update Profile</button>
+                <a href="<?= $backBtn ?>" class="btn btn-dark">Back</a>
             </form>
         <?php elseif ($type == 'recipe'): ?>
             <h1 class="text-center mb-4">Edit Recipe</h1>

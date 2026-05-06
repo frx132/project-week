@@ -25,9 +25,7 @@ if (mysqli_num_rows($result) > 0) {
     $recipe = mysqli_fetch_assoc($result);
 
     $display_data = "
-    <div class='container mt-3'>
-    <a href='recipe.php' class='btn btn-outline-dark'>Close</a>
-</div>
+    
 
     <div class='card m-3'>
         <div class='card-body'>
@@ -36,14 +34,14 @@ if (mysqli_num_rows($result) > 0) {
             <h5 class='card-title'>$recipe[title]</h5>
             <p class='card-text'>$recipe[description]</p>
 
-            <p>Preparation time: $recipe[prep_time]</p>
-            <p>Difficulty: $recipe[difficulty]</p>
-            <p>$recipe[servings] Servings</p>
-            <p>Ingredients: $recipe[ingredients]</p>
-            <p>Dietary type: $recipe[dietary_type]</p>
-            <p>Category: $recipe[category]</p>
-            <p>Author: $recipe[first_name] $recipe[last_name]</p>
-            <p>Updated at: $recipe[updated_at]</p>
+            <p><strong>Preparation time:</strong> $recipe[prep_time]</p>
+            <p><strong>Difficulty:</strong> $recipe[difficulty]</p>
+            <p><strong>Servings: </strong>$recipe[servings]</p>
+            <p><strong>Ingredients:</strong> $recipe[ingredients]</p>
+            <p><strong>Dietary type:</strong> $recipe[dietary_type]</p>
+            <p><strong>Category:</strong> $recipe[category]</p>
+            <p><strong>Author:</strong> $recipe[first_name] $recipe[last_name]</p>
+            <p><strong>Updated at:</strong> $recipe[updated_at]</p>
     ";
 
 
@@ -81,7 +79,11 @@ $display_data .= "
 </head>
 
 <body>
+
     <main class="container py-5">
+        <div class='container mt-3'>
+            <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <?= $display_data ?>

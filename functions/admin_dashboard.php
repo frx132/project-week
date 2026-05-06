@@ -111,14 +111,16 @@ mysqli_close($connect);
 
 </head>
 <!-- Navbar -->
-<?php include_once "../components/navbar.php"; ?>
 
 <body class="bg-light">
 
     <!-- Body -->
 
-    <h2 class="text-center my-4">Welcome <?= $row["first_name"]  ?></h2>
+    <h2 class="text-center my-4 fw-bold ">Welcome back, <?= $row["first_name"]  ?></h2>
     <div class="container d-flex align-items-end justify-content-end">
+        <a href="update.php?id=<?= $_SESSION['adm'] ?>&type=user" class="btn btn-outline-dark btn-sm me-3">
+            Edit Profile
+        </a>
         <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm ">Logout</a>
     </div>
 

@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="row">
             <div class="col col-md-6 mx-auto">
-                <h3>Create a new recipe</h3>
+                <h3 class="text-center"><strong>Create a new recipe</strong></h3>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title">Title</label>

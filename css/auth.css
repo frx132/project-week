@@ -60,3 +60,10 @@ body {
   color: var(--text-muted);
   margin-top: 18px;
 }
+.btn {
+  text-decoration: none !important;
+}
+
+.btn:hover {
+  text-decoration: none !important;
+}

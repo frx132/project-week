@@ -16,7 +16,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class='card m-3'>
             <div class='card-body'>
             <img src='../pictures/{$recipe['recipe_picture']}' class='card-img-top' alt='{$recipe['title']}'>
-            <h5 class='card-title'>{$recipe['title']}</h5>
+            <h5 class='card-title mt-3'>{$recipe['title']}</h5>
             <p class='badge text-bg-success'>{$recipe['dietary_type']}</p>
 
             <p class='card-text'>{$recipe['description']} </p>

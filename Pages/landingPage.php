@@ -36,14 +36,14 @@ require_once "../components/db_connect.php";
             </div>
           </div>
 
-          <div class="col-lg-6 d-flex justify-content-end">
+          <!-- <div class="col-lg-6 d-flex justify-content-end">
             <div class="hero-card">
               <h5>Today's Plan</h5>
               <p>🥣 Breakfast: Oats</p>
               <p>🥗 Lunch: Salad Bowl</p>
               <p>🍝 Dinner: Pasta</p>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>

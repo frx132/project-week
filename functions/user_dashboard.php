@@ -111,8 +111,8 @@ if (mysqli_num_rows($resMealPlans) > 0) {
 
             </div>
             <div class="container d-flex justify-content-end ">
-                <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm">Logout</a>
-                <a href="../functions/update.php?id=<?= $user_id ?>&type=user" class="btn btn-outline-warning btn-sm">Edit Profile</a>
+                <a href="../functions/logout.php?logout" class="btn btn-outline-danger btn-sm me-3">Logout</a>
+                <a href="../functions/update.php?id=<?= $user_id ?>&type=user" class="btn btn-outline-dark btn-sm">Edit Profile</a>
             </div>
         </div>
 
@@ -150,20 +150,20 @@ if (mysqli_num_rows($resMealPlans) > 0) {
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
             <?= $layoutRecipes ?>
         </div>
+        <!-- My Meal Plans -->
+        <div class="container my-5">
+            <h4 class="mb-3">My Meal Plans</h4>
+            <a href="../mealPlan/crudPlanner/create.php" class="btn btn-sm btn-dark">+ New Meal Plan</a>
+        </div>
 
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+            <?= $layoutMealPlans ?>
+        </div>
     </main>
 
 
 
-    <!-- My Meal Plans -->
-    <div class="container mb-5">
-        <h4 class="mb-3">My Meal Plans</h4>
-        <a href="../mealPlan/crudPlanner/create.php" class="btn btn-sm btn-dark">+ New Meal Plan</a>
-    </div>
 
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        <?= $layoutMealPlans ?>
-    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
