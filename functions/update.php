@@ -7,15 +7,16 @@ require_once "../components/db_connect.php";
 // Redirect back button based on user role
 $backBtn = "../Pages/landingpage.php";
 
+
+
+
 if (isset($_SESSION["adm"])) {
     $backBtn = "admin_dashboard.php";
 } elseif (isset($_SESSION["user"])) {
     $backBtn = "user_dashboard.php";
 }
-
 $id = $_GET["id"] ?? '';
 $type = $_GET["type"] ?? '';
-// var_dump($_GET);
 
 if (!$id || !$type) {
     header("Location: $backBtn");
@@ -28,11 +29,28 @@ if ($type == 'user') {
     $result = mysqli_query($connect, $sql);
     $row = mysqli_fetch_assoc($result);
 
+    $display_status = "";
+
+    //Only for Admins to see the status on edit form
+    if (isset($_SESSION["adm"])) {
+        $display_status = " 
+        <div class='mb-3'>
+            <label for='status' class='form-label'>Status</label>
+            <select class='form-control' id='status' name='status'>
+                <option value='Active'" . (($row['status'] ?? '') == 'Active' ? ' selected' : '') . ">Active</option>
+                <option value='Blocked'" . (($row['status'] ?? '') == 'Blocked' ? ' selected' : '') . ">Blocked</option>
+            </select>
+        </div>";
+    }
     if (isset($_POST["update"])) {
         $fname = mysqli_real_escape_string($connect, $_POST["fname"]);
         $lname = mysqli_real_escape_string($connect, $_POST["lname"]);
         $email = mysqli_real_escape_string($connect, $_POST["email"]);
+        $status = $_POST["status"] ?? 'users.status';
         $picture = fileUpload($_FILES["picture"]);
+
+
+
 
         if ($_FILES["picture"]["error"] == 0) {
             if ($row["user_image"] != "avatar.png" && !empty($row["user_image"])) {
@@ -41,13 +59,14 @@ if ($type == 'user') {
                     unlink($filePath);
                 }
             }
-            $sql = "UPDATE users SET first_name = '$fname', last_name = '$lname', user_image = '$picture[0]', email = '$email' WHERE id = {$id}";
+            $sql = "UPDATE users SET first_name = '$fname', last_name = '$lname', user_image = '$picture[0]', email = '$email', status = '$status' WHERE id = {$id}";
         } else {
-            $sql = "UPDATE users SET first_name = '$fname', last_name = '$lname', email = '$email' WHERE id = {$id}";
+            $sql = "UPDATE users SET first_name = '$fname', last_name = '$lname', email = '$email', status = '$status' WHERE id = {$id}";
         }
 
         if (mysqli_query($connect, $sql)) {
-            echo "<div class='alert alert-success mt-5' role='alert'>User profile has been Updated</div>";
+            echo "<div class='alert alert-success' role='alert'>User profile has been Updated</div>";
+            header("refresh: 3; url=$backBtn");
         } else {
             echo "<div class='alert alert-danger' role='alert'>Error found, {$picture[1]}</div>";
         }
@@ -126,10 +145,7 @@ if ($type == 'user') {
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= htmlspecialchars($row["email"] ?? '') ?>" required>
                 </div>
-                <div class="mb-3">
-                    <label for="lname" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" value="<?= htmlspecialchars($row["last_name"] ?? '') ?>" required>
-                </div>
+                <?= $display_status ?>
                 <button name="update" type="submit" class="btn btn-outline-dark">Update Profile</button>
                 <a href="<?= $backBtn ?>" class="btn btn-dark">Back</a>
             </form>
