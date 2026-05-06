@@ -51,6 +51,52 @@ if (mysqli_num_rows($result) > 0) {
     $display_data = "There are no recipes found!";
 }
 
+
+$dietary_type = $_GET['dietary_type'] ?? '';
+if ($dietary_type) {
+    $sql_filter = "SELECT * FROM recipes WHERE dietary_type = '$dietary_type'";
+} else {
+    $sql_filter = "SELECT * FROM recipes";
+}
+
+$result_filter = mysqli_query($connect, $sql_filter);
+$display_data = "";
+if (mysqli_num_rows($result_filter) > 0) {
+    $recipes_filter = mysqli_fetch_all($result_filter, MYSQLI_ASSOC);
+
+
+
+    foreach ($recipes_filter as $recipe) {
+        $display_data .= "
+        <div class='card m-3'>
+            <div class='card-body'>
+            <img src='../pictures/{$recipe['recipe_picture']}' class='card-img-top' alt='{$recipe['title']}'>
+            <h5 class='card-title mt-3'>{$recipe['title']}</h5>
+            <p class='badge text-bg-success'>{$recipe['dietary_type']}</p>
+
+            <p class='card-text'>{$recipe['description']} </p>
+            <p>Preparation time: {$recipe['prep_time']} minutes </p>
+            
+           <a href='#' 
+   class='btn btn-outline-dark open-modal' 
+   data-id='{$recipe['id']}'
+   data-bs-toggle='modal' 
+   data-bs-target='#recipeModal'>
+   Details
+</a>
+
+            
+
+            </div>
+        </div>
+    ";
+    }
+} else {
+    $display_data = "There are no recipes found with that dietary type!";
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +124,7 @@ if (mysqli_num_rows($result) > 0) {
                     Filter: Dietary type
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item">Select a filter option</a></li>
+                    <li><a class="dropdown-item" href="recipe.php">All recipes</a></li>
                     <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
                     <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
                     <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
