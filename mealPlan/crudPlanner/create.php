@@ -1,5 +1,5 @@
 <?php
-require_once "../../components/db_connect.php";
+require_once "../components/db_connect.php";
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -53,7 +53,7 @@ while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
 <html lang="en">
 
 <head>
-    <?php include "../../components/head.php"; ?>
+    <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/mealPlanForm.css">
     <title>CRUD Mealplan</title>

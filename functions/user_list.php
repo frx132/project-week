@@ -25,7 +25,7 @@ if (mysqli_num_rows($resultUsers) > 0) {
         } else {
             $status_badge = "secondary";
         }
-        var_dump($status_badge);
+        // var_dump($status_badge);
 
         $layout .= "<div class='col'>
            <div class='card h-100'>
