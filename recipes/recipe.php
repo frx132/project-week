@@ -1,15 +1,26 @@
 <?php
 session_start();
+if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
+    header("Location: ../functions/login.php");
+    exit;
+}
+if (isset($_SESSION['adm'])) {
+    header("Location: ../functions/admin_dashboard.php");
+    exit;
+}
 
 require_once "../components/db_connect.php";
 $sql_query = "SELECT * FROM `recipes`";
 $result = mysqli_query($connect, $sql_query);
 
 
+
+
 $display_data = "";
 if (mysqli_num_rows($result) > 0) {
     $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    // var_dump($recipes);
+
+
 
     foreach ($recipes as $recipe) {
         $display_data .= "
@@ -59,6 +70,28 @@ if (mysqli_num_rows($result) > 0) {
 
     <div class="container d-flex justify-content-start align-items-start mt-5">
         <a href='/functions/user_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+    </div>
+    <div class="row mb-4  ">
+        <div class="col-md-4 m-auto">
+            <div class="dropdown">
+                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter: Dietary type
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item">Select a filter option</a></li>
+                    <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
+                    <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
+                    <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 ms-auto">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+        </div>
     </div>
     <h1 class="text-center fw-semibold">All Recipes</h1>
     <div class="container mb-5 mt-3">

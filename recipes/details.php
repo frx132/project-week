@@ -1,6 +1,13 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
+    header("Location: ../functions/login.php");
+    exit;
+}
+if (isset($_SESSION['adm'])) {
+    header("Location: ../functions/admin_dashboard.php");
+    exit;
+}
 require_once "../components/db_connect.php";
 
 if (!isset($_GET['recipeid']) || empty($_GET['recipeid'])) {
