@@ -5,7 +5,7 @@ session_start();
 if (isset($_SESSION["adm"])) {
     header("Location: admin_dashboard.php");
 }
-
+// var_dump($_SESSION);
 require_once "../components/db_connect.php";
 $user_id = $_SESSION["user"];
 $sqlUser = "SELECT * FROM users WHERE id = {$user_id}";
@@ -38,7 +38,7 @@ if (mysqli_num_rows($resultRecipes) > 0) {
               
                <div class='mt-auto'>
                    <a href='../recipes/details.php?recipeid={$recipeRow["id"]}' class='btn btn-outline-dark btn-sm'>View</a>
-                   <a href='../recipes/update.php?id={$recipeRow["id"]}&type=recipe' class='btn btn-warning btn-sm'>Update</a>
+                   <a href='../recipes/edit.php?id={$recipeRow["id"]}&type=recipe' class='btn btn-warning btn-sm'>Update</a>
                </div>
            </div>
         </div>

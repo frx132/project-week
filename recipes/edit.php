@@ -10,7 +10,7 @@ if (isset($_SESSION['adm'])) {
 }
 require_once "../components/db_connect.php";
 
-$recipeid = $_GET['recipeid'];
+$recipeid = $_GET['id'];
 
 
 $sql_query = "SELECT * FROM `recipes` WHERE id = $recipeid ";
@@ -83,7 +83,7 @@ if (isset($_POST['save'])) {
         <div class="row">
             <div class="col col-md-6 mx-auto">
                 <a href="recipe.php" class="btn btn-secondary my-4">Back</a>
-                <h3>Create a new recipe</h3>
+                <h3>Edit</h3>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title">Title</label>

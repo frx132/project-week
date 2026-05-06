@@ -32,7 +32,7 @@ require_once "../components/db_connect.php";
 
             <div class="mt-4 d-flex gap-3 flex-wrap">
               <a href="../functions/register.php" class="btn btn-dark">Get Started</a>
-              <a href="../recipes/recipe.php" class="btn btn-dark">Browse Recipes</a>
+              <a href="../functions/login.php" class="btn btn-dark">Browse Recipes</a>
             </div>
           </div>
 
