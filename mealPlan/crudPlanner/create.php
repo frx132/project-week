@@ -1,11 +1,11 @@
 <?php
+// Session + DB Connectiond
 require_once "../components/db_connect.php";
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
-
+// Time vars
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
 $user_id = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
@@ -13,6 +13,7 @@ if (!$user_id) {
     echo "User not logged in.";
     exit();
 }
+
 // Check the Plan from DB Mealplan
 $checkPlan = mysqli_query($connect, "SELECT id FROM meal_plan WHERE user_id = $user_id LIMIT 1");
 if (mysqli_num_rows($checkPlan) > 0) {
@@ -34,7 +35,7 @@ if (isset($_POST["create_Mealplan"])) {
         exit();
     }
 }
-
+// Mealplan Display for Table 
 $query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.recipe_id = r.id WHERE mpr.meal_plan_id = $meal_plan_id";
 $result = mysqli_query($connect, $query);
 $myPlan = [];
@@ -48,6 +49,23 @@ $recipeOptions = "";
 while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
     $recipeOptions .= "<option value='{$rowR['id']}'>{$rowR['title']}</option>";
 }
+
+// Storage for User 
+$myPlan[$row['meal_date']][$row['meal_time']] =
+    $row['title'];
+// Cleans Table from Mealplan
+if (isset($_POST["Reset_Mealplan"])) {
+    $sqlClear = "DELETE FROM `meal_plan_recipe` WHERE meal_plan_id = ?";
+    $stmtClear = $connect->prepare($sqlClear);
+    $stmtClear->bind_param("i", $meal_plan_id);
+
+    if ($stmtClear->execute()) {
+        // Seite neu laden, um die leere Tabelle anzuzeigen
+        header("Location: " . $_SERVER['PHP_SELF'] . "?cleared=1");
+        exit();
+    }
+}
+
 ?>
 
 <html lang="en">
@@ -102,11 +120,17 @@ while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
                             <?php foreach ($times as $t): ?><option value="<?= $t ?>"><?= $t ?></option><?php endforeach; ?>
                         </select>
                     </div>
+                    <!-- Save Mealplan button -->
                     <button type="submit" name="create_Mealplan" class="btn btn-primary">Add to Plan</button>
-                    <button type="reset" name="Reset_Mealplan" class="btn btn-danger">Reset Plan</button>
+
+                    <!--    Reset Mealplan Button -->
+                    <button type="submit" name="Reset_Mealplan" class="btn btn-danger" onClick=" Are you sure ?">Reset Plan</button>
+
+                    <!-- Delete Mealplan -->
+                    <button type="submit" name="delete_Mealplan" class="btn btn-danger" onClick="Are you Sure ?">Delete Mealplan</button>
                 </div>
             </div>
-
+            <!-- Table -->
             <div class="container mt-5">
                 <h2 class="mb-4">Weekly Meal Planner</h2>
                 <table class="table table-bordered table-striped">
