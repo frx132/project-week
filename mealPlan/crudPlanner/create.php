@@ -1,5 +1,5 @@
 <?php
-require_once "../components/db_connect.php";
+require_once "../../components/db_connect.php";
 
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
