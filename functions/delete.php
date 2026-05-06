@@ -28,7 +28,7 @@ if ($type == "user" && isset($_SESSION["adm"])) {
     $res = mysqli_query($connect, $sql);
     if ($res && mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
-        if ($row["user_image"] != "avatar.png" && !empty($row["user_image"])) {
+        if ($row["user_image"] != "avatar.jpg" && !empty($row["user_image"])) {
             @unlink("../pictures/{$row["user_image"]}");
         }
         $delSql = "DELETE FROM users WHERE id = {$id}";

@@ -74,6 +74,8 @@ if (mysqli_num_rows($resultUsers) > 0) {
 
     <div class="container mb-5">
         <h3 class="my-3">Manage Users</h3>
+        <a href="create_user.php" class="btn btn-sm btn-dark mb-3">+ New User</a>
+
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <?= $layout ?>
 

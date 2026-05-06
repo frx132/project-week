@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["adm"])) {
+    header("Location: login.php");
+    exit;
+}
 require_once "../components/db_connect.php";
 
 $error = false;
@@ -70,11 +75,11 @@ if (isset($_POST["sign-up"])) {
                <p>New account has been created, $picture[1]</p>
            </div>";
 
-            header("refresh: 3; url= login.php");
+            header("refresh: 3; url= user_list.php");
             exit;
         } else {
             echo "<div class='alert alert-danger'>
-               <p>Something went wrong, please contact us to fix the issue.</p>
+               <p>Something went wrong</p>
            </div>";
         }
     }
@@ -85,15 +90,17 @@ if (isset($_POST["sign-up"])) {
 <html lang="en">
 
 <head>
-    <title>Sign Up</title>
+    <title>Create user</title>
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/auth.css">
 </head>
 
 <body>
+    <div class="container d-flex justify-content-start align-items-start mt-5">
+        <a href='/functions/admin_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+    </div>
     <div class="container">
-        <h1 class="text-center">Sign Up</h1>
+        <h1 class="text-center">Create user</h1>
         <form method="post" autocomplete="off" enctype="multipart/form-data">
 
             <div class="mb-3 mt-3">
@@ -125,8 +132,7 @@ if (isset($_POST["sign-up"])) {
                 <span class="text-danger"><?= $passError ?></span>
             </div>
 
-            <button name="sign-up" type="submit" class="btn btn-outline-dark my-3">Create account</button>
-            <p>You have an account already? <a href="login.php">Sign in here</a></p>
+            <button name="sign-up" type="submit" class="btn btn-outline-dark my-3">Create user</button>
         </form>
     </div>
 
