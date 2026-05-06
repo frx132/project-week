@@ -22,6 +22,13 @@ if (mysqli_num_rows($checkPlan) > 0) {
     mysqli_query($connect, "INSERT INTO meal_plan (user_id, name) VALUES ($user_id, 'My Weekly Plan')");
     $meal_plan_id = mysqli_insert_id($connect);
 }
+//Example for Mealplan, if none is available
+$Mealplan = $connect->prepare("SELECT name FROM meal_plan WHERE id = ? AND user_id = ?");
+$Mealplan->bind_param("ii", $plan_id, $user_id);
+$Mealplan->execute();
+$result = $Mealplan->get_result();
+$planData = $result->fetch_assoc();
+$planname = $planData['name'] ?? "No Name added yet";
 
 
 ?>
@@ -51,35 +58,13 @@ if (mysqli_num_rows($checkPlan) > 0) {
                 <div class="card-body">
                     <div class="mb-3">
                         <label class="form-label">Name of your Plan</label>
-                        <input type="text" name="plan_name" class="form-control" placeholder="Diet Plan" required>
+                        <input type="text" name="plan_name" class="form-control" placeholder="Sports Prep" required>
                     </div>
-                    <!-- Recipies -->
-                    <div class="mb-3">
-                        <label for="recipe_id" class="form-label">Select Recipe</label>
-                        <select class="form-select" id="recipe_id" name="recipe_id" required>
-                            <option value="" disabled selected>Choose a recipe...</option>
-                            <?= $recipeOptions ?>
-                        </select>
-                    </div>
-                    <!-- Weekday to Select -->
-                    <div class="mb-3">
-                        <label>Select Weekday</label>
-                        <select name="meal_date" class="form-select" required>
-                            <option value="" selected disabled>Choose a day...</option>
-                            <?php foreach ($days as $d): ?><option value="<?= $d ?>"><?= $d ?></option><?php endforeach; ?>
-                        </select>
-                    </div>
-                    <!-- Time to Select -->
-                    <div class="mb-3">
-                        <label>Meal Time</label>
-                        <select name="meal_time" class="form-select" required>
-                            <option value="" selected disabled>Choose a Mealtime...</option>
-                            <?php foreach ($times as $t): ?><option value="<?= $t ?>"><?= $t ?></option><?php endforeach; ?>
-                        </select>
-                    </div>
+
+
                     <!-- Table -->
-                    <div class=" container mt-5>
-                        <h2 class=" mb-4">Weekly Meal Planner</h2>
+                    <div class=container mt-5>
+                        <span class="text"><?= htmlspecialchars($planname) ?></span>
                         <table class="table table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
@@ -87,6 +72,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <?php foreach ($days as $day): ?>
                                     <tr>
                                         <td class="fw-bold"><?= $day ?></td>
@@ -96,14 +82,17 @@ if (mysqli_num_rows($checkPlan) > 0) {
                                                     <?= isset($myPlan[$day][$meal_time]) ? "<strong>"
                                                         . htmlspecialchars($myPlan[$day][$meal_time]) .
                                                         "</strong>" : '<small class="text-muted">Recipie</small>' ?>
+
                                                 </div>
                                             </td>
                                         <?php endforeach; ?>
                                     </tr>
                                 <?php endforeach; ?>
+
                             </tbody>
                         </table>
                     </div>
+                    <!-- Back Button -->
                     <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
 
                     <!-- Delete Mealplan -->
@@ -112,6 +101,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
                     </a>
                 </div>
             </div>
+
 </body>
 
 </html>
