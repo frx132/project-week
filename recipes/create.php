@@ -4,12 +4,9 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
     header("Location: ../functions/login.php");
     exit;
 }
-if (isset($_SESSION['adm'])) {
-    header("Location: ../functions/admin_dashboard.php");
-    exit;
-}
-require_once "../components/db_connect.php";
 
+require_once "../components/db_connect.php";
+var_dump($_SESSION);
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -21,7 +18,7 @@ if (isset($_POST['submit'])) {
     $ingredients = $_POST['ingredients'];
     $dietary_type = $_POST['dietary_type'];
     $category = $_POST['category'];
-    $author = $_SESSION['user'];
+    $author = $_SESSION['user'] ?? $_SESSION['adm'];
 
     if ($_FILES['pictures']['error'] == 4) {
         $sql_query = "INSERT INTO `recipes`(`title`, `description`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`,`difficulty`, `servings`, `author_id`) VALUES ('$title','$description','$ingredients','$instructions', '$prep_time', '$dietary_type', '$category', '$difficulty', '$servings', '$author' )";
@@ -46,7 +43,12 @@ if (isset($_POST['submit'])) {
             </div>
         ";
     }
-    header("refresh: 3; url=recipe.php");
+
+    if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+        header("refresh: 3; url=recipe.php");
+    } else {
+        header("refresh: 3; url= ../functions/admin_recipes.php");
+    }
 }
 
 

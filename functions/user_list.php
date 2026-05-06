@@ -76,7 +76,6 @@ if (mysqli_num_rows($resultUsers) > 0) {
         <h3 class="my-3">Manage Users</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <?= $layout ?>
-            <?= $status_badge ?>
 
         </div>
     </div>

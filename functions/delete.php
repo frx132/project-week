@@ -34,7 +34,7 @@ if ($type == "user" && isset($_SESSION["adm"])) {
         $delSql = "DELETE FROM users WHERE id = {$id}";
         mysqli_query($connect, $delSql);
     }
-    header("Location: admin_dashboard.php");
+    header("refresh: 3; url= admin_dashboard.php");
     exit;
 } elseif ($type == "recipe") {
     $sql = "SELECT recipe_picture, author_id FROM recipes WHERE id = {$id}";
@@ -67,7 +67,8 @@ if ($type == "user" && isset($_SESSION["adm"])) {
             mysqli_query($connect, $delSql);
         }
     }
-    header("Location: ../mealPlan/planner.php");
+    header("refresh: 3; url= ../mealPlan/planner.php");
+
     exit;
 }
 

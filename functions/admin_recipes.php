@@ -66,12 +66,14 @@ mysqli_close($connect);
 
     <!-- Body -->
     <div class="container d-flex justify-content-start align-items-start mt-5">
-        <a href='/functions/admin_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
+        <a href='admin_dashboard.php' class='btn btn-outline-dark'><i class="fa-solid fa-arrow-left"></i> Go back</a>
     </div>
     <div class="container my-5">
 
         <div class="container mb-5">
             <h3 class="mb-3">Manage Recipes</h3>
+            <a href="../recipes/create.php" class="btn btn-sm btn-dark mb-3">+ New Recipe</a>
+
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <?= $layoutRecipes ?>
             </div>
