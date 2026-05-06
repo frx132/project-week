@@ -31,7 +31,7 @@ if (mysqli_num_rows($resultUsers) > 0) {
            <div class='card h-100'>
                <img src='../pictures/{$pic}' class='card-img-top' alt='User Image' style='object-fit: cover; height: 200px;'>
                <div class='card-body d-flex flex-column'>
-               <p class='badge badge-{$status_badge}'>{$userRow['status']}</p>
+               <p class='badge text-bg-{$status_badge}'>{$userRow['status']}</p>
 
                <h5 class='card-title'>{$userRow['first_name']} {$userRow['last_name']}</h5>
                <p class='card-text'>{$userRow['email']}</p>
