@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once "../../components/db_connect.php";
+
 // Session
 $user_id = $_SESSION["user"] ?? $_SESSION["adm"] ?? null;
-
 
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 $times = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
@@ -24,6 +24,7 @@ if (mysqli_num_rows($checkPlan) > 0) {
     $meal_plan_id = mysqli_insert_id($connect);
     $planname = "My Weekly Plan";
 }
+
 // Load Data for Plan
 $queryEntries = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr 
                  JOIN recipes r ON mpr.recipe_id = r.id 
@@ -31,6 +32,7 @@ $queryEntries = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr
 $resultEntries = mysqli_query($connect, $queryEntries);
 $myPlan = [];
 while ($row = mysqli_fetch_assoc($resultEntries)) {
+    // FIX: Konsistente Zuweisung wie in create.php
     $myPlan[$row['meal_date']][$row['meal_time']] = $row['title'];
 }
 
@@ -63,26 +65,24 @@ if (isset($_POST['save_plan_changes'])) {
 
     <div class="container mt-5">
         <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-            <div class="card mx-auto">
+            <div class="card mx-auto shadow">
 
-                <div class="card-header">
+                <div class="card-header bg-success text-white">
                     <h3 class="mb-0">Edit your Mealplan</h3>
                 </div>
 
                 <div class="card-body">
                     <input type="hidden" name="meal_plan_id" value="<?= $meal_plan_id ?>">
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="form-label fw-bold">Plan Name</label>
-                        <div class="input-group">
-                            <input type="text" name="plan_name" class="form-control"
-                                value="<?= htmlspecialchars($planname) ?>" required>
-                        </div>
+                        <input type="text" name="plan_name" class="form-control"
+                            value="<?= htmlspecialchars($planname) ?>" required>
                     </div>
 
-                    <div class="mt-5">
-                        <span class="text"><?= htmlspecialchars($planname) ?></span>
-                        <table class="table table-bordered table-striped">
+                    <div class="mt-4">
+                        <h5 class="text-secondary">Current Schedule: <?= htmlspecialchars($planname) ?></h5>
+                        <table class="table table-bordered table-striped mt-3">
                             <thead class="table-dark">
                                 <tr>
                                     <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
@@ -97,7 +97,7 @@ if (isset($_POST['save_plan_changes'])) {
                                                 <div class="p-2 border rounded bg-light" style="min-height: 50px;">
                                                     <?= isset($myPlan[$day][$meal_time]) ? "<strong>"
                                                         . htmlspecialchars($myPlan[$day][$meal_time]) .
-                                                        "</strong>" : '<small class="text-muted">Recipe</small>' ?>
+                                                        "</strong>" : '<small class="text-muted">No Recipe</small>' ?>
                                                 </div>
                                             </td>
                                         <?php endforeach; ?>
@@ -107,16 +107,18 @@ if (isset($_POST['save_plan_changes'])) {
                         </table>
                     </div>
 
-                    <button type="submit" name="save_plan_changes" class="btn btn-success">
-                        Save Plan Name
-                    </button>
+                    <div class="mt-4 d-flex gap-2">
+                        <button type="submit" name="save_plan_changes" class="btn btn-success">
+                            Save Plan Name
+                        </button>
 
-                    <a onclick="history.go(-1); return false;" class="btn btn-secondary">Back</a>
+                        <a href="../planner.php" class="btn btn-secondary">Back to Planner</a>
 
-                    <a href="crudPlanner/delete.php?id=<?= $meal_plan_id ?>&type=plan"
-                        class="btn btn-danger" onclick="return confirm('Delete whole plan?')">
-                        Delete Mealplan
-                    </a>
+                        <a href="delete.php?id=<?= $meal_plan_id ?>&type=plan"
+                            class="btn btn-outline-danger" onclick="return confirm('Delete whole plan?')">
+                            Delete Entire Plan
+                        </a>
+                    </div>
                 </div>
             </div>
         </form>
