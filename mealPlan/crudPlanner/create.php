@@ -38,11 +38,11 @@ $query = "SELECT mpr.*, r.title FROM meal_plan_recipe mpr JOIN recipes r ON mpr.
 $data = $connect->prepare($query);
 $data->bind_param("i", $meal_plan_id);
 $data->execute();
+
 $result = $data->get_result();
 $myPlan = [];
 
 while ($row = $result->fetch_assoc()) {
-    // FIX: Wir speichern den Titel direkt in den Slot (kein extra Array-Level), passend zur Anzeige unten
     $myPlan[$row['meal_date']][$row['meal_time']] = $row['title'];
 }
 
@@ -52,9 +52,10 @@ while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
     $recipeOptions .= "<option value='{$rowR['id']}'>{$rowR['title']}</option>";
 }
 
-// FIX: Die fehlerhafte Zeile 60 ($myPlan[$row['meal_date']]...) wurde entfernt, da sie die Daten gelöscht hat.
 
-// Cleans Table from Mealplan
+
+
+// Clean Table from Mealplan
 if (isset($_POST["Reset_Mealplan"])) {
     $sqlClear = "DELETE FROM `meal_plan_recipe` WHERE meal_plan_id = ?";
     $stmtClear = $connect->prepare($sqlClear);
@@ -66,67 +67,81 @@ if (isset($_POST["Reset_Mealplan"])) {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container mt-5">
-    <form method="post">
-        <div class="card mx-auto">
-            <div class="card-header">
-                <h3 class="mb-0">Create a Mealplan</h3>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <form method="post">
+            <div class="card mx-auto">
+                <div class="card-header">
+                    <h3 class="mb-0">Create a Mealplan</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
                     <label class="form-label">Name of your Plan</label>
-                    <input type="text" name="plan_name" class="form-control" placeholder="Diet Plan" required>
+                    <input type="text" name="plan_name" class="form-control" 
+                    placeholder="Diet Plan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipe_id" class="form-label">Select Recipe</label>
+                        <select class="form-select" id="recipe_id" name="recipe_id" required>
+                            <option value="" disabled selected>Choose a recipe...</option>
+                            <?= $recipeOptions ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Select Weekday</label>
+                        <select name="meal_date" class="form-select" required>
+                            <option value="" selected disabled>Choose a day...</option>
+                            <?php foreach ($days as $d): ?><option value="<?= $d ?>"><?= $d ?></option><?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Meal Time</label>
+                        <select name="meal_time" class="form-select" required>
+                            <option value="" selected disabled>Choose a Mealtime...</option>
+                            <?php foreach ($times as $t): ?><option value="<?= $t ?>"><?= $t ?></option><?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" name="create_Mealplan" class="btn btn-primary">Add to Plan</button>
+                    <button type="submit" name="Reset_Mealplan" class="btn btn-warning">Reset Plan</button>
                 </div>
-                <div class="mb-3">
-                    <label for="recipe_id" class="form-label">Select Recipe</label>
-                    <select class="form-select" id="recipe_id" name="recipe_id" required>
-                        <option value="" disabled selected>Choose a recipe...</option>
-                        <?= $recipeOptions ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Select Weekday</label>
-                    <select name="meal_date" class="form-select" required>
-                        <option value="" selected disabled>Choose a day...</option>
-                        <?php foreach ($days as $d): ?><option value="<?= $d ?>"><?= $d ?></option><?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Meal Time</label>
-                    <select name="meal_time" class="form-select" required>
-                        <option value="" selected disabled>Choose a Mealtime...</option>
-                        <?php foreach ($times as $t): ?><option value="<?= $t ?>"><?= $t ?></option><?php endforeach; ?>
-                    </select>
-                </div>
-                <button type="submit" name="create_Mealplan" class="btn btn-primary">Add to Plan</button>
-                <button type="submit" name="Reset_Mealplan" class="btn btn-warning">Reset Plan</button>
             </div>
-        </div>
 
-        <div class="container mt-5">
-            <h2 class="mb-4">Weekly Meal Planner</h2>
-            <table class="table table-bordered table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($days as $day): ?>
+            <div class="container mt-5">
+                <h2 class="mb-4">Weekly Meal Planner</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
                         <tr>
-                            <td class="fw-bold"><?= $day ?></td>
-                            <?php foreach ($times as $meal_time): ?>
-                                <td>
-                                    <div class="p-2 border rounded bg-light" style="min-height: 50px;">
-                                        <?= isset($myPlan[$day][$meal_time]) ? "<strong>" . htmlspecialchars($myPlan[$day][$meal_time]) . "</strong>" : '<small class="text-muted">Empty</small>' ?>
-                                    </div>
-                                </td>
-                            <?php endforeach; ?>
+                            <th>Day</th><?php foreach ($times as $m): ?><th><?= $m ?></th><?php endforeach; ?>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </form>
-</div>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($days as $day): ?>
+                            <tr>
+                                <td class="fw-bold"><?= $day ?></td>
+                                <?php foreach ($times as $meal_time): ?>
+                                    <td>
+                                        <div class="p-2 border rounded bg-light" style="min-height: 50px;">
+                                            <?= isset($myPlan[$day][$meal_time]) ? "<strong>" . htmlspecialchars($myPlan[$day][$meal_time]) . "</strong>" : '<small class="text-muted">Empty</small>' ?>
+                                        </div>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
