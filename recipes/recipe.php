@@ -32,7 +32,7 @@ if (mysqli_num_rows($result) > 0) {
     foreach ($recipes as $recipe) {
         $display_data .= "
         <div class='card m-3'>
-            <div class='card-body'>
+            <div class='card-body '>
             <img src='../pictures/{$recipe['recipe_picture']}' class='card-img-top' alt='{$recipe['title']}'>
             <h5 class='card-title mt-3'>{$recipe['title']}</h5>
             <p class='badge text-bg-success'>{$recipe['dietary_type']}</p>
@@ -52,7 +52,8 @@ if (mysqli_num_rows($result) > 0) {
 
             </div>
         </div>
-    ";
+    
+        ";
     }
 } else {
     if ($dietary_type) {
@@ -74,9 +75,9 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <title>Recipes</title>
     <?php include "../components/head.php"; ?>
-    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/recipe.css">
     <link rel="stylesheet" href="../css/details.css">
+
 
 
 </head>
@@ -84,9 +85,9 @@ if (mysqli_num_rows($result) > 0) {
 <body>
 
     <div class="container mt-5">
-        <div class="d-flex align-items-center justify-content-between gap-3 flex-nowrap">
+        <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
 
-            <div class="d-flex align-items-center gap-2 flex-nowrap">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
                 <a href="/functions/user_dashboard.php" class="btn btn-outline-dark">
                     <i class="fa-solid fa-arrow-left"></i> Go back
                 </a>
@@ -97,7 +98,7 @@ if (mysqli_num_rows($result) > 0) {
                     </button>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="recipe.php">All recipes</a></li>
+                        <li><a class="dropdown-item " href="recipe.php">All recipes</a></li>
                         <li><a class="dropdown-item" href="?dietary_type=Vegeterian">Vegeterian</a></li>
                         <li><a class="dropdown-item" href="?dietary_type=Non-vegeterian">Non-vegeterian</a></li>
                         <li><a class="dropdown-item" href="?dietary_type=Vegan">Vegan</a></li>
@@ -105,7 +106,7 @@ if (mysqli_num_rows($result) > 0) {
                 </div>
             </div>
 
-            <form class="d-flex gap-2" role="search" action="recipe_search_results.php">
+            <form class="d-flex gap-2 recipe-search" role="search" action="recipe_search_results.php">
                 <input class="form-control" type="search" placeholder="Search for recipes" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -115,7 +116,7 @@ if (mysqli_num_rows($result) > 0) {
 
     </div>
     </div>
-    <h1 class="text-center fw-semibold">All Recipes</h1>
+    <h1 class="text-center fw-semibold mt-5">All Recipes</h1>
     <div class="container mb-5 mt-3">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 d-flex justify-content-center">
             <?= $display_data ?>

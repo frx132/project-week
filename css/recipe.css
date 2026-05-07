@@ -12,11 +12,21 @@
 .row {
   row-gap: 24px;
 }
-.modal .card {
-  transform: none;
-  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.12);
+.recipe-search {
+  min-width: 280px;
 }
 
-.modal .card:hover {
-  transform: none;
-}
+@media (max-width: 768px) {
+  .recipe-search {
+    width: 100%;
+  }
+
+  .recipe-search input,
+  .recipe-search button {
+    width: 100%;
+  }
+
+  .container.mt-5 > div {
+    align-items: stretch !important;
+  }
+
