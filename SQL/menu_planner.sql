@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 06, 2026 at 11:37 PM
+-- Generation Time: May 07, 2026 at 11:29 AM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `meal_plan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_mealplan_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `meal_plan`
@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS `meal_plan` (
 INSERT INTO `meal_plan` (`id`, `user_id`, `created_at`, `name`) VALUES
 (1, 4, '2026-04-30 13:36:00', 'My Weekly Plan'),
 (6, 6, '2026-05-04 10:01:00', 'week1'),
-(7, 1, '2026-05-05 13:37:17', 'My Weekly Plan');
+(7, 1, '2026-05-05 13:37:17', 'My Weekly Plan'),
+(8, 3, '2026-05-07 11:04:10', 'My Weekly Plan');
 
 -- --------------------------------------------------------
 
@@ -59,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `meal_plan_recipe` (
   `id` int NOT NULL AUTO_INCREMENT,
   `recipe_id` int DEFAULT NULL,
   `meal_plan_id` int DEFAULT NULL,
-  `meal_date` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meal_time` enum('Breakfast','Lunch','Dinner','Snack') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meal_date` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meal_time` enum('Breakfast','Lunch','Dinner','Snack') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_mpr_recipe` (`recipe_id`),
   KEY `fk_mpr_mealplan` (`meal_plan_id`)
@@ -87,17 +88,17 @@ INSERT INTO `meal_plan_recipe` (`id`, `recipe_id`, `meal_plan_id`, `meal_date`, 
 DROP TABLE IF EXISTS `recipes`;
 CREATE TABLE IF NOT EXISTS `recipes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `recipe_picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ingredients` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `instructions` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `recipe_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ingredients` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instructions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `prep_time` int NOT NULL,
-  `dietary_type` enum('Vegeterian','Non-vegeterian','Vegan') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` enum('Chicken meals','Vegetables','Desserts','Fish meals') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dietary_type` enum('Vegeterian','Non-vegeterian','Vegan') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` enum('Chicken meals','Vegetables','Desserts','Fish meals') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `difficulty` enum('Easy','Medium','Complicated') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `difficulty` enum('Easy','Medium','Complicated') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `servings` int NOT NULL,
   `author_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -109,21 +110,21 @@ CREATE TABLE IF NOT EXISTS `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `title`, `description`, `recipe_picture`, `ingredients`, `instructions`, `prep_time`, `dietary_type`, `category`, `created_at`, `updated_at`, `difficulty`, `servings`, `author_id`) VALUES
-(1, 'Spaghetti Bolognese', 'Classic Italian pasta dish with rich meat sauce.', '69f853e396f1d.jpg', 'Spaghetti, ground beef, tomato sauce, onion, garlic, olive oil, salt, pepper', 'Cook pasta. Brown beef. Add sauce and simmer. Combine and serve.', 30, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-06 21:34:54', 'Easy', 4, 1),
-(2, 'Vegetable Stir Fry', 'Quick and healthy vegetable stir fry.', '69f855dd7a4cf.jpg', 'Broccoli, carrots, bell peppers, soy sauce, garlic, ginger, oil', 'Chop veggies. Stir fry in oil. Add sauce and cook 5-7 minutes.', 20, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:16:29', 'Easy', 2, 2),
+(1, 'Spaghetti Bolognese', 'Classic Italian pasta dish with rich meat sauce.', '69fc7545ca7b7.jpg', 'Spaghetti, ground beef, tomato sauce, onion, garlic, olive oil, salt, pepper', 'Cook pasta. Brown beef. Add sauce and simmer. Combine and serve.', 30, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-07 11:19:33', 'Easy', 4, 1),
+(2, 'Vegetable Stir Fry', 'Quick and healthy vegetable stir fry.', '69fc756692044.jpg', 'Broccoli, carrots, bell peppers, soy sauce, garlic, ginger, oil', 'Chop veggies. Stir fry in oil. Add sauce and cook 5-7 minutes.', 20, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:20:06', 'Easy', 2, 2),
 (3, 'Chicken Curry', 'Spicy and flavorful chicken curry.', '69fb89d17a6fd.jpg', 'Chicken, curry powder, coconut milk, onion, garlic, spices', 'Cook onions, add chicken and spices. Pour coconut milk and simmer.', 40, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-06 18:34:57', 'Medium', 4, 3),
-(4, 'Pancakes', 'Fluffy breakfast pancakes.', '69f85468c399a.jpg', 'Flour, milk, eggs, sugar, baking powder', 'Mix ingredients. Cook batter on skillet until golden.', 15, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-04 08:10:16', 'Easy', 3, 1),
-(5, 'Caesar Salad', 'Fresh salad with creamy dressing.', '69f856861f710.jpg', 'Lettuce, croutons, parmesan, Caesar dressing', 'Toss all ingredients together and serve.', 10, 'Vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:19:18', 'Easy', 2, 2),
-(6, 'Beef Tacos', 'Mexican-style beef tacos.', '69f856a4d4e3c.jpg', 'Ground beef, taco shells, lettuce, cheese, salsa', 'Cook beef with spices. Fill shells with ingredients.', 25, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-04 08:19:48', 'Easy', 4, 3),
-(7, 'Chocolate Cake', 'Rich chocolate dessert.', '69f854d999b61.jpg', 'Flour, cocoa powder, sugar, eggs, butter', 'Mix ingredients. Bake at 180°C for 30 minutes.', 50, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-06 21:36:32', 'Medium', 6, 1),
-(8, 'Grilled Cheese Sandwich', 'Simple and tasty sandwich.', '69f856c8b33a4.jpg', 'Bread, cheese, butter', 'Butter bread. Grill with cheese until melted.', 10, 'Non-vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:20:24', 'Easy', 1, 2),
-(9, 'Lentil Soup', 'Healthy and hearty soup.', '69f856e5acdf7.jpg', 'Lentils, carrots, celery, onion, spices', 'Boil lentils with vegetables until soft.', 35, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:20:53', 'Easy', 4, 3),
-(10, 'Omelette', 'Quick egg breakfast.', '69f85523cd04b.jpg', 'Eggs, salt, pepper, cheese', 'Beat eggs. Cook in pan and fold.', 10, 'Non-vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:13:23', 'Easy', 1, 1),
-(11, 'BBQ Chicken Wings', 'Crispy wings with BBQ sauce.', '69f8572c0616a.jpeg', 'Chicken wings, BBQ sauce, spices', 'Bake wings and coat with sauce.', 45, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-04 08:22:04', 'Medium', 4, 2),
-(12, 'Fruit Smoothie', 'Refreshing fruit drink.', '69f8575050f61.jpg', 'Banana, berries, yogurt, honey', 'Blend all ingredients until smooth.', 5, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-04 08:22:40', 'Easy', 2, 3),
-(13, 'Veggie Burger', 'Plant-based burger.', '69f8554ae40e5.jpg', 'Veggie patty, bun, lettuce, tomato', 'Cook patty. Assemble burger.', 20, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:14:02', 'Easy', 2, 1),
-(14, 'Fried Rice', 'Quick Asian-style rice dish.', '69f8563a956ed.jpg', 'Rice, eggs, vegetables, soy sauce', 'Stir fry rice with ingredients.', 25, 'Vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-04 08:18:02', 'Easy', 3, 2),
-(15, 'Apple Pie', 'Classic dessert with apples.', '69f8565f37d0b.jpg', 'Apples, flour, sugar, butter, cinnamon', 'Prepare filling and crust. Bake until golden.', 60, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-04 08:18:39', 'Medium', 6, 3);
+(4, 'Pancakes', 'Fluffy breakfast pancakes.', '69fc757db926c.jpg', 'Flour, milk, eggs, sugar, baking powder', 'Mix ingredients. Cook batter on skillet until golden.', 15, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-07 11:20:29', 'Easy', 3, 1),
+(5, 'Caesar Salad', 'Fresh salad with creamy dressing.', '69fc750de996e.jpg', 'Lettuce, croutons, parmesan, Caesar dressing', 'Toss all ingredients together and serve.', 10, 'Vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:18:37', 'Easy', 2, 2),
+(6, 'Beef Tacos', 'Mexican-style beef tacos.', '69fc74de2d7ce.jpg', 'Ground beef, taco shells, lettuce, cheese, salsa', 'Cook beef with spices. Fill shells with ingredients.', 25, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-07 11:17:50', 'Easy', 4, 3),
+(7, 'Chocolate Cake', 'Rich chocolate dessert.', '69fc7529c276d.jpg', 'Flour, cocoa powder, sugar, eggs, butter', 'Mix ingredients. Bake at 180°C for 30 minutes.', 50, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-07 11:19:05', 'Medium', 6, 1),
+(8, 'Grilled Cheese Sandwich', 'Simple and tasty sandwich.', '69fc75940eb76.jpg', 'Bread, cheese, butter', 'Butter bread. Grill with cheese until melted.', 10, 'Non-vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:20:52', 'Easy', 1, 2),
+(9, 'Lentil Soup', 'Healthy and hearty soup.', '69fc75b269950.jpg', 'Lentils, carrots, celery, onion, spices', 'Boil lentils with vegetables until soft.', 35, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:21:22', 'Easy', 4, 3),
+(10, 'Omelette', 'Quick egg breakfast.', '69fc75e0bd3af.jpg', 'Eggs, salt, pepper, cheese', 'Beat eggs. Cook in pan and fold.', 10, 'Non-vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:22:08', 'Easy', 1, 1),
+(11, 'BBQ Chicken Wings', 'Crispy wings with BBQ sauce.', '69fc75c83edd8.jpeg', 'Chicken wings, BBQ sauce, spices', 'Bake wings and coat with sauce.', 45, 'Non-vegeterian', 'Chicken meals', '2026-04-29 12:41:11', '2026-05-07 11:21:44', 'Medium', 4, 2),
+(12, 'Fruit Smoothie', 'Refreshing fruit drink.', '69fc74ff2b34d.jpg', 'Banana, berries, yogurt, honey', 'Blend all ingredients until smooth.', 5, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-07 11:18:23', 'Easy', 2, 3),
+(13, 'Veggie Burger', 'Plant-based burger.', '69fc7607136eb.jpg', 'Veggie patty, bun, lettuce, tomato', 'Cook patty. Assemble burger.', 20, 'Vegan', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:22:47', 'Easy', 2, 1),
+(14, 'Fried Rice', 'Quick Asian-style rice dish.', '69fc75ef739b8.jpg', 'Rice, eggs, vegetables, soy sauce', 'Stir fry rice with ingredients.', 25, 'Vegeterian', 'Vegetables', '2026-04-29 12:41:11', '2026-05-07 11:22:23', 'Easy', 3, 2),
+(15, 'Apple Pie', 'Classic dessert with apples.', '69fc74f2bf2f6.jpg', 'Apples, flour, sugar, butter, cinnamon', 'Prepare filling and crust. Bake until golden.', 60, 'Vegeterian', 'Desserts', '2026-04-29 12:41:11', '2026-05-07 11:18:10', 'Medium', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -134,13 +135,13 @@ INSERT INTO `recipes` (`id`, `title`, `description`, `recipe_picture`, `ingredie
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('User','Admin') COLLATE utf8mb4_unicode_ci DEFAULT 'User',
-  `status` enum('Active','Blocked') COLLATE utf8mb4_unicode_ci DEFAULT 'Active',
+  `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('User','Admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'User',
+  `status` enum('Active','Blocked') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Active',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
