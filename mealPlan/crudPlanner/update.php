@@ -35,16 +35,13 @@ if (isset($_POST['save_plan_changes'])) {
     $stmt->bind_param("sii", $newPlanName, $targetPlanId, $user_id);
     $stmt->execute();
 
-    // Speichern der Tabellen-Daten (Rezepte)
     if (isset($_POST['plan_data']) && is_array($_POST['plan_data'])) {
-        // Erst alte Einträge löschen, um Dubletten zu vermeiden
         $deleteOld = $connect->prepare("DELETE FROM meal_plan_recipe WHERE meal_plan_id = ?");
         $deleteOld->bind_param("i", $targetPlanId);
         $deleteOld->execute();
 
         $insertSql = "INSERT INTO meal_plan_recipe (meal_plan_id, recipe_id, meal_date, meal_time) VALUES (?, ?, ?, ?)";
         $insertStmt = $connect->prepare($insertSql);
-
         foreach ($_POST['plan_data'] as $day => $timeSlots) {
             foreach ($timeSlots as $time => $recipeId) {
                 if (!empty($recipeId)) {
@@ -69,15 +66,14 @@ $result = $data->get_result();
 
 $myPlan = [];
 while ($row = $result->fetch_assoc()) {
-    // Wir speichern jetzt die ID, um das <option selected> setzen zu können
     $myPlan[$row['meal_date']][$row['meal_time']] = [
         'id' => $row['recipe_id'],
         'title' => $row['title']
     ];
 }
-
-// Deine recipeOptions bleiben gleich, aber wir generieren sie besser dynamisch 
+// Storage 
 $allRecipes = [];
+// 
 $resultRecipes = mysqli_query($connect, "SELECT id, title FROM recipes");
 while ($rowR = mysqli_fetch_assoc($resultRecipes)) {
     $allRecipes[] = $rowR;
