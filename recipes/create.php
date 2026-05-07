@@ -6,7 +6,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
 }
 
 require_once "../components/db_connect.php";
-var_dump($_SESSION);
+// var_dump($_SESSION);
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
